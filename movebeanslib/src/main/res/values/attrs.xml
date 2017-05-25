@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="innerrect">
+        <attr name="inner_width" format="dimension"/>
+        <attr name="inner_height" format="dimension"/>
+        <attr name="inner_margintop" format="dimension"/>
+        <attr name="inner_corner_color" format="color"/>
+        <attr name="inner_corner_length" format="dimension"/>
+        <attr name="inner_corner_width" format="dimension"/>
+        <attr name="inner_scan_bitmap" format="reference"/>
+        <attr name="inner_scan_speed" format="integer"/>
+        <attr name="inner_scan_iscircle" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="androidWheelView">
+        <attr name="awv_textsize" format="integer"/>
+        <attr name="awv_lineSpace" format="float"/>
+        <attr name="awv_centerTextColor" format="integer"/>
+        <attr name="awv_outerTextColor" format="integer"/>
+        <attr name="awv_dividerTextColor" format="integer"/>
+        <attr name="awv_itemsVisibleCount" format="integer"/>
+        <attr name="awv_isLoop" format="boolean"/>
+        <attr name="awv_initialPosition" format="integer"/>
+        <attr name="awv_scaleX" format="float"/>
+    </declare-styleable>
+
+    <declare-styleable name="CircleImageView">
+        <attr name="civ_border_width" format="dimension"/>
+        <attr name="civ_border_color" format="color"/>
+        <attr name="civ_border_overlay" format="boolean"/>
+        <attr name="civ_fill_color" format="color"/>
+    </declare-styleable>
+</resources>

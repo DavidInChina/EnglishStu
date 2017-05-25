@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/EnglishStu.iml" filepath="$PROJECT_DIR$/EnglishStu.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/imagepicker/imagepicker.iml" filepath="$PROJECT_DIR$/imagepicker/imagepicker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/movebeanslib/movebeanslib.iml" filepath="$PROJECT_DIR$/movebeanslib/movebeanslib.iml" />
     </modules>
   </component>
 </project>

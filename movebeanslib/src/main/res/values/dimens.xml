@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--常用的几种大小-->
+    <dimen name="regular_dimen_x0_5">0.5dp</dimen>
+    <dimen name="regular_dimen_x1">1dp</dimen>
+    <dimen name="regular_dimen_x2">2dp</dimen>
+    <dimen name="regular_dimen_x3">3dp</dimen>
+    <dimen name="regular_dimen_x4">4dp</dimen>
+    <dimen name="regular_dimen_x5">5dp</dimen>
+    <dimen name="regular_dimen_x6">6dp</dimen>
+    <dimen name="regular_dimen_x7">7dp</dimen>
+    <dimen name="regular_dimen_x8">8dp</dimen>
+    <dimen name="regular_dimen_x9">9dp</dimen>
+    <dimen name="regular_dimen_x10">10dp</dimen>
+    <dimen name="regular_dimen_x11">11dp</dimen>
+    <dimen name="regular_dimen_x12">12dp</dimen>
+    <dimen name="regular_dimen_x13">13dp</dimen>
+    <dimen name="regular_dimen_x14">14dp</dimen>
+    <dimen name="regular_dimen_x15">15dp</dimen>
+    <dimen name="regular_dimen_x16">16dp</dimen>
+    <dimen name="regular_dimen_x17">17dp</dimen>
+    <dimen name="regular_dimen_x18">18dp</dimen>
+    <dimen name="regular_dimen_x19">19dp</dimen>
+    <dimen name="regular_dimen_x20">20dp</dimen>
+    <dimen name="regular_dimen_x21">21dp</dimen>
+    <dimen name="regular_dimen_x25">25dp</dimen>
+    <dimen name="regular_dimen_x30">30dp</dimen>
+    <dimen name="regular_dimen_x40">40dp</dimen>
+    <dimen name="regular_dimen_x160">160dp</dimen>
+    <dimen name="text_size_9">9sp</dimen>
+    <dimen name="text_size_10">10sp</dimen>
+    <dimen name="text_size_11">11sp</dimen>
+    <dimen name="text_size_12">12sp</dimen>
+    <dimen name="text_size_13">13sp</dimen>
+    <dimen name="text_size_14">14sp</dimen>
+    <dimen name="text_size_15">15sp</dimen>
+    <dimen name="text_size_16">16sp</dimen>
+    <dimen name="text_size_17">17sp</dimen>
+    <dimen name="text_size_18">18sp</dimen>
+    <dimen name="text_size_19">19sp</dimen>
+    <dimen name="text_size_20">20sp</dimen>
+    <dimen name="text_size_21">21sp</dimen>
+    <dimen name="text_size_24">24sp</dimen>
+    <dimen name="text_size_25">25sp</dimen>
+    <dimen name="text_size_30">30sp</dimen>
+    <dimen name="text_size_32">32sp</dimen>
+    <dimen name="text_size_35">35sp</dimen>
+    <dimen name="text_size_37">37sp</dimen>
+    <dimen name="text_size_40">40sp</dimen>
+    <dimen name="text_size_45">45sp</dimen>
+    <dimen name="text_size_46">46sp</dimen>
+    <dimen name="text_size_55">55sp</dimen>
+</resources>
