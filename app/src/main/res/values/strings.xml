@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">英语学习</string>
+    <string name="login_top">用户登录</string>
+    <string name="login_account_hint">请输入用户名</string>
+    <string name="login_password_hint">请输入登录密码</string>
+    <string name="login_choose_identify">请选择登录身份</string>
+    <string name="login_button">登录</string>
 </resources>

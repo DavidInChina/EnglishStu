@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/bg_color">
+
+        <TextView
+            android:id="@+id/tv_text_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="@string/login_top"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_30" />
+
+        <EditText
+            android:id="@+id/et_login_account"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_text_top"
+            android:layout_margin="@dimen/normal_10"
+            android:background="@null"
+            android:hint="@string/login_account_hint"
+            android:padding="@dimen/normal_5"
+            android:textSize="@dimen/text_size_25" />
+
+        <EditText
+            android:id="@+id/et_login_password"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/et_login_account"
+            android:layout_margin="@dimen/normal_10"
+            android:background="@null"
+            android:hint="@string/login_password_hint"
+            android:inputType="textPassword"
+            android:padding="@dimen/normal_5"
+            android:textSize="@dimen/text_size_25" />
+
+        <RelativeLayout
+            android:id="@+id/rl_login_bottom"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/et_login_password"
+            android:layout_margin="@dimen/normal_10"
+            android:padding="@dimen/normal_5">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="@string/login_choose_identify"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_20" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="忘记密码？"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_20" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/normal_10"
+            android:layout_below="@+id/rl_login_bottom"
+            android:layout_centerHorizontal="true"
+            android:text="@string/login_button"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_25" />
+    </RelativeLayout>
+
+</merge>

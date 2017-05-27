@@ -4,8 +4,8 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
 
     <application
         android:name=".base.Application"
@@ -16,13 +16,23 @@
         android:screenOrientation="landscape"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".mvp.view.WelcomeActivity">
+        <activity
+            android:name=".mvp.view.WelcomeActivity"
+            android:launchMode="standard"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".mvp.view.LoginActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="landscape" />
+        <activity android:name=".mvp.view.MainActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="landscape"/>
     </application>
 
 </manifest>
