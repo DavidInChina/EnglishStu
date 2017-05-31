@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color">
+
+    <ImageView
+        android:id="@+id/iv_top_head"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_margin="@dimen/normal_10"
+        android:src="@mipmap/ic_launcher_round" />
+
+    <TextView
+        android:id="@+id/tv_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_top_head"
+        android:layout_centerHorizontal="true"
+        android:text="欢迎你：xxx"
+        android:textSize="@dimen/text_size_25" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tv_user_name"
+        android:layout_marginTop="@dimen/normal_10"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:layout_width="120dp"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="@dimen/normal_10"
+            android:layout_weight="1"
+            android:background="@color/cc"
+            android:button="@null"
+            android:gravity="center"
+            android:text="班级公告"
+            android:textSize="@dimen/text_size_25" />
+
+        <RadioButton
+            android:layout_width="120dp"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="@dimen/normal_10"
+            android:layout_weight="1"
+            android:background="@color/cc"
+            android:button="@null"
+            android:gravity="center"
+            android:text="练 习"
+            android:textSize="@dimen/text_size_25" />
+
+        <RadioButton
+            android:layout_width="120dp"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="@dimen/normal_10"
+            android:layout_weight="1"
+            android:background="@color/cc"
+            android:button="@null"
+            android:gravity="center"
+            android:text="考 试"
+            android:textSize="@dimen/text_size_25" />
+
+        <RadioButton
+            android:layout_width="120dp"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="@dimen/normal_10"
+            android:layout_weight="1"
+            android:background="@color/cc"
+            android:button="@null"
+            android:gravity="center"
+            android:text="成绩查看"
+            android:textSize="@dimen/text_size_25" />
+
+        <RadioButton
+            android:layout_width="120dp"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="@dimen/normal_10"
+            android:layout_weight="1"
+            android:background="@color/cc"
+            android:button="@null"
+            android:gravity="center"
+            android:text="个人设置"
+            android:textSize="@dimen/text_size_25" />
+    </RadioGroup>
+</RelativeLayout>
