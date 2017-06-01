@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".mvp.view.WelcomeActivity"
+            android:name=".view.WelcomeActivity"
             android:launchMode="standard"
             android:screenOrientation="landscape">
             <intent-filter>
@@ -27,12 +27,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".mvp.view.LoginActivity"
+            android:name=".view.LoginActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="landscape" />
-        <activity android:name=".mvp.view.MainActivity"
+        <activity
+            android:name=".view.StuMainActivity"
             android:launchMode="singleInstance"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
+        <activity android:name=".view.AdmMainActivity" />
+        <activity android:name=".view.TeaMainActivity" />
+        <activity android:name=".base.baseView.BaseActivity"></activity>
     </application>
 
 </manifest>
