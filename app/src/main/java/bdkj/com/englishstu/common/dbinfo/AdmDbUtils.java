@@ -14,6 +14,12 @@ import bdkj.com.englishstu.common.beans.Classes;
 import bdkj.com.englishstu.common.beans.ClassesDao;
 import bdkj.com.englishstu.common.beans.Note;
 import bdkj.com.englishstu.common.beans.NoteDao;
+import bdkj.com.englishstu.common.beans.NoteRecord;
+import bdkj.com.englishstu.common.beans.NoteRecordDao;
+import bdkj.com.englishstu.common.beans.Student;
+import bdkj.com.englishstu.common.beans.StudentDao;
+import bdkj.com.englishstu.common.beans.Teacher;
+import bdkj.com.englishstu.common.beans.TeacherDao;
 import bdkj.com.englishstu.common.tool.MD5Util;
 import bdkj.com.englishstu.common.tool.TimeUtil;
 
@@ -61,7 +67,7 @@ public class AdmDbUtils {
         AdminDao msgBeanDao = Application.getDaoSession().getAdminDao();
         List<Admin> list = msgBeanDao.queryBuilder().limit(1)
                 .where(AdminDao.Properties.UserAccount.eq(account)).build().list();
-        if (list.size() > 0 & list.get(0).getUserPassword().equals(MD5Util.md5Encode(password))) {
+        if (list.size() > 0 && list.get(0).getUserPassword().equals(MD5Util.md5Encode(password))) {
             result.setCode(0);
             result.setData(list.get(0));
             result.setMsg("登录成功！");
@@ -70,7 +76,20 @@ public class AdmDbUtils {
         }
         return result;
     }
-
+    /**
+     * 修改个人信息
+     *
+     * @param admin
+     * @return
+     */
+    public static JsonEntity updateSelf(Admin admin) {
+        JsonEntity result = new JsonEntity<>();
+        AdminDao noteDao = Application.getDaoSession().getAdminDao();
+        noteDao.update(admin);
+        result.setCode(0);
+        result.setMsg("修改个人信息成功！");
+        return result;
+    }
     /**
      * 根据管理员id获取公告列表
      *
@@ -89,15 +108,53 @@ public class AdmDbUtils {
     }
 
     /**
+     * 根据关键字获取公告列表
+     *
+     * @param keWord
+     * @return
+     */
+    public static JsonEntity searchNoteList(String keWord) {
+        JsonEntity<List<Note>> result = new JsonEntity<>();
+        NoteDao noteDao = Application.getDaoSession().getNoteDao();
+        List<Note> list = noteDao.queryBuilder()
+                .where(NoteDao.Properties.Title.like(keWord)).build().list();
+        result.setCode(0);
+        result.setData(list);
+        result.setMsg("获取列表成功！");
+        return result;
+    }
+
+    /**
      * 添加公告
      *
      * @param note
      * @return
      */
-    public static JsonEntity addNode(Note note) {
+    public static JsonEntity addNote(Note note) {
         JsonEntity result = new JsonEntity<>();
         NoteDao noteDao = Application.getDaoSession().getNoteDao();
-        noteDao.insert(note);
+        NoteRecordDao recordDao = Application.getDaoSession().getNoteRecordDao();
+        StudentDao studentDao = Application.getDaoSession().getStudentDao();
+        ClassesDao classesDao = Application.getDaoSession().getClassesDao();
+        List<Classes> classes = classesDao.queryBuilder().build().list();
+        for (Classes classe : classes
+                ) {
+            List<Student> list = studentDao.queryBuilder().where(StudentDao.Properties.ClassIds.eq(classe.getId())).list();
+            for (Student student : list
+                    ) {
+                NoteRecord noteRecord = new NoteRecord();
+                noteRecord.setId(UUID.randomUUID().toString());
+                noteRecord.setStatus(0);
+                noteRecord.setNoteId(note.getId());
+                noteRecord.setStudentId(student.getId());
+                noteRecord.setCreateDate(new Date(TimeUtil.getCurrentMillis()));
+                noteRecord.setUpdateDate(new Date(TimeUtil.getCurrentMillis()));
+                recordDao.insert(noteRecord);
+            }
+            note.setClassesId(classe.getId());
+            noteDao.insert(note);
+        }
+
         result.setCode(0);
         result.setMsg("添加公告成功！");
         return result;
@@ -109,7 +166,7 @@ public class AdmDbUtils {
      * @param note
      * @return
      */
-    public static JsonEntity updateNode(String adminId, Note note) {
+    public static JsonEntity updateNote(Note note) {
         JsonEntity result = new JsonEntity<>();
         NoteDao noteDao = Application.getDaoSession().getNoteDao();
         noteDao.update(note);
@@ -130,22 +187,24 @@ public class AdmDbUtils {
 
     /**
      * 根据noteId 删除公告
+     *
      * @param noteId
      * @return
      */
-    public static JsonEntity deleteNode(String noteId) {
+    public static JsonEntity deleteNote(String noteId) {
         JsonEntity result = new JsonEntity<>();
         NoteDao noteDao = Application.getDaoSession().getNoteDao();
-        List<Note> list = noteDao.queryBuilder().build().list();
-        if (list.size() > 0) {
-            for (Note noteItem : list) {
-                if (noteItem.getId().equals(noteId)) {
-                    noteDao.delete(noteItem);
-                    result.setCode(0);
-                    result.setMsg("删除公告成功！");
-                    break;
-                }
+        Note noteItem = noteDao.queryBuilder().build().unique();
+        if (noteItem.getId().equals(noteId)) {
+            NoteRecordDao noteRecordDao = Application.getDaoSession().getNoteRecordDao();
+            List<NoteRecord> recordList = noteRecordDao.queryBuilder().where(NoteRecordDao.Properties.NoteId.eq(noteItem.getId()))
+                    .build().list();
+            for (NoteRecord reoc : recordList) {
+                noteRecordDao.delete(reoc);//删除此公告记录
             }
+            noteDao.delete(noteItem);
+            result.setCode(0);
+            result.setMsg("删除公告成功！");
         } else {
             result.setMsg("删除公告失败！");
         }
@@ -154,6 +213,7 @@ public class AdmDbUtils {
 
     /**
      * 添加班级
+     *
      * @param classes
      * @return
      */
@@ -165,4 +225,242 @@ public class AdmDbUtils {
         result.setMsg("添加班级成功！");
         return result;
     }
+
+    /**
+     * 根据管理员id获取班级列表
+     *
+     * @return
+     */
+    public static JsonEntity classList() {
+        JsonEntity<List<Classes>> result = new JsonEntity<>();
+        ClassesDao classDao = Application.getDaoSession().getClassesDao();
+        List<Classes> list = classDao.queryBuilder().build().list();
+        result.setCode(0);
+        result.setData(list);
+        result.setMsg("获取列表成功！");
+        return result;
+    }
+
+    /**
+     * 根据关键字获取班级列表
+     *
+     * @param keWord
+     * @return
+     */
+    public static JsonEntity searchClassList(String keWord) {
+        JsonEntity<List<Classes>> result = new JsonEntity<>();
+        ClassesDao classDao = Application.getDaoSession().getClassesDao();
+        List<Classes> list = classDao.queryBuilder().where(ClassesDao.Properties.Name.like(keWord)).build().list();
+        result.setCode(0);
+        result.setData(list);
+        result.setMsg("获取列表成功！");
+        return result;
+    }
+
+    /**
+     * 修改班级信息
+     *
+     * @param classes
+     * @return
+     */
+    public static JsonEntity updateClasses(String adminId, Classes classes) {
+        JsonEntity result = new JsonEntity<>();
+        ClassesDao noteDao = Application.getDaoSession().getClassesDao();
+        noteDao.update(classes);
+        result.setCode(0);
+        result.setMsg("修改班级信息成功！");
+        return result;
+    }
+
+    /**
+     * 根据noteId 删除班级
+     *
+     * @param classId
+     * @return
+     */
+    public static JsonEntity deleteClasses(String classId) {
+        JsonEntity result = new JsonEntity<>();
+        ClassesDao noteDao = Application.getDaoSession().getClassesDao();
+        Classes noteItem = noteDao.queryBuilder().build().unique();
+        if (null != noteItem) {
+            StudentDao studentDao = Application.getDaoSession().getStudentDao();
+            List<Student> recordList = studentDao.queryBuilder().where(StudentDao.Properties.ClassIds.eq(noteItem.getId()))
+                    .build().list();
+            if (recordList.size() > 0) {//班级还有学生
+                result.setMsg("班级还有学生，不可删除！");
+            } else {
+                noteDao.delete(noteItem);
+                result.setCode(0);
+                result.setMsg("删除班级成功！");
+            }
+        } else {
+            result.setMsg("删除班级失败！");
+        }
+        return result;
+    }
+
+    /**
+     * 添加教师
+     *
+     * @param teacher
+     * @return
+     */
+    public static JsonEntity addTeacher(Teacher teacher) {
+        JsonEntity result = new JsonEntity<>();
+        TeacherDao classDao = Application.getDaoSession().getTeacherDao();
+        classDao.insert(teacher);
+        result.setCode(0);
+        result.setMsg("添加教师成功！");
+        return result;
+    }
+
+    /**
+     * 根据管理员id获取教师列表
+     *
+     * @return
+     */
+    public static JsonEntity teacherList() {
+        JsonEntity<List<Teacher>> result = new JsonEntity<>();
+        TeacherDao classDao = Application.getDaoSession().getTeacherDao();
+        List<Teacher> list = classDao.queryBuilder().build().list();
+        result.setCode(0);
+        result.setData(list);
+        result.setMsg("获取列表成功！");
+        return result;
+    }
+
+    /**
+     * 根据关键字获取教师列表
+     *
+     * @param keWord
+     * @return
+     */
+    public static JsonEntity searchTeacherList(String keWord) {
+        JsonEntity<List<Teacher>> result = new JsonEntity<>();
+        TeacherDao classDao = Application.getDaoSession().getTeacherDao();
+        List<Teacher> list = classDao.queryBuilder().where(TeacherDao.Properties.UserName.like(keWord)).build().list();
+        result.setCode(0);
+        result.setData(list);
+        result.setMsg("获取列表成功！");
+        return result;
+    }
+
+    /**
+     * 修改教师信息
+     *
+     * @param teacher
+     * @return
+     */
+    public static JsonEntity updateTeacher(String adminId, Teacher teacher) {
+        JsonEntity result = new JsonEntity<>();
+        TeacherDao noteDao = Application.getDaoSession().getTeacherDao();
+        noteDao.update(teacher);
+        result.setCode(0);
+        result.setMsg("修改教师信息成功！");
+        return result;
+    }
+
+    /**
+     * 根据noteId 删除教师
+     *
+     * @param teacherId
+     * @return
+     */
+    public static JsonEntity deleteTeacher(String teacherId) {
+        JsonEntity result = new JsonEntity<>();
+        TeacherDao teacherDao = Application.getDaoSession().getTeacherDao();
+        Teacher noteItem = teacherDao.queryBuilder().build().unique();
+        if (null != noteItem) {
+            teacherDao.delete(noteItem);
+            result.setCode(0);
+            result.setMsg("删除教师成功！");
+        } else {
+            result.setMsg("删除教师失败！");
+        }
+        return result;
+    }
+
+
+    /**
+     * 添加学生
+     *
+     * @param student
+     * @return
+     */
+    public static JsonEntity addStudent(Student student) {
+        JsonEntity result = new JsonEntity<>();
+        StudentDao classDao = Application.getDaoSession().getStudentDao();
+        classDao.insert(student);
+        result.setCode(0);
+        result.setMsg("添加学生成功！");
+        return result;
+    }
+
+    /**
+     * 根据管理员id获取学生列表
+     *
+     * @return
+     */
+    public static JsonEntity studentList() {
+        JsonEntity<List<Student>> result = new JsonEntity<>();
+        StudentDao classDao = Application.getDaoSession().getStudentDao();
+        List<Student> list = classDao.queryBuilder().build().list();
+        result.setCode(0);
+        result.setData(list);
+        result.setMsg("获取列表成功！");
+        return result;
+    }
+
+    /**
+     * 根据关键字获取学生列表
+     *
+     * @param keWord
+     * @return
+     */
+    public static JsonEntity searchStudentList(String keWord) {
+        JsonEntity<List<Student>> result = new JsonEntity<>();
+        StudentDao classDao = Application.getDaoSession().getStudentDao();
+        List<Student> list = classDao.queryBuilder().where(StudentDao.Properties.UserName.like(keWord)).build().list();
+        result.setCode(0);
+        result.setData(list);
+        result.setMsg("获取列表成功！");
+        return result;
+    }
+
+    /**
+     * 修改学生信息
+     *
+     * @param student
+     * @return
+     */
+    public static JsonEntity updateStudent(String adminId, Student student) {
+        JsonEntity result = new JsonEntity<>();
+        StudentDao noteDao = Application.getDaoSession().getStudentDao();
+        noteDao.update(student);
+        result.setCode(0);
+        result.setMsg("修改学生信息成功！");
+        return result;
+    }
+
+    /**
+     * 根据noteId 删除学生
+     *
+     * @param studentId
+     * @return
+     */
+    public static JsonEntity deleteStudent(String studentId) {
+        JsonEntity result = new JsonEntity<>();
+        StudentDao studentDao = Application.getDaoSession().getStudentDao();
+        Student noteItem = studentDao.queryBuilder().build().unique();
+        if (null != noteItem) {
+            studentDao.delete(noteItem);
+            result.setCode(0);
+            result.setMsg("删除学生成功！");
+        } else {
+            result.setMsg("删除学生失败！");
+        }
+        return result;
+    }
+
+
 }

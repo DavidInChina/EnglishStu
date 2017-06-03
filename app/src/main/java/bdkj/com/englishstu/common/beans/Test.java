@@ -1,13 +1,14 @@
 package bdkj.com.englishstu.common.beans;
 
 import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Index;
 import org.greenrobot.greendao.annotation.NotNull;
+import org.greenrobot.greendao.annotation.Transient;
 import org.greenrobot.greendao.annotation.Unique;
 
 import java.util.Date;
-import org.greenrobot.greendao.annotation.Generated;
 
 /**
  * Created by davidinchina on 2017/5/25.
@@ -35,6 +36,17 @@ public class Test {
     private Date createDate;
     private String beginTime;
     private String endTime;
+    @Transient
+    private int status;//状态0未做，1已做
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
     @Generated(hash = 248357007)
     public Test(@NotNull String id, @NotNull String examId, String examName,
             String classId, String type, String name, String teacherId,

@@ -1,13 +1,13 @@
 package bdkj.com.englishstu.common.beans;
 
 import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Index;
 import org.greenrobot.greendao.annotation.NotNull;
 import org.greenrobot.greendao.annotation.Unique;
 
 import java.util.Date;
-import org.greenrobot.greendao.annotation.Generated;
 
 /**
  * Created by davidinchina on 2017/5/25.
@@ -27,15 +27,16 @@ public class Exam {
     private String type;//练习或者考试
     private String about;//试题内容类别
     private String classId;
+    private String teacherId;
     private String img;
     private String words;//一个或多个单词
     private String sentence;//句子
     private Date updateDate;
     private Date createDate;
-    @Generated(hash = 1551818047)
+    @Generated(hash = 179379452)
     public Exam(@NotNull String id, @NotNull String name, String logo, String level,
-            String type, String about, String classId, String img, String words,
-            String sentence, Date updateDate, Date createDate) {
+            String type, String about, String classId, String teacherId, String img,
+            String words, String sentence, Date updateDate, Date createDate) {
         this.id = id;
         this.name = name;
         this.logo = logo;
@@ -43,6 +44,7 @@ public class Exam {
         this.type = type;
         this.about = about;
         this.classId = classId;
+        this.teacherId = teacherId;
         this.img = img;
         this.words = words;
         this.sentence = sentence;
@@ -123,5 +125,11 @@ public class Exam {
     }
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+    public String getTeacherId() {
+        return this.teacherId;
+    }
+    public void setTeacherId(String teacherId) {
+        this.teacherId = teacherId;
     }
 }
