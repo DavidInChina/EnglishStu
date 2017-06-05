@@ -5,7 +5,19 @@
     <color name="colorAccent">#FF4081</color>
 
 
+
+
+    <color name="hint_grey">#ff808080</color>
+    <color name="normal_grey">#eeeeee</color>
+    <color name="red">#ff7458</color>
+    <color name="bg_choose">#fdfdfd</color>
+    <color name="normal_blue">#0096ca</color>
+    <color name="dark_green">#5ba027</color>
+    <color name="white">#fff</color>
     <color name="cc">#59a9ff</color>
+    <color name="topbar">#8dc44f</color>
+    <color name="light_black">#393836</color>
+    <color name="dark_black">#282828</color>
     <color name="black">#000000</color>
     <color name="bg_color">#EDEDED</color>
     <color name="contents_text">#ff000000</color>

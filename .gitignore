@@ -7,5 +7,4 @@
 /build
 /captures
 .externalNativeBuild
-app/libs/
-app/src/main/res/drawable/
+

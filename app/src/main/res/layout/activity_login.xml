@@ -1,81 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg_welcome">
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@color/bg_color">
+        android:background="@mipmap/bg_login_box"
+        android:padding="@dimen/regular_dimen_x25">
 
         <TextView
             android:id="@+id/tv_text_top"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/normal_5"
             android:text="@string/login_top"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_size_30" />
+            android:textColor="@color/normal_blue"
+            android:textSize="@dimen/text_size_25" />
 
         <EditText
             android:id="@+id/et_login_account"
-            android:layout_width="350dp"
+            android:layout_width="320dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_text_top"
             android:layout_margin="@dimen/normal_10"
-            android:background="@null"
+            android:background="@drawable/bg_login_edit"
+            android:drawableLeft="@mipmap/icon_student_id"
+            android:drawablePadding="@dimen/normal_5"
             android:hint="@string/login_account_hint"
             android:padding="@dimen/normal_5"
-            android:textSize="@dimen/text_size_25" />
+            android:textColorHint="@color/result_minor_text"
+            android:textSize="@dimen/text_size_17" />
 
         <EditText
             android:id="@+id/et_login_password"
-            android:layout_width="350dp"
+            android:layout_width="320dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/et_login_account"
             android:layout_margin="@dimen/normal_10"
-            android:background="@null"
+            android:background="@drawable/bg_login_edit"
+            android:drawableLeft="@mipmap/icon_password"
+            android:drawablePadding="@dimen/normal_5"
             android:hint="@string/login_password_hint"
             android:inputType="textPassword"
             android:padding="@dimen/normal_5"
-            android:textSize="@dimen/text_size_25" />
+            android:textColorHint="@color/result_minor_text"
+            android:textSize="@dimen/text_size_17" />
 
         <RelativeLayout
             android:id="@+id/rl_login_bottom"
-            android:layout_width="350dp"
+            android:layout_width="320dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/et_login_password"
-            android:layout_margin="@dimen/normal_10"
-            android:padding="@dimen/normal_5">
+            android:layout_marginBottom="@dimen/regular_dimen_x12"
+            android:layout_marginLeft="@dimen/normal_10"
+            android:layout_marginRight="@dimen/normal_10"
+            android:layout_marginTop="@dimen/regular_dimen_x20"
+            android:paddingBottom="@dimen/normal_5"
+            android:paddingRight="@dimen/normal_5"
+            android:paddingTop="@dimen/normal_5">
+
+            <RelativeLayout
+                android:id="@+id/rl_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_login_choose">
+
+                <TextView
+                    android:id="@+id/tv_identify_choose"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:drawableLeft="@mipmap/icon_identity"
+                    android:paddingLeft="@dimen/normal_10"
+                    android:text="@string/login_choose_identify"
+                    android:textColor="@color/result_minor_text"
+                    android:textSize="@dimen/text_size_17" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="120dp"
+                    android:layout_toRightOf="@id/tv_identify_choose"
+                    android:padding="@dimen/normal_5"
+                    android:paddingRight="@dimen/normal_10"
+                    android:src="@mipmap/btn_down_pressed" />
+            </RelativeLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:text="@string/login_choose_identify"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_size_20" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/rl_left"
                 android:layout_alignParentRight="true"
                 android:text="忘记密码？"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_size_20" />
+                android:textColor="@color/result_minor_text"
+                android:textSize="@dimen/text_size_15" />
         </RelativeLayout>
 
         <Button
             android:id="@+id/btnLogin"
-            android:layout_width="300dp"
+            android:layout_width="280dp"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/normal_10"
             android:layout_below="@+id/rl_login_bottom"
             android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/normal_10"
+            android:background="@color/normal_blue"
             android:text="@string/login_button"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_size_25" />
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_20" />
     </RelativeLayout>
 
-</merge>
+</FrameLayout>

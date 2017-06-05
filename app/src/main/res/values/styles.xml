@@ -5,4 +5,17 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="menu_radio_button">
+        <item name="android:background">@drawable/bg_btn_check</item>
+        <item name="android:textSize">@dimen/text_size_18</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textColor">@drawable/tc_btn_check</item>
+        <item name="android:height">45dp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingLeft">@dimen/normal_10</item>
+        <item name="android:paddingRight">@dimen/normal_10</item>
+
+    </style>
 </resources>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@color/light_black"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iv_top_head"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_margin="@dimen/normal_10"
+        android:src="@mipmap/img_personal_head" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/dark_black"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/normal_10">
+
+        <TextView
+            android:id="@+id/tv_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normal_5"
+            android:text="欢迎登录"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_15" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normal_5"
+            android:text="姓名：赵伟"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_15" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/normal_5"
+            android:layout_marginTop="@dimen/normal_5"
+            android:text="编号：12212121"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_15" />
+    </LinearLayout>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="1dp"
+        android:orientation="vertical">
+
+        <RadioButton
+            style="@style/menu_radio_button"
+            android:drawableLeft="@drawable/note_selector"
+            android:text="班级公告" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/dark_black" />
+
+        <RadioButton
+            style="@style/menu_radio_button"
+            android:drawableLeft="@drawable/test_selector"
+            android:text="练 习" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/dark_black" />
+
+        <RadioButton
+            style="@style/menu_radio_button"
+            android:drawableLeft="@drawable/teacher_selector"
+            android:text="考 试" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/dark_black" />
+
+        <RadioButton
+            style="@style/menu_radio_button"
+            android:drawableLeft="@drawable/student_selector"
+            android:text="成绩查看" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/dark_black" />
+
+        <RadioButton
+            style="@style/menu_radio_button"
+            android:drawableLeft="@drawable/setting_selector"
+            android:text="个人设置" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/dark_black" />
+    </RadioGroup>
+</LinearLayout>

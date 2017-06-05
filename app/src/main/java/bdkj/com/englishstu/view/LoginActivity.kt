@@ -23,7 +23,7 @@ class LoginActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         val login = findViewById(R.id.btnLogin) as Button
         login.setOnClickListener {
-            val intent: Intent = Intent(this, StuMainActivity::class.java)
+            val intent: Intent = Intent(this, AdmMainActivity::class.java)
             startActivity(intent)
             finish()
         }
