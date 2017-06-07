@@ -2,7 +2,7 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="android:Theme.Holo.Light.NoActionBar">
-        <!-- Customize your theme here. -->
+        <item name="android:listDivider">@drawable/recycleview_divider</item>
     </style>
 
     <style name="menu_radio_button">

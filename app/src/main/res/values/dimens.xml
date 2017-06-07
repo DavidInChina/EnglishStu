@@ -2,7 +2,7 @@
 <resources>
     <dimen name="normal_10">10dp</dimen>
     <dimen name="normal_5">5dp</dimen>
-
+    <dimen name="textandiconmargin">10dp</dimen>
 
     <!--常用的几种大小-->
     <dimen name="regular_dimen_x0_5">0.5dp</dimen>

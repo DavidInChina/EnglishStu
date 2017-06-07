@@ -15,6 +15,7 @@ public class WelcomeActivity extends BaseActivity {
                 case 1:
                     Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
                     startActivity(intent);
+                    finish();
                     break;
                 default:
                     break;

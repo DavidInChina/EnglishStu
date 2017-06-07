@@ -22,17 +22,12 @@
         android:background="@color/dark_green" />
 
     <FrameLayout
+        android:layout_below="@id/top_title"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/fragmentView"
         android:layout_toRightOf="@id/view_line">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="欢迎来到主页,这里是fragment容器"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_size_25" />
     </FrameLayout>
 
 </RelativeLayout>
