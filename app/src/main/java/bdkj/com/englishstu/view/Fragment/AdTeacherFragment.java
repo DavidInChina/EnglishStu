@@ -11,28 +11,28 @@ import java.util.List;
 
 import bdkj.com.englishstu.R;
 import bdkj.com.englishstu.base.baseView.BaseFragment;
-import bdkj.com.englishstu.common.adapter.NoticeAdapter;
-import bdkj.com.englishstu.common.beans.Note;
+import bdkj.com.englishstu.common.adapter.TeacherAdapter;
+import bdkj.com.englishstu.common.beans.Teacher;
 import bdkj.com.englishstu.common.divider.RecDivider;
 import bdkj.com.englishstu.common.tool.ToastUtil;
-import bdkj.com.englishstu.xrecyclerview.viewholder.RecycleItemClickListener;
 import bdkj.com.englishstu.xrecyclerview.ProgressStyle;
 import bdkj.com.englishstu.xrecyclerview.XRecyclerView;
+import bdkj.com.englishstu.xrecyclerview.viewholder.RecycleItemClickListener;
 import butterknife.BindView;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AdNoticeFragment extends BaseFragment implements RecycleItemClickListener {
+public class AdTeacherFragment extends BaseFragment implements RecycleItemClickListener {
     @BindView(R.id.recycler_view)
     XRecyclerView recyclerView;
 
-    private List<Note> listData;
-    private NoticeAdapter mAdapter;
+    private List<Teacher> listData;
+    private TeacherAdapter mAdapter;
 
     @Override
     public int getViewLayout() {
-        return R.layout.fragment_ad_notice;
+        return R.layout.fragment_ad_teacher;
     }
 
     @Override
@@ -48,14 +48,14 @@ public class AdNoticeFragment extends BaseFragment implements RecycleItemClickLi
         recyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
         recyclerView.setArrowImageView(R.mipmap.iconfont_downgrey);
         recyclerView.setLoadingMoreEnabled(true);
-        listData = new ArrayList<Note>();
+        listData = new ArrayList<Teacher>();
         recyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
                 listData.clear();
                 recyclerView.setLoadingMoreEnabled(true);
                 for (int i = 0; i < 10; i++) {
-                    listData.add(new Note());
+                    listData.add(new Teacher());
                 }
                 mAdapter.notifyDataSetChanged();
                 recyclerView.refreshComplete();
@@ -65,7 +65,7 @@ public class AdNoticeFragment extends BaseFragment implements RecycleItemClickLi
             public void onLoadMore() {
                 if (listData.size() < 40) {
                     for (int i = 0; i < 10; i++) {
-                        listData.add(new Note());
+                        listData.add(new Teacher());
                     }
                     mAdapter.notifyDataSetChanged();
                     recyclerView.loadMoreComplete();
@@ -75,7 +75,7 @@ public class AdNoticeFragment extends BaseFragment implements RecycleItemClickLi
                 }
             }
         });
-        mAdapter = new NoticeAdapter(mContext, (ArrayList<Note>) listData);
+        mAdapter = new TeacherAdapter(mContext, (ArrayList<Teacher>) listData);
         mAdapter.setClickListener(this);
         recyclerView.setAdapter(mAdapter);
         recyclerView.addItemDecoration(new RecDivider(mContext, RecDivider.VERTICAL_LIST));

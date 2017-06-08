@@ -13,10 +13,13 @@ import android.view.GestureDetector;
 import android.view.HapticFeedbackConstants;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.RelativeLayout;
+
+import com.orhanobut.logger.Logger;
 
 import java.lang.reflect.Method;
 
@@ -339,7 +342,7 @@ public class SwipeItemLayout extends RelativeLayout {
         int topRight = mTopLeft + mTopView.getMeasuredWidth();
 
         int bottomTop = getPaddingTop() + mBottomLp.topMargin;
-        int bottomBottom = bottomTop + mBottomView.getMeasuredHeight();
+        int bottomBottom = topBottom;//设置底层View和上层view一样高度
         int bottomLeft;
         int bottomRight;
 
@@ -388,6 +391,22 @@ public class SwipeItemLayout extends RelativeLayout {
 
         mBottomView.layout(bottomLeft, bottomTop, bottomRight, bottomBottom);
         mTopView.layout(mTopLeft, topTop, topRight, topBottom);
+    }
+
+    /**
+     * 绘制子View是的BottomView的子View高度撑满布局
+     */
+    public void initChildrenView() {
+        ViewGroup viewGroup = (ViewGroup) mBottomView;
+        int size = viewGroup.getChildCount();
+        Logger.d("绘制子View");
+        for (int i = 0; i < size; i++) {
+            View view = viewGroup.getChildAt(i);
+            ViewGroup.LayoutParams params = view.getLayoutParams();
+            params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            params.height = ViewGroup.LayoutParams.MATCH_PARENT;
+            view.setLayoutParams(params);
+        }
     }
 
     /**

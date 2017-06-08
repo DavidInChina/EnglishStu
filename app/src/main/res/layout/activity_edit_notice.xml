@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="bdkj.com.englishstu.view.EditNoticeActivity">
+
+    <include layout="@layout/action_top_normal" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <EditText
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="top|left"
+        android:hint="@string/tv_notice_hint"
+        android:lines="1"
+        android:padding="@dimen/normal_5"
+        android:textColor="@color/black"
+        android:textColorHint="@color/hint_grey"
+        android:textSize="@dimen/text_size_20" />
+
+
+    <EditText
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/regular_dimen_x25"
+        android:gravity="top|left"
+        android:hint="@string/tv_content_hint"
+        android:lines="6"
+        android:padding="@dimen/normal_5"
+        android:textColor="@color/black"
+        android:textColorHint="@color/hint_grey"
+        android:textSize="@dimen/text_size_20" />
+
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="@dimen/normal_10"
+        android:layout_marginTop="@dimen/normal_10"
+        android:background="@drawable/bg_btn_confirm"
+        android:text="@string/btn_save"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_20" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+</LinearLayout>

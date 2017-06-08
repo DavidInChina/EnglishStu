@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="45dp"
+    android:background="@color/topbar"
+    android:orientation="horizontal">
+
+
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/normal_10"
+        android:gravity="center"
+        android:padding="@dimen/normal_10"
+        android:src="@drawable/btn_back_pressed" />
+
+    <TextView
+        android:id="@+id/tv_top_title"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="发布通知"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_25" />
+
+    <TextView
+        android:id="@+id/tv_confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginRight="@dimen/normal_10"
+        android:gravity="center"
+        android:padding="@dimen/normal_10"
+        android:text="保存"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_18"
+        android:visibility="invisible" />
+
+</LinearLayout>

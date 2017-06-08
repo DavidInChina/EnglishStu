@@ -14,7 +14,7 @@
         <item name="android:layout_gravity">center_horizontal</item>
         <item name="android:button">@null</item>
         <item name="android:gravity">center</item>
-        <item name="android:paddingLeft">@dimen/normal_10</item>
+        <item name="android:paddingLeft">@dimen/regular_dimen_x20</item>
         <item name="android:paddingRight">@dimen/normal_10</item>
 
     </style>

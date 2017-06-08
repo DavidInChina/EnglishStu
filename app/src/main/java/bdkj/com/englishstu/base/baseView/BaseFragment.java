@@ -19,7 +19,6 @@ import java.util.List;
 import bdkj.com.englishstu.common.data.PermissionData;
 import bdkj.com.englishstu.common.tool.ToastUtil;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import icepick.Icepick;
 import me.drakeet.materialdialog.MaterialDialog;
 
@@ -29,7 +28,6 @@ import me.drakeet.materialdialog.MaterialDialog;
 public abstract class BaseFragment extends Fragment {
     protected Context mContext;
     protected View contentView = null;
-    private Unbinder unbinder;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,7 +54,7 @@ public abstract class BaseFragment extends Fragment {
         if (contentView == null) {
             contentView = inflater.inflate(getViewLayout(), null, false);
 //            ButterKnife.bind(this,contentView);
-            unbinder = ButterKnife.bind(this, contentView);
+            ButterKnife.bind(this, contentView);
             initView((ViewGroup) contentView);
         }
         return contentView;
@@ -182,11 +180,6 @@ public abstract class BaseFragment extends Fragment {
         }).setCanceledOnTouchOutside(false).show();
     }
 
-    @Override
-    public void onDestroyView() {
-        unbinder.unbind();
-        super.onDestroyView();
-    }
 
     /**
      * 获取布局

@@ -1,11 +1,11 @@
 package bdkj.com.englishstu.view
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import bdkj.com.englishstu.R
 import bdkj.com.englishstu.base.baseView.BaseActivity
 import bdkj.com.englishstu.common.dbinfo.AdmDbUtils
+import bdkj.com.englishstu.common.tool.IntentUtil
 import bdkj.com.englishstu.common.tool.ToastUtil
 
 class LoginActivity : BaseActivity() {
@@ -23,8 +23,7 @@ class LoginActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         val login = findViewById(R.id.btnLogin) as Button
         login.setOnClickListener {
-            val intent: Intent = Intent(this, AdmMainActivity::class.java)
-            startActivity(intent)
+            IntentUtil.launcher(mContext, AdmMainActivity::class.java)
             finish()
         }
 

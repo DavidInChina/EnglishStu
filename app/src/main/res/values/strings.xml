@@ -17,4 +17,13 @@
     <string name="refreshing">正在刷新...</string>
     <string name="refresh_done">刷新完成</string>
     <string name="listview_header_last_time">上次更新时间：</string>
+    <string name="rb_class_notice">班级公告</string>
+    <string name="rb_exam">练 习</string>
+    <string name="rb_test">考 试</string>
+    <string name="rb_mark">成绩查看</string>
+    <string name="rb_personal_setting">个人设置</string>
+    <string name="tv_notice_hint">请输入通知标题</string>
+    <string name="tv_content_hint">请输入通知内容（500字以内）</string>
+    <string name="btn_save">保存</string>
+    <string name="tv_change_head">修改头像</string>
 </resources>

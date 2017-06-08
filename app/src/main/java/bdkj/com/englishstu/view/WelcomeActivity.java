@@ -1,20 +1,19 @@
 package bdkj.com.englishstu.view;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
 import bdkj.com.englishstu.R;
 import bdkj.com.englishstu.base.baseView.BaseActivity;
+import bdkj.com.englishstu.common.tool.IntentUtil;
 
 public class WelcomeActivity extends BaseActivity {
     private Handler handler = new Handler() {
         public void handleMessage(Message message) {
             switch (message.what) {
                 case 1:
-                    Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
-                    startActivity(intent);
+                    IntentUtil.launcher(mContext, LoginActivity.class);
                     finish();
                     break;
                 default:

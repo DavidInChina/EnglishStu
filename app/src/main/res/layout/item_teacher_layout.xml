@@ -45,48 +45,34 @@
             android:src="@mipmap/ic_launcher_round" />
 
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/rl_center_wrap"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/normal_10"
             android:layout_marginRight="@dimen/normal_10"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="left|top"
                 android:layout_marginBottom="@dimen/normal_5"
                 android:layout_marginLeft="@dimen/normal_10"
                 android:layout_marginRight="@dimen/normal_10"
                 android:layout_marginTop="@dimen/normal_5"
-                android:text="英语等级考试报名公告"
+                android:text="王陆"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_size_18" />
 
-            <TextView
-                android:id="@+id/tv_content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_title"
-                android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/normal_5"
-                android:layout_marginLeft="@dimen/normal_10"
-                android:layout_marginRight="@dimen/normal_10"
-                android:layout_marginTop="@dimen/normal_5"
-                android:lines="2"
-                android:text="查看查看查看查看查看查看查看查看查看查看查看查看查看查看查看查看查看查看查看查看"
-                android:textColor="@color/hint_grey"
-                android:textSize="@dimen/text_size_15" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tv_content"
-                android:layout_marginLeft="@dimen/normal_10"
                 android:layout_marginRight="@dimen/normal_10">
 
                 <TextView
@@ -98,7 +84,7 @@
                     android:layout_marginLeft="@dimen/normal_10"
                     android:layout_marginRight="@dimen/normal_10"
                     android:layout_marginTop="@dimen/normal_5"
-                    android:text="发布日期：2017-9-9"
+                    android:text="登录账号：B14041234"
                     android:textColor="@color/hint_blue"
                     android:textSize="@dimen/text_size_18" />
 
@@ -111,11 +97,43 @@
                     android:layout_marginLeft="@dimen/normal_10"
                     android:layout_marginRight="@dimen/normal_10"
                     android:layout_marginTop="@dimen/normal_5"
-                    android:text="发布人：李老师"
+                    android:text="手机号码：12345678999"
                     android:textColor="@color/hint_blue"
                     android:textSize="@dimen/text_size_18" />
             </RelativeLayout>
-        </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/normal_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/normal_5"
+                    android:layout_marginLeft="@dimen/normal_10"
+                    android:layout_marginRight="@dimen/normal_10"
+                    android:layout_marginTop="@dimen/normal_5"
+                    android:text="邮箱地址：123@gmail.com"
+                    android:textColor="@color/hint_blue"
+                    android:textSize="@dimen/text_size_18" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/normal_5"
+                    android:layout_marginLeft="@dimen/normal_10"
+                    android:layout_marginRight="@dimen/normal_10"
+                    android:layout_marginTop="@dimen/normal_5"
+                    android:text="任课班级：4个"
+                    android:textColor="@color/hint_blue"
+                    android:textSize="@dimen/text_size_18" />
+            </RelativeLayout>
+        </LinearLayout>
 
         <FrameLayout
             android:layout_width="wrap_content"

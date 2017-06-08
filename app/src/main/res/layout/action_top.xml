@@ -14,7 +14,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:drawableLeft="@mipmap/btn_index_pressed"
+            android:drawableLeft="@mipmap/btn_index_normal"
+            android:drawablePadding="@dimen/normal_5"
             android:gravity="center"
             android:text="首页"
             android:textColor="@color/white"
@@ -22,14 +23,27 @@
     </FrameLayout>
 
     <ImageView
+        android:id="@+id/iv_search_notice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginLeft="@dimen/normal_10"
         android:gravity="center"
+        android:padding="@dimen/normal_10"
+        android:src="@drawable/search_pressed" />
+
+    <ImageView
+        android:id="@+id/iv_edit_notice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/normal_10"
+        android:gravity="center"
+        android:padding="@dimen/normal_10"
         android:src="@drawable/found_pressed" />
 
     <TextView
+        android:id="@+id/tv_top_title"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_gravity="center"
@@ -48,11 +62,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/normal_5"
+            android:layout_marginRight="@dimen/normal_10"
             android:layout_marginTop="@dimen/normal_5"
             android:text="英语教育软件"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_size_15" />
+            android:textSize="@dimen/text_size_12" />
 
 
         <TextView
@@ -65,6 +79,6 @@
             android:gravity="right"
             android:text="管理员"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_size_15" />
+            android:textSize="@dimen/text_size_12" />
     </RelativeLayout>
 </LinearLayout>

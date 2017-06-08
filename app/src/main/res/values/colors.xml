@@ -6,17 +6,20 @@
     <color name="textcolor">#B5B5B5</color>
 
 
-
+    <color name="pressed_pink">#e1606b</color>
+    <color name="hint_pink">#f95364</color>
     <color name="hint_blue">#a1b5c3</color>
     <color name="hint_grey">#ff808080</color>
     <color name="normal_grey">#eeeeee</color>
     <color name="red">#ff7458</color>
     <color name="bg_choose">#fdfdfd</color>
     <color name="normal_blue">#0096ca</color>
+    <color name="pressed_blue">#008eb5</color>
     <color name="dark_green">#5ba027</color>
     <color name="white">#fff</color>
     <color name="cc">#59a9ff</color>
     <color name="topbar">#8dc44f</color>
+    <color name="pressed_green">#92be5b</color>
     <color name="light_black">#393836</color>
     <color name="dark_black">#282828</color>
     <color name="black">#000000</color>

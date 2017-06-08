@@ -18,6 +18,7 @@ import java.util.List;
 
 import bdkj.com.englishstu.common.data.PermissionData;
 import bdkj.com.englishstu.common.tool.ToastUtil;
+import butterknife.ButterKnife;
 import icepick.Icepick;
 import me.drakeet.materialdialog.MaterialDialog;
 
@@ -28,6 +29,7 @@ public abstract class BaseActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         mContext = this;
         setContentView(getViewId());
+        ButterKnife.bind(this);
         Icepick.restoreInstanceState(this, savedInstanceState);
         initViews(savedInstanceState);
     }
@@ -37,6 +39,8 @@ public abstract class BaseActivity extends FragmentActivity {
         super.onSaveInstanceState(outState);
         Icepick.saveInstanceState(this, outState);
     }
+
+
     /**
      * 使得权限被允许
      *

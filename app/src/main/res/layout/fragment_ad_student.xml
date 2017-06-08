@@ -1,8 +1,9 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_color">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="bdkj.com.englishstu.view.Fragment.AdTeacherFragment">
 
     <bdkj.com.englishstu.xrecyclerview.XRecyclerView
         android:id="@+id/recycler_view"

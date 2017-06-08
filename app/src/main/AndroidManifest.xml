@@ -34,9 +34,18 @@
             android:name=".view.StuMainActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="landscape" />
-        <activity android:name=".view.AdmMainActivity" />
-        <activity android:name=".view.TeaMainActivity" />
-        <activity android:name=".base.baseView.BaseActivity"></activity>
+        <activity
+            android:name=".view.AdmMainActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".view.TeaMainActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".base.baseView.BaseActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".view.EditNoticeActivity"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>

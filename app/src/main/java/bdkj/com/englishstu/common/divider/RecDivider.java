@@ -7,7 +7,6 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 /**
@@ -66,7 +65,6 @@ public class RecDivider extends RecyclerView.ItemDecoration {
             final int bottom = top + mDivider.getIntrinsicHeight();
             mDivider.setBounds(left, top, right, bottom);
             mDivider.draw(c);
-            Log.d("wnw", left + " " + top + " "+right+"   "+bottom+" "+i);
         }
     }
 

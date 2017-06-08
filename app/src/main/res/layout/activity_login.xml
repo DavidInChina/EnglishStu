@@ -75,6 +75,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:drawableLeft="@mipmap/icon_identity"
+                    android:drawablePadding="@dimen/normal_5"
                     android:paddingLeft="@dimen/normal_10"
                     android:text="@string/login_choose_identify"
                     android:textColor="@color/result_minor_text"
@@ -108,7 +109,7 @@
             android:layout_below="@+id/rl_login_bottom"
             android:layout_centerHorizontal="true"
             android:layout_margin="@dimen/normal_10"
-            android:background="@color/normal_blue"
+            android:background="@drawable/bg_btn_login"
             android:text="@string/login_button"
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_20" />
