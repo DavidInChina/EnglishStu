@@ -93,6 +93,7 @@
             </RelativeLayout>
 
             <TextView
+                android:id="@+id/tv_forget_ps"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/rl_left"

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">英语学习</string>
     <string name="login_top">用户登录</string>
-    <string name="login_account_hint">学号</string>
+    <string name="login_account_hint">账号</string>
     <string name="login_password_hint">密码</string>
     <string name="login_choose_identify">身份</string>
     <string name="login_button">登录</string>
@@ -25,5 +25,8 @@
     <string name="tv_notice_hint">请输入通知标题</string>
     <string name="tv_content_hint">请输入通知内容（500字以内）</string>
     <string name="btn_save">保存</string>
-    <string name="tv_change_head">修改头像</string>
+    <string name="tv_change_head">修改个人信息</string>
+    <string name="btn_save_update">保存修改</string>
+    <string name="btn_quit">退出登录</string>
+    <string name="tv_link_email">联系邮箱</string>
 </resources>

@@ -6,4 +6,5 @@ package bdkj.com.englishstu.base;
 
 public class Constants {
     public static String URL = "";
+    public static final String ADMIN_INFO_NAME = "adminInfo.dat";
 }

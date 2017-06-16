@@ -5,7 +5,7 @@
     android:background="@color/light_black"
     android:orientation="vertical">
 
-    <ImageView
+    <bdkj.com.englishstu.common.widget.CircleImageView
         android:id="@+id/iv_top_head"
         android:layout_width="120dp"
         android:layout_height="120dp"

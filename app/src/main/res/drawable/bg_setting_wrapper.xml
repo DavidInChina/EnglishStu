@@ -2,20 +2,20 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:bottom="2dp"
-        android:left="2dp"
-        android:right="2dp"
-        android:top="2dp">
+        android:bottom="0dp"
+        android:left="148dp"
+        android:right="148dp"
+        android:top="0dp">
         <shape android:shape="rectangle">
             <gradient
                 android:angle="270"
                 android:endColor="@color/hint_grey"
                 android:startColor="@color/white" />
             <padding
-                android:bottom="3dp"
-                android:left="5dp"
-                android:right="5dp"
-                android:top="3dp" />
+                android:bottom="0dp"
+                android:left="150dp"
+                android:right="150dp"
+                android:top="0dp" />
         </shape>
 
     </item>

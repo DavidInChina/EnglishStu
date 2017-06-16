@@ -1,5 +1,6 @@
 package bdkj.com.englishstu.view;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
@@ -14,8 +15,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import bdkj.com.englishstu.R;
+import bdkj.com.englishstu.base.Application;
 import bdkj.com.englishstu.base.baseView.BaseActivity;
+import bdkj.com.englishstu.common.beans.Admin;
 import bdkj.com.englishstu.common.tool.IntentUtil;
+import bdkj.com.englishstu.common.tool.ToastUtil;
 import bdkj.com.englishstu.view.Fragment.AdClassFragment;
 import bdkj.com.englishstu.view.Fragment.AdNoticeFragment;
 import bdkj.com.englishstu.view.Fragment.AdSettingFragment;
@@ -48,6 +52,7 @@ public class AdmMainActivity extends BaseActivity {
     @BindView(R.id.tv_user_number)
     TextView tvUserNumber;
     private Map<String, Fragment> fragmentMap = new HashMap<>();
+    private Admin admin;
 
     private static final String TYPE_NOTICE = "notice";
     private static final String TYPE_CLASS = "class";
@@ -64,6 +69,18 @@ public class AdmMainActivity extends BaseActivity {
     @Override
     protected void initViews(Bundle savedInstanceState) {
         initLeftMenu();
+        initData();
+    }
+
+    @SuppressLint("SetTextI18n")
+    public void initData() {
+        admin = Application.getAdminInfo();
+        if (null == admin) {
+            ToastUtil.show(mContext, "获取用户信息失败！");
+            finish();
+        }
+        tvUserName.setText("姓名：" + admin.getUserName());
+        tvUserNumber.setText("编号：" + admin.getUserAccount());
     }
 
     /**

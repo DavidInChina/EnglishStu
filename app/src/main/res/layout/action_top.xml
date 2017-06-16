@@ -51,7 +51,7 @@
         android:gravity="center"
         android:text="首页"
         android:textColor="@color/white"
-        android:textSize="@dimen/text_size_25" />
+        android:textSize="@dimen/text_size_21" />
 
     <RelativeLayout
         android:layout_width="120dp"
