@@ -6,13 +6,19 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.orhanobut.logger.Logger;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import bdkj.com.englishstu.R;
+import bdkj.com.englishstu.base.Application;
+import bdkj.com.englishstu.base.JsonEntity;
 import bdkj.com.englishstu.base.baseView.BaseFragment;
 import bdkj.com.englishstu.common.adapter.NoticeAdapter;
+import bdkj.com.englishstu.common.beans.Admin;
 import bdkj.com.englishstu.common.beans.Note;
+import bdkj.com.englishstu.common.dbinfo.AdmDbUtils;
 import bdkj.com.englishstu.common.divider.RecDivider;
 import bdkj.com.englishstu.common.tool.ToastUtil;
 import bdkj.com.englishstu.xrecyclerview.viewholder.RecycleItemClickListener;
@@ -29,6 +35,7 @@ public class AdNoticeFragment extends BaseFragment implements RecycleItemClickLi
 
     private List<Note> listData;
     private NoticeAdapter mAdapter;
+    private Admin admin;
 
     @Override
     public int getViewLayout() {
@@ -37,6 +44,7 @@ public class AdNoticeFragment extends BaseFragment implements RecycleItemClickLi
 
     @Override
     public void initView(ViewGroup parent) {
+        admin = Application.getAdminInfo();
         initRecyclerView();
     }
 
@@ -47,32 +55,26 @@ public class AdNoticeFragment extends BaseFragment implements RecycleItemClickLi
         recyclerView.setRefreshProgressStyle(ProgressStyle.Pacman);
         recyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
         recyclerView.setArrowImageView(R.mipmap.iconfont_downgrey);
-        recyclerView.setLoadingMoreEnabled(true);
+        recyclerView.setLoadingMoreEnabled(false);
         listData = new ArrayList<Note>();
         recyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
                 listData.clear();
-                recyclerView.setLoadingMoreEnabled(true);
-                for (int i = 0; i < 10; i++) {
-                    listData.add(new Note());
+               JsonEntity entity = AdmDbUtils.noteList(admin.getId());
+                if (entity.getCode()==0){
+                    Logger.d(entity.getData());
+                    for (Note note : (List<Note>)entity.getData()) {
+                        listData.add(note);
+                    }
+                }else{
+                    ToastUtil.show(mContext,entity.getMsg());
                 }
                 mAdapter.notifyDataSetChanged();
                 recyclerView.refreshComplete();
             }
-
             @Override
             public void onLoadMore() {
-                if (listData.size() < 40) {
-                    for (int i = 0; i < 10; i++) {
-                        listData.add(new Note());
-                    }
-                    mAdapter.notifyDataSetChanged();
-                    recyclerView.loadMoreComplete();
-                } else {
-                    recyclerView.loadMoreComplete();
-                    recyclerView.setLoadingMoreEnabled(false);
-                }
             }
         });
         mAdapter = new NoticeAdapter(mContext, (ArrayList<Note>) listData);

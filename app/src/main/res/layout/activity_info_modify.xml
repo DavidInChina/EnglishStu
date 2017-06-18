@@ -70,8 +70,9 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/normal_10"
+            android:layout_marginRight="@dimen/normal_10"
             android:background="@color/hint_blue" />
-
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -132,6 +133,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:background="@null"
+                android:inputType="textPassword"
                 android:gravity="right"
                 android:paddingBottom="@dimen/regular_dimen_x15"
                 android:paddingTop="@dimen/regular_dimen_x15"

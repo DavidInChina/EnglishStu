@@ -5,7 +5,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +20,7 @@ import bdkj.com.englishstu.swipeitem.widget.SwipeItemLayout;
 import bdkj.com.englishstu.xrecyclerview.viewholder.BaseViewHolder;
 import bdkj.com.englishstu.xrecyclerview.viewholder.RecycleItemClickListener;
 import bdkj.com.englishstu.xrecyclerview.viewholder.RecycleItemLongClickListener;
+import butterknife.BindView;
 
 /**
  * Created by davidinchina on 2017/6/6.
@@ -56,16 +61,25 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_notice_layout, parent, false);
-        return new NoticeAdapter.ViewHolder(view, clickListener, longClickListener);
+        return new ViewHolder(view, clickListener, longClickListener);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Note note = noteList.get(position);
-        SwipeItemLayout swipeRoot = holder.itemContactSwipeRoot;
-        if (position % 2 == 0) {
-            swipeRoot.setSwipeAble(false);//设置不可删除
+        holder.tvTitle.setText(note.getTitle());
+        holder.tvContent.setText(note.getContent());
+        Glide.with(mContext).load(note.getImg()).into(holder.ivLeftImg);
+        holder.tvAuthor.setText("发布人："+note.getAuthorName());
+        holder.tvTime.setText("发布日期："+note.getUpdateDate().toString());
+        if (note.getStatus()==0){
+            holder.tvRightStatus.setVisibility(View.VISIBLE);
+            holder.tvRightStatus2.setVisibility(View.INVISIBLE);
+        }else{
+            holder.tvRightStatus.setVisibility(View.INVISIBLE);
+            holder.tvRightStatus2.setVisibility(View.VISIBLE);
         }
+        SwipeItemLayout swipeRoot = holder.itemContactSwipeRoot;
         swipeRoot.setDelegate(new SwipeItemLayout.SwipeItemLayoutDelegate() {
             @Override
             public void onSwipeItemLayoutOpened(SwipeItemLayout swipeItemLayout) {
@@ -100,6 +114,13 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
 
     //自定义的ViewHolder，持有每个Item的的所有界面元素
     public static class ViewHolder extends BaseViewHolder {
+        ImageView ivLeftImg;
+        TextView tvTitle;
+        TextView tvContent;
+        TextView tvTime;
+        TextView tvAuthor;
+        TextView tvRightStatus;
+        TextView tvRightStatus2;
         TextView itemContactDelete;
         SwipeItemLayout itemContactSwipeRoot;
         public View baseView;
@@ -117,6 +138,13 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
             baseView = view;
             itemContactDelete = (TextView) view.findViewById(R.id.item_contact_delete);
             itemContactSwipeRoot = (SwipeItemLayout) view.findViewById(R.id.item_contact_swipe_root);
+            ivLeftImg = (ImageView) view.findViewById(R.id.iv_left_img);
+            tvTitle = (TextView) view.findViewById(R.id.tv_title);
+            tvContent = (TextView) view.findViewById(R.id.tv_content);
+            tvTime = (TextView) view.findViewById(R.id.tv_time);
+            tvAuthor = (TextView) view.findViewById(R.id.tv_author);
+            tvRightStatus = (TextView) view.findViewById(R.id.tv_right_status);
+            tvRightStatus2 = (TextView) view.findViewById(R.id.tv_right_status2);
         }
     }
 }

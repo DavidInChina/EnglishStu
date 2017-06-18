@@ -37,6 +37,10 @@ dependencies {
     //页面间通信
     //dialog
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile "com.jakewharton:butterknife:$butterknife_version"
+    kapt "com.jakewharton:butterknife-compiler:$butterknife_version"
+    //图片选择库
+    compile project(':imagepicker')
     compile 'com.android.support:support-v4:25.3.1'
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.github.bumptech.glide:glide:3.7.0'
@@ -51,10 +55,6 @@ dependencies {
     compile 'com.orhanobut:logger:1.15'
     compile 'com.android.support:design:25.3.1'
     testCompile 'junit:junit:4.12'
-    compile "com.jakewharton:butterknife:$butterknife_version"
-    kapt "com.jakewharton:butterknife-compiler:$butterknife_version"
-    //图片选择库
-    compile project(':imagepicker')
 }
 repositories {
     mavenCentral()

@@ -48,7 +48,7 @@ public class AdmDbUtils {
             admin.setEmail("admin@123.com");
             admin.setUpdateDate(new Date(TimeUtil.getCurrentMillis()));
             admin.setUserHead("");
-            admin.setUserPassword(MD5Util.md5Encode("superadmin"));
+            admin.setUserPassword("superadmin");
             admin.setUserName("Admin");
             admin.setUserAccount(account);
             msgBeanDao.insert(admin);
@@ -67,7 +67,7 @@ public class AdmDbUtils {
         AdminDao msgBeanDao = Application.getDaoSession().getAdminDao();
         List<Admin> list = msgBeanDao.queryBuilder().limit(1)
                 .where(AdminDao.Properties.UserAccount.eq(account)).build().list();
-        if (list.size() > 0 && list.get(0).getUserPassword().equals(MD5Util.md5Encode(password))) {
+        if (list.size() > 0 && list.get(0).getUserPassword().equals(password)) {
             result.setCode(0);
             result.setData(list.get(0));
             result.setMsg("登录成功！");
@@ -99,8 +99,9 @@ public class AdmDbUtils {
     public static JsonEntity noteList(String adminId) {
         JsonEntity<List<Note>> result = new JsonEntity<>();
         NoteDao noteDao = Application.getDaoSession().getNoteDao();
-        List<Note> list = noteDao.queryBuilder()
-                .where(NoteDao.Properties.AuthorId.eq(adminId)).build().list();
+        List<Note> list = noteDao.queryBuilder().build().list();
+//                .where(NoteDao.Properties.AuthorId.eq(adminId)).build().list();
+        Logger.d(list.size()+"");
         result.setCode(0);
         result.setData(list);
         result.setMsg("获取列表成功！");
@@ -131,32 +132,36 @@ public class AdmDbUtils {
      * @return
      */
     public static JsonEntity addNote(Note note) {
+        note.setId(UUID.randomUUID().toString());
+        note.setCreateDate(new Date(TimeUtil.getCurrentMillis()));
+        note.setUpdateDate(new Date(TimeUtil.getCurrentMillis()));//设置基本字段
         JsonEntity result = new JsonEntity<>();
         NoteDao noteDao = Application.getDaoSession().getNoteDao();
         NoteRecordDao recordDao = Application.getDaoSession().getNoteRecordDao();
         StudentDao studentDao = Application.getDaoSession().getStudentDao();
         ClassesDao classesDao = Application.getDaoSession().getClassesDao();
         List<Classes> classes = classesDao.queryBuilder().build().list();
-        for (Classes classe : classes
-                ) {
-            List<Student> list = studentDao.queryBuilder().where(StudentDao.Properties.ClassIds.eq(classe.getId())).list();
-            for (Student student : list
-                    ) {
-                NoteRecord noteRecord = new NoteRecord();
-                noteRecord.setId(UUID.randomUUID().toString());
-                noteRecord.setStatus(0);
-                noteRecord.setNoteId(note.getId());
-                noteRecord.setStudentId(student.getId());
-                noteRecord.setCreateDate(new Date(TimeUtil.getCurrentMillis()));
-                noteRecord.setUpdateDate(new Date(TimeUtil.getCurrentMillis()));
-                recordDao.insert(noteRecord);
+        if(classes.size()>0){
+            for (Classes classe : classes) {
+                List<Student> list = studentDao.queryBuilder().where(StudentDao.Properties.ClassIds.eq(classe.getId())).list();
+                for (Student student : list) {
+                    NoteRecord noteRecord = new NoteRecord();
+                    noteRecord.setId(UUID.randomUUID().toString());
+                    noteRecord.setStatus(0);
+                    noteRecord.setNoteId(note.getId());
+                    noteRecord.setStudentId(student.getId());
+                    noteRecord.setCreateDate(new Date(TimeUtil.getCurrentMillis()));
+                    noteRecord.setUpdateDate(new Date(TimeUtil.getCurrentMillis()));
+                    recordDao.insert(noteRecord);
+                }
+                note.setClassesId(classe.getId());
+                noteDao.insert(note);
             }
-            note.setClassesId(classe.getId());
-            noteDao.insert(note);
+            result.setCode(0);
+            result.setMsg("添加公告成功！");
+        }else{
+            result.setMsg("请先添加班级！");
         }
-
-        result.setCode(0);
-        result.setMsg("添加公告成功！");
         return result;
     }
 
@@ -218,6 +223,9 @@ public class AdmDbUtils {
      * @return
      */
     public static JsonEntity addClasses(Classes classes) {
+        classes.setId(UUID.randomUUID().toString());
+        classes.setCreateDate(new Date(TimeUtil.getCurrentMillis()));
+        classes.setUpdateDate(new Date(TimeUtil.getCurrentMillis()));
         JsonEntity result = new JsonEntity<>();
         ClassesDao classDao = Application.getDaoSession().getClassesDao();
         classDao.insert(classes);

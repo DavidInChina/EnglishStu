@@ -37,7 +37,7 @@
         android:background="@color/white"
         android:orientation="horizontal">
 
-        <ImageView
+        <bdkj.com.englishstu.common.widget.CircleImageView
             android:id="@+id/iv_left_img"
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -63,7 +63,7 @@
                 android:layout_marginLeft="@dimen/normal_10"
                 android:layout_marginRight="@dimen/normal_10"
                 android:layout_marginTop="@dimen/normal_5"
-                android:text="英语等级考试报名公告"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_size_18" />
 
@@ -78,7 +78,7 @@
                 android:layout_marginRight="@dimen/normal_10"
                 android:layout_marginTop="@dimen/normal_5"
                 android:lines="2"
-                android:text="查看查看查看查看查看查看查看查看查看查看查看查看查看查看查看查看查看查看查看查看"
+                android:text=""
                 android:textColor="@color/hint_grey"
                 android:textSize="@dimen/text_size_15" />
 
@@ -90,6 +90,7 @@
                 android:layout_marginRight="@dimen/normal_10">
 
                 <TextView
+                    android:id="@+id/tv_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
@@ -103,6 +104,7 @@
                     android:textSize="@dimen/text_size_18" />
 
                 <TextView
+                    android:id="@+id/tv_author"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"

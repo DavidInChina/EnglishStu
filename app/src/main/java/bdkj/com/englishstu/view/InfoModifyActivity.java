@@ -16,9 +16,13 @@ import java.util.ArrayList;
 
 import bdkj.com.englishstu.R;
 import bdkj.com.englishstu.base.Application;
+import bdkj.com.englishstu.base.JsonEntity;
 import bdkj.com.englishstu.base.baseView.BaseActivity;
 import bdkj.com.englishstu.common.beans.Admin;
+import bdkj.com.englishstu.common.dbinfo.AdmDbUtils;
+import bdkj.com.englishstu.common.tool.StringUtil;
 import bdkj.com.englishstu.common.tool.ToastUtil;
+import bdkj.com.englishstu.common.tool.VerificationUtils;
 import bdkj.com.englishstu.common.widget.CircleImageView;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -43,6 +47,7 @@ public class InfoModifyActivity extends BaseActivity {
     EditText etUserEmail;
 
     private String userHead = "";
+    private Admin admin;
 
     @Override
     protected int getViewId() {
@@ -60,14 +65,59 @@ public class InfoModifyActivity extends BaseActivity {
                 startActivityForResult(intent, 100);
                 break;
             case R.id.tv_confirm:
-                ToastUtil.show(mContext, "这里保存具体信息");
+                saveModify();
                 break;
             case R.id.btn_save:
-                ToastUtil.show(mContext, "这里保存具体信息");
+                saveModify();
                 break;
         }
     }
-
+    public void saveModify(){
+            if (!userHead.equals("")){
+                admin.setUserHead(userHead);
+            }else {
+                ToastUtil.show(mContext,"请选择用户头像！");
+                return;
+            }
+        if (VerificationUtils.matcherAccount(etUserAccount.getText().toString())){
+            admin.setUserAccount(etUserAccount.getText().toString());
+        }else{
+            ToastUtil.show(mContext,"用户登陆账号不合法！");
+            return;
+        }
+        if (VerificationUtils.matcherRealName(etUserName.getText().toString())){
+            admin.setUserName(etUserName.getText().toString());
+        }else{
+            ToastUtil.show(mContext,"用户名不合法！");
+            return;
+        }
+        if (!"".equals(etUserPassword.getText().toString())){
+            if (VerificationUtils.matcherPassword(etUserPassword.getText().toString())){
+                admin.setUserPassword(etUserPassword.getText().toString());
+            }else{
+                ToastUtil.show(mContext,"密码不合法！");
+                return;
+            }
+        }
+        if (VerificationUtils.matcherPhoneNum(etUserPhone.getText().toString())){
+            admin.setPhone(etUserPhone.getText().toString());
+        }else{
+            ToastUtil.show(mContext,"用户联系电话不合法！");
+            return;
+        }
+            if (VerificationUtils.matcherEmail(etUserEmail.getText().toString())){
+                admin.setEmail(etUserEmail.getText().toString());
+            }else{
+                ToastUtil.show(mContext,"用户邮箱不合法！");
+                return;
+            }
+        JsonEntity entity =AdmDbUtils.updateSelf(admin);
+        if (entity.getCode()==0){
+            ToastUtil.show(mContext,"个人信息修改成功！");
+            Application.setAdminInfo(mContext,admin);
+            finish();
+        }
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -86,16 +136,20 @@ public class InfoModifyActivity extends BaseActivity {
         tvTopTitle.setText("修改个人信息");
         tvConfirm.setText("保存");
         tvConfirm.setVisibility(View.VISIBLE);
-        civUserHead.setBorderWidth(2);
         civUserHead.setBorderColor(R.color.white);
+        civUserHead.setBorderWidth(2);
         initData();
     }
 
     public void initData() {
-        Admin admin = Application.getAdminInfo();
+        admin = Application.getAdminInfo();
         if (null == admin) {
             ToastUtil.show(mContext, "数据错误！");
             finish();
+        }
+        if (null!=admin.getUserHead()&&!"".equals(admin.getUserHead())){
+            userHead = admin.getUserHead();
+            Glide.with(mContext).load(admin.getUserHead()).into(civUserHead);
         }
         etUserAccount.setText(admin.getUserAccount());
         etUserAccount.setSelection(admin.getUserAccount().length());

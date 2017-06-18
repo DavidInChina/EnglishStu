@@ -108,11 +108,10 @@ class LoginActivity : FragmentActivity() {
         if (null != admin) {
             ToastUtil.show(mContext, admin.userAccount)
             etLoginAccount.setText(admin.userAccount)
-            etLoginPassword.setText(admin.userAccount)//这里关于密码加密的问题
+            etLoginPassword.setText(admin.userPassword)//这里关于密码加密的问题
             etLoginAccount.setSelection(admin.userAccount.length)
         }
-
-//        AdmDbUtils.adminInsert()
+        AdmDbUtils.adminInsert()
     }
 
     /**

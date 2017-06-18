@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import bdkj.com.englishstu.R;
 import bdkj.com.englishstu.base.Application;
 import bdkj.com.englishstu.base.baseView.BaseFragment;
@@ -60,7 +62,15 @@ public class AdSettingFragment extends BaseFragment {
 
     @Override
     public void initView(ViewGroup parent) {
+        civUserHead.setBorderColor(R.color.white);
+        civUserHead.setBorderWidth(2);
         initData();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initData();//更新信息
     }
 
     public void initData() {
@@ -69,7 +79,9 @@ public class AdSettingFragment extends BaseFragment {
             ToastUtil.show(mContext, "数据错误！");
             getActivity().finish();
         }
-        civUserHead.setImageDrawable(mContext.getDrawable(R.mipmap.ic_launcher));
+        if (null!=admin.getUserHead()&&!"".equals(admin.getUserHead())){
+            Glide.with(mContext).load(admin.getUserHead()).into(civUserHead);
+        }
         tvSettingName.setText("姓名：" + admin.getUserName());
         tvUserNumber.setText("编号：" + admin.getUserAccount());
         tvUserAccount.setText(admin.getUserAccount());
@@ -77,17 +89,5 @@ public class AdSettingFragment extends BaseFragment {
         tvUserEmail.setText(admin.getEmail());
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
 }

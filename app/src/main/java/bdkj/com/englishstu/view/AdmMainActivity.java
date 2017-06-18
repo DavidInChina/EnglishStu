@@ -11,6 +11,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -51,6 +53,10 @@ public class AdmMainActivity extends BaseActivity {
     RadioGroup rgMenuLeft;
     @BindView(R.id.tv_user_number)
     TextView tvUserNumber;
+    @BindView(R.id.iv_search_notice)
+    ImageView ivSearchNotice;
+    @BindView(R.id.iv_edit_notice)
+    ImageView ivEditNotice;
     private Map<String, Fragment> fragmentMap = new HashMap<>();
     private Admin admin;
 
@@ -79,6 +85,7 @@ public class AdmMainActivity extends BaseActivity {
             ToastUtil.show(mContext, "获取用户信息失败！");
             finish();
         }
+        Glide.with(mContext).load(admin.getUserHead()).into(ivTopHead);
         tvUserName.setText("姓名：" + admin.getUserName());
         tvUserNumber.setText("编号：" + admin.getUserAccount());
     }
@@ -149,6 +156,13 @@ public class AdmMainActivity extends BaseActivity {
             }
             transaction.replace(R.id.fragmentView, fragmentMap.get(tag));
             currentType = tag;
+            if (currentType.equals(TYPE_SETTING)){
+                ivSearchNotice.setVisibility(View.INVISIBLE);
+                ivEditNotice.setVisibility(View.INVISIBLE);
+            }else{
+                ivSearchNotice.setVisibility(View.VISIBLE);
+                ivEditNotice.setVisibility(View.VISIBLE);
+            }
             transaction.commit();
         }
 
@@ -158,9 +172,30 @@ public class AdmMainActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_search_notice:
+                switch (currentType) {
+                    case TYPE_NOTICE:
+                        break;
+                    case TYPE_CLASS:
+                        break;
+                    case TYPE_TEACHER:
+                        break;
+                    case TYPE_STUDENT:
+                        break;
+                }
                 break;
             case R.id.iv_edit_notice:
-                IntentUtil.launcher(mContext, EditNoticeActivity.class);
+                switch (currentType) {
+                    case TYPE_NOTICE:
+                        IntentUtil.launcher(mContext, EditNoticeActivity.class);
+                        break;
+                    case TYPE_CLASS:
+                        IntentUtil.launcher(mContext, EditClassActivity.class);
+                        break;
+                    case TYPE_TEACHER:
+                        break;
+                    case TYPE_STUDENT:
+                        break;
+                }
                 break;
         }
     }

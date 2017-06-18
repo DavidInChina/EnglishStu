@@ -3,11 +3,19 @@ package bdkj.com.englishstu.view;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import bdkj.com.englishstu.R;
+import bdkj.com.englishstu.base.Application;
+import bdkj.com.englishstu.base.JsonEntity;
 import bdkj.com.englishstu.base.baseView.BaseActivity;
+import bdkj.com.englishstu.common.beans.Admin;
+import bdkj.com.englishstu.common.beans.Note;
+import bdkj.com.englishstu.common.dbinfo.AdmDbUtils;
+import bdkj.com.englishstu.common.tool.ToastUtil;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class EditNoticeActivity extends BaseActivity {
@@ -16,8 +24,14 @@ public class EditNoticeActivity extends BaseActivity {
     TextView tvTopTitle;
     @BindView(R.id.tv_confirm)
     TextView tvConfirm;
-    @BindView(R.id.btnLogin)
-    Button btnConfirm;
+    @BindView(R.id.btn_save)
+    Button btnSave;
+    @BindView(R.id.et_note_title)
+    EditText etNoteTitle;
+    @BindView(R.id.et_note_content)
+    EditText etNoteContent;
+
+    private Admin admin;
 
     @Override
     protected int getViewId() {
@@ -26,26 +40,60 @@ public class EditNoticeActivity extends BaseActivity {
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
+        admin = Application.getAdminInfo();
         initWeight();
     }
 
     public void initWeight() {
         tvTopTitle.setText("发布通知");
         tvConfirm.setText("保存");
-        btnConfirm.setText("保存");
+        btnSave.setText("保存");
         tvConfirm.setVisibility(View.VISIBLE);
     }
 
-    @OnClick({R.id.iv_back, R.id.tv_confirm, R.id.btnLogin})
+    @OnClick({R.id.iv_back, R.id.tv_confirm, R.id.btn_save})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
                 finish();
                 break;
             case R.id.tv_confirm:
+                saveNotice();
                 break;
-            case R.id.btnLogin:
+            case R.id.btn_save:
+                saveNotice();
                 break;
         }
+    }
+
+    public void saveNotice() {
+        Note note = new Note();
+        note.setAuthorId(admin.getId());
+        note.setAuthorName(admin.getUserName());
+        note.setImg(admin.getUserHead());
+        if (!"".equals(etNoteTitle.getText().toString())){
+            note.setTitle(etNoteTitle.getText().toString());
+        }else{
+            ToastUtil.show(mContext,"标题不为空！");
+            return;
+        }
+        if (!"".equals(etNoteContent.getText().toString())){
+            note.setContent(etNoteContent.getText().toString());
+        }else{
+            ToastUtil.show(mContext,"内容不为空！");
+            return;
+        }
+        JsonEntity result = AdmDbUtils.addNote(note);
+        if (result.getCode() == 0){
+            ToastUtil.show(mContext,"添加通知成功！");
+            finish();
+        }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }
