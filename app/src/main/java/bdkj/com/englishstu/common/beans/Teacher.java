@@ -19,7 +19,7 @@ public class Teacher {
     private String id;
 
     @NotNull
-    private String classIds;
+    private String classIds;//多个值
     private String userName;
     private String number;//工号
     private String userHead;

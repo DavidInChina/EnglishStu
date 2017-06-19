@@ -20,6 +20,7 @@ import bdkj.com.englishstu.common.beans.Student;
 import bdkj.com.englishstu.common.beans.StudentDao;
 import bdkj.com.englishstu.common.beans.Teacher;
 import bdkj.com.englishstu.common.beans.TeacherDao;
+import bdkj.com.englishstu.common.beans.TestDao;
 import bdkj.com.englishstu.common.tool.MD5Util;
 import bdkj.com.englishstu.common.tool.TimeUtil;
 
@@ -99,7 +100,7 @@ public class AdmDbUtils {
     public static JsonEntity noteList(String adminId) {
         JsonEntity<List<Note>> result = new JsonEntity<>();
         NoteDao noteDao = Application.getDaoSession().getNoteDao();
-        List<Note> list = noteDao.queryBuilder().build().list();
+        List<Note> list = noteDao.queryBuilder().orderDesc(NoteDao.Properties.CreateDate).build().list();
 //                .where(NoteDao.Properties.AuthorId.eq(adminId)).build().list();
         Logger.d(list.size()+"");
         result.setCode(0);
@@ -242,7 +243,15 @@ public class AdmDbUtils {
     public static JsonEntity classList() {
         JsonEntity<List<Classes>> result = new JsonEntity<>();
         ClassesDao classDao = Application.getDaoSession().getClassesDao();
-        List<Classes> list = classDao.queryBuilder().build().list();
+        TeacherDao teacherDao = Application.getDaoSession().getTeacherDao();
+        StudentDao studentDao = Application.getDaoSession().getStudentDao();
+        TestDao testDao = Application.getDaoSession().getTestDao();
+        List<Classes> list = classDao.queryBuilder().orderDesc(ClassesDao.Properties.UpdateDate).build().list();
+        for (Classes c:list) {
+                c.setTeacherNumber(teacherDao.queryBuilder().where(TeacherDao.Properties.ClassIds.like(c.getId())).build().list().size());//教师所在班级包括当前班级
+                c.setClassNumber(studentDao.queryBuilder().where(StudentDao.Properties.ClassIds.eq(c.getId())).build().list().size());
+                c.setTestNumber(testDao.queryBuilder().where(TestDao.Properties.ClassId.eq(c.getId())).build().list().size());
+        }
         result.setCode(0);
         result.setData(list);
         result.setMsg("获取列表成功！");
@@ -289,7 +298,7 @@ public class AdmDbUtils {
     public static JsonEntity deleteClasses(String classId) {
         JsonEntity result = new JsonEntity<>();
         ClassesDao noteDao = Application.getDaoSession().getClassesDao();
-        Classes noteItem = noteDao.queryBuilder().build().unique();
+        Classes noteItem = noteDao.queryBuilder().where(ClassesDao.Properties.Id.eq(classId)).build().unique();
         if (null != noteItem) {
             StudentDao studentDao = Application.getDaoSession().getStudentDao();
             List<Student> recordList = studentDao.queryBuilder().where(StudentDao.Properties.ClassIds.eq(noteItem.getId()))

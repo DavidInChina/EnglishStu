@@ -19,7 +19,7 @@ public class Student {
     private String id;
 
     @NotNull
-    private String classIds;
+    private String classIds;//单个班级id
     private String userName;
     private String number;
     private String userHead;

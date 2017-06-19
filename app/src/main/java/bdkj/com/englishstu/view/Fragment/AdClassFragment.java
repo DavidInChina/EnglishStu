@@ -6,13 +6,18 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.orhanobut.logger.Logger;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import bdkj.com.englishstu.R;
+import bdkj.com.englishstu.base.JsonEntity;
 import bdkj.com.englishstu.base.baseView.BaseFragment;
 import bdkj.com.englishstu.common.adapter.ClassAdapter;
 import bdkj.com.englishstu.common.beans.Classes;
+import bdkj.com.englishstu.common.beans.Note;
+import bdkj.com.englishstu.common.dbinfo.AdmDbUtils;
 import bdkj.com.englishstu.common.divider.RecDivider;
 import bdkj.com.englishstu.common.tool.ToastUtil;
 import bdkj.com.englishstu.xrecyclerview.ProgressStyle;
@@ -47,15 +52,20 @@ public class AdClassFragment extends BaseFragment implements RecycleItemClickLis
         recyclerView.setRefreshProgressStyle(ProgressStyle.Pacman);
         recyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
         recyclerView.setArrowImageView(R.mipmap.iconfont_downgrey);
-        recyclerView.setLoadingMoreEnabled(true);
+        recyclerView.setLoadingMoreEnabled(false);
         listData = new ArrayList<Classes>();
         recyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
                 listData.clear();
-                recyclerView.setLoadingMoreEnabled(true);
-                for (int i = 0; i < 10; i++) {
-                    listData.add(new Classes());
+                JsonEntity entity = AdmDbUtils.classList();
+                if (entity.getCode()==0){
+                    Logger.d(entity.getData());
+                    for (Classes classes : (List<Classes>)entity.getData()) {
+                        listData.add(classes);
+                    }
+                }else{
+                    ToastUtil.show(mContext,entity.getMsg());
                 }
                 mAdapter.notifyDataSetChanged();
                 recyclerView.refreshComplete();
@@ -63,16 +73,6 @@ public class AdClassFragment extends BaseFragment implements RecycleItemClickLis
 
             @Override
             public void onLoadMore() {
-                if (listData.size() < 40) {
-                    for (int i = 0; i < 10; i++) {
-                        listData.add(new Classes());
-                    }
-                    mAdapter.notifyDataSetChanged();
-                    recyclerView.loadMoreComplete();
-                } else {
-                    recyclerView.loadMoreComplete();
-                    recyclerView.setLoadingMoreEnabled(false);
-                }
             }
         });
         mAdapter = new ClassAdapter(mContext, (ArrayList<Classes>) listData);
@@ -84,6 +84,6 @@ public class AdClassFragment extends BaseFragment implements RecycleItemClickLis
 
     @Override
     public void onItemClick(View view, int postion) {
-        ToastUtil.show(mContext, "点击了第" + postion + "项");
+//        ToastUtil.show(mContext, "点击了第" + postion + "项");
     }
 }

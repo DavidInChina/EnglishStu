@@ -109,7 +109,6 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
                 Note note1 = (Note) v.getTag();
                JsonEntity entity =  AdmDbUtils.deleteNote(note1.getId());
                 if (entity.getCode()==0){
-                    ToastUtil.show(mContext,"删除公告成功！");
                     noteList.remove(note1);
                     notifyDataSetChanged();
                 }else{

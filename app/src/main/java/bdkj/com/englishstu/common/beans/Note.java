@@ -34,6 +34,7 @@ public class Note  implements Serializable{
     private Date createDate;
     @Transient
     private int status;//记录状态，0未读，1已读
+    @Transient
     private String recordId;//对应的记录id
 
     public String getRecordId() {
@@ -52,10 +53,10 @@ public class Note  implements Serializable{
         this.status = status;
     }
 
-    @Generated(hash = 130003114)
+    @Generated(hash = 1330986593)
     public Note(@NotNull String id, @NotNull String authorId, String classesId,
             String authorName, String img, String title, String content,
-            Date updateDate, Date createDate, String recordId) {
+            Date updateDate, Date createDate) {
         this.id = id;
         this.authorId = authorId;
         this.classesId = classesId;
@@ -65,7 +66,6 @@ public class Note  implements Serializable{
         this.content = content;
         this.updateDate = updateDate;
         this.createDate = createDate;
-        this.recordId = recordId;
     }
 
     @Generated(hash = 1272611929)
