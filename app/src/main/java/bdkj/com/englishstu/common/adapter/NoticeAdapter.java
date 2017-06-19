@@ -11,11 +11,16 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.orhanobut.logger.Logger;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
 import bdkj.com.englishstu.R;
+import bdkj.com.englishstu.base.JsonEntity;
 import bdkj.com.englishstu.common.beans.Note;
+import bdkj.com.englishstu.common.dbinfo.AdmDbUtils;
+import bdkj.com.englishstu.common.tool.TimeUtil;
+import bdkj.com.englishstu.common.tool.ToastUtil;
 import bdkj.com.englishstu.swipeitem.widget.SwipeItemLayout;
 import bdkj.com.englishstu.xrecyclerview.viewholder.BaseViewHolder;
 import bdkj.com.englishstu.xrecyclerview.viewholder.RecycleItemClickListener;
@@ -71,7 +76,7 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
         holder.tvContent.setText(note.getContent());
         Glide.with(mContext).load(note.getImg()).into(holder.ivLeftImg);
         holder.tvAuthor.setText("发布人："+note.getAuthorName());
-        holder.tvTime.setText("发布日期："+note.getUpdateDate().toString());
+        holder.tvTime.setText("发布日期："+TimeUtil.date2String(note.getUpdateDate()));
         if (note.getStatus()==0){
             holder.tvRightStatus.setVisibility(View.VISIBLE);
             holder.tvRightStatus2.setVisibility(View.INVISIBLE);
@@ -94,6 +99,22 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
 
             @Override
             public void onSwipeItemLayoutStartOpen(SwipeItemLayout swipeItemLayout) {
+                closeOpenedSwipeItemLayoutWithAnim();
+            }
+        });
+        holder.itemContactDelete.setTag(note);
+        holder.itemContactDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Note note1 = (Note) v.getTag();
+               JsonEntity entity =  AdmDbUtils.deleteNote(note1.getId());
+                if (entity.getCode()==0){
+                    ToastUtil.show(mContext,"删除公告成功！");
+                    noteList.remove(note1);
+                    notifyDataSetChanged();
+                }else{
+                    ToastUtil.show(mContext,entity.getMsg());
+                }
                 closeOpenedSwipeItemLayoutWithAnim();
             }
         });

@@ -199,8 +199,8 @@ public class AdmDbUtils {
     public static JsonEntity deleteNote(String noteId) {
         JsonEntity result = new JsonEntity<>();
         NoteDao noteDao = Application.getDaoSession().getNoteDao();
-        Note noteItem = noteDao.queryBuilder().build().unique();
-        if (noteItem.getId().equals(noteId)) {
+        Note noteItem = noteDao.queryBuilder().where(NoteDao.Properties.Id.eq(noteId)).build().unique();
+        if (null!=noteItem) {
             NoteRecordDao noteRecordDao = Application.getDaoSession().getNoteRecordDao();
             List<NoteRecord> recordList = noteRecordDao.queryBuilder().where(NoteRecordDao.Properties.NoteId.eq(noteItem.getId()))
                     .build().list();

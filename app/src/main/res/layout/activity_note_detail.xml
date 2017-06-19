@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="bdkj.com.englishstu.view.EditClassActivity">
+
+    <include layout="@layout/action_top_normal" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/tv_note_title"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/normal_10"
+        android:text="通知标题"
+        android:padding="@dimen/normal_5"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_18" />
+<RelativeLayout
+    android:layout_width="380dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+    <TextView
+        android:id="@+id/tv_note_author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:text="发布人：胡汉三"
+        android:padding="@dimen/normal_5"
+        android:textColor="@color/hint_grey"
+        android:textSize="@dimen/text_size_15" />
+    <TextView
+        android:id="@+id/tv_note_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="发布日期：2017-7-7"
+        android:padding="@dimen/normal_5"
+        android:textColor="@color/hint_grey"
+        android:textSize="@dimen/text_size_15" />
+</RelativeLayout>
+    <TextView
+        android:id="@+id/tv_note_content"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="left|top"
+        android:minLines="5"
+        android:layout_marginTop="@dimen/regular_dimen_x15"
+        android:text="通知内容通知内容"
+        android:padding="@dimen/normal_5"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_16" />
+    <View
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:layout_weight="1.8" />
+</LinearLayout>

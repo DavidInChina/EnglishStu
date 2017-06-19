@@ -27,6 +27,14 @@ public class TimeUtil {
         return format.format(date);
     }
     /**
+     * Date 转日期
+     */
+    public  static String date2String(Date date){
+        String result = "";
+        result=(new SimpleDateFormat("yyyy-MM-dd")).format(date);
+        return  result;
+    }
+    /**
      * @return 返回当前毫秒数转换后的字符串
      */
     public static String getCurrentTimeInString() {

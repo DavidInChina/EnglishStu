@@ -1,6 +1,8 @@
 package bdkj.com.englishstu.view.Fragment;
 
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
@@ -20,7 +22,9 @@ import bdkj.com.englishstu.common.beans.Admin;
 import bdkj.com.englishstu.common.beans.Note;
 import bdkj.com.englishstu.common.dbinfo.AdmDbUtils;
 import bdkj.com.englishstu.common.divider.RecDivider;
+import bdkj.com.englishstu.common.tool.IntentUtil;
 import bdkj.com.englishstu.common.tool.ToastUtil;
+import bdkj.com.englishstu.view.NoteDetailActivity;
 import bdkj.com.englishstu.xrecyclerview.viewholder.RecycleItemClickListener;
 import bdkj.com.englishstu.xrecyclerview.ProgressStyle;
 import bdkj.com.englishstu.xrecyclerview.XRecyclerView;
@@ -86,6 +90,9 @@ public class AdNoticeFragment extends BaseFragment implements RecycleItemClickLi
 
     @Override
     public void onItemClick(View view, int postion) {
-        ToastUtil.show(mContext, "点击了第" + postion + "项");
+        Note note = (Note) view.getTag();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("note",note);
+        IntentUtil.launcher(mContext, NoteDetailActivity.class,bundle);
     }
 }
