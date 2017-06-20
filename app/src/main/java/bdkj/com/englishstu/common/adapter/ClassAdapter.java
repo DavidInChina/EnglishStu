@@ -77,7 +77,7 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> 
         holder.tvClassNumber.setText("班级人数："+classes.getClassNumber()+"人");
         holder.tvClassTeachers.setText("任课教师："+classes.getTeacherNumber()+"人");
         holder.tvTestNumber.setText("近期考试："+classes.getTestNumber()+"场");
-        holder.tvRightStatus.setVisibility(View.INVISIBLE);
+        holder.tvRightStatus.setVisibility(View.VISIBLE);
         holder.tvRightStatus2.setVisibility(View.INVISIBLE);
         SwipeItemLayout swipeRoot = holder.itemContactSwipeRoot;
         swipeRoot.setDelegate(new SwipeItemLayout.SwipeItemLayoutDelegate() {

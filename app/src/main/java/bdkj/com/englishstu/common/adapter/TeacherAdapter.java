@@ -5,23 +5,32 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import bdkj.com.englishstu.R;
+import bdkj.com.englishstu.base.JsonEntity;
+import bdkj.com.englishstu.common.beans.Classes;
 import bdkj.com.englishstu.common.beans.Teacher;
+import bdkj.com.englishstu.common.dbinfo.AdmDbUtils;
+import bdkj.com.englishstu.common.tool.ToastUtil;
 import bdkj.com.englishstu.swipeitem.widget.SwipeItemLayout;
 import bdkj.com.englishstu.xrecyclerview.viewholder.BaseViewHolder;
 import bdkj.com.englishstu.xrecyclerview.viewholder.RecycleItemClickListener;
 import bdkj.com.englishstu.xrecyclerview.viewholder.RecycleItemLongClickListener;
+import butterknife.BindView;
 
 /**
  * Created by davidinchina on 2017/6/6.
  */
 
 public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.ViewHolder> {
+
     private List<Teacher> noteList = null;
     private Context mContext;
     public RecycleItemClickListener clickListener;
@@ -56,16 +65,23 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_teacher_layout, parent, false);
-        return new TeacherAdapter.ViewHolder(view, clickListener, longClickListener);
+        return new ViewHolder(view, clickListener, longClickListener);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final Teacher note = noteList.get(position);
+        final Teacher teacher = noteList.get(position);
         SwipeItemLayout swipeRoot = holder.itemContactSwipeRoot;
-        if (position % 2 == 0) {
-            swipeRoot.setSwipeAble(false);//设置不可删除
+        Glide.with(mContext).load(teacher.getUserHead()).into(holder.ivLeftImg);
+       holder.tvTeacherName.setText(teacher.getUserName());
+        holder.tvTeacherNumber.setText("教师编号："+teacher.getNumber());
+        holder.tvTeacherPhone.setText("手机号码："+teacher.getPhone());
+        holder.tvTeacherEmail.setText("邮箱地址："+teacher.getEmail());
+        int classNum =0;
+        if (null!=teacher.getClassIds()&&!"".equals(teacher.getClassIds())){
+            classNum =  teacher.getClassIds().split(",").length;
         }
+        holder.tvTeacherClasses.setText("任课班级："+classNum+"个");
         swipeRoot.setDelegate(new SwipeItemLayout.SwipeItemLayoutDelegate() {
             @Override
             public void onSwipeItemLayoutOpened(SwipeItemLayout swipeItemLayout) {
@@ -83,7 +99,22 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.ViewHold
                 closeOpenedSwipeItemLayoutWithAnim();
             }
         });
-        holder.baseView.setTag(note);
+        holder.itemContactDelete.setTag(teacher);
+        holder.itemContactDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Teacher teacher1 = (Teacher) v.getTag();
+                JsonEntity entity =  AdmDbUtils.deleteTeacher(teacher1.getId());
+                if (entity.getCode()==0){
+                    noteList.remove(teacher1);
+                    notifyDataSetChanged();
+                }else{
+                    ToastUtil.show(mContext,entity.getMsg());
+                }
+                closeOpenedSwipeItemLayoutWithAnim();
+            }
+        });
+        holder.baseView.setTag(teacher);
     }
 
     public void closeOpenedSwipeItemLayoutWithAnim() {
@@ -100,6 +131,13 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.ViewHold
 
     //自定义的ViewHolder，持有每个Item的的所有界面元素
     public static class ViewHolder extends BaseViewHolder {
+        ImageView ivLeftImg;
+        TextView tvTeacherName;
+        TextView tvTeacherNumber;
+        TextView tvTeacherPhone;
+        TextView tvTeacherEmail;
+        TextView tvTeacherClasses;
+
         TextView itemContactDelete;
         SwipeItemLayout itemContactSwipeRoot;
         public View baseView;
@@ -117,6 +155,12 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.ViewHold
             baseView = view;
             itemContactDelete = (TextView) view.findViewById(R.id.item_contact_delete);
             itemContactSwipeRoot = (SwipeItemLayout) view.findViewById(R.id.item_contact_swipe_root);
+            ivLeftImg = (ImageView) view.findViewById(R.id.iv_left_img);
+            tvTeacherName = (TextView) view.findViewById(R.id.tv_teacher_name);
+            tvTeacherNumber = (TextView) view.findViewById(R.id.tv_teacher_number);
+            tvTeacherPhone = (TextView) view.findViewById(R.id.tv_teacher_phone);
+            tvTeacherEmail = (TextView) view.findViewById(R.id.tv_teacher_email);
+            tvTeacherClasses = (TextView) view.findViewById(R.id.tv_teacher_classes);
         }
     }
 }

@@ -358,7 +358,7 @@ public class AdmDbUtils {
     public static JsonEntity teacherList() {
         JsonEntity<List<Teacher>> result = new JsonEntity<>();
         TeacherDao classDao = Application.getDaoSession().getTeacherDao();
-        List<Teacher> list = classDao.queryBuilder().build().list();
+        List<Teacher> list = classDao.queryBuilder().orderDesc(TeacherDao.Properties.CreateDate).build().list();
         result.setCode(0);
         result.setData(list);
         result.setMsg("获取列表成功！");
@@ -405,6 +405,7 @@ public class AdmDbUtils {
     public static JsonEntity deleteTeacher(String teacherId) {
         JsonEntity result = new JsonEntity<>();
         TeacherDao teacherDao = Application.getDaoSession().getTeacherDao();
+        //这里应该还要添加教师删除内容的判定，如关于题库部分的教师信息等
         Teacher noteItem = teacherDao.queryBuilder().build().unique();
         if (null != noteItem) {
             teacherDao.delete(noteItem);
