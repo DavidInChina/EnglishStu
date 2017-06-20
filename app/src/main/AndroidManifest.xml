@@ -53,7 +53,10 @@
         <activity
             android:name=".view.EditClassActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".view.NoteDetailActivity"></activity>
+        <activity android:name=".view.NoteDetailActivity" />
+        <activity
+            android:name=".view.EditTeacherActivity"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>

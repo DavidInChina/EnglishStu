@@ -22,6 +22,7 @@ import bdkj.com.englishstu.common.beans.Teacher;
 import bdkj.com.englishstu.common.beans.TeacherDao;
 import bdkj.com.englishstu.common.beans.TestDao;
 import bdkj.com.englishstu.common.tool.MD5Util;
+import bdkj.com.englishstu.common.tool.NumberFactory;
 import bdkj.com.englishstu.common.tool.TimeUtil;
 
 /**
@@ -323,9 +324,27 @@ public class AdmDbUtils {
      * @return
      */
     public static JsonEntity addTeacher(Teacher teacher) {
+        teacher.setId(UUID.randomUUID().toString());
+        teacher.setCreateDate(new Date(TimeUtil.getCurrentMillis()));
+        teacher.setUpdateDate(new Date(TimeUtil.getCurrentMillis()));
+        TeacherDao teacherDao = Application.getDaoSession().getTeacherDao();
         JsonEntity result = new JsonEntity<>();
-        TeacherDao classDao = Application.getDaoSession().getTeacherDao();
-        classDao.insert(teacher);
+        teacherDao.insert(teacher);
+        result.setCode(0);
+        result.setMsg("添加教师成功！");
+        return result;
+    }
+    public static JsonEntity getMaxNumber() {
+        String number ="";
+        TeacherDao teacherDao = Application.getDaoSession().getTeacherDao();
+        List<Teacher> teachers = teacherDao.queryBuilder().orderDesc(TeacherDao.Properties.CreateDate).build().list();
+        if (null==teachers||teachers.size()==0){
+             number = NumberFactory.getNumber(null);
+        }else{
+            number = NumberFactory.getNumber(teachers.get(0).getNumber());//第一位教师
+        }
+        JsonEntity result = new JsonEntity<>();
+        result.setData(number);
         result.setCode(0);
         result.setMsg("添加教师成功！");
         return result;

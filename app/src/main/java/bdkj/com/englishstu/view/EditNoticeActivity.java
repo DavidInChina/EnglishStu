@@ -87,13 +87,9 @@ public class EditNoticeActivity extends BaseActivity {
         if (result.getCode() == 0){
             ToastUtil.show(mContext,"添加通知成功！");
             finish();
+        }else{
+            ToastUtil.show(mContext,result.getMsg());
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }

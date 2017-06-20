@@ -66,7 +66,7 @@ public class VerificationUtils {
      * @return the boolean
      */
     public static boolean matcherPassword(String value) {
-        String regex = "^[a-zA-Z0-9]{6,12}$";
+        String regex = "^[a-zA-Z0-9]{6,18}$";
         return testRegex(regex, value);
     }
 

@@ -98,6 +98,8 @@ public class InfoModifyActivity extends BaseActivity {
                 ToastUtil.show(mContext,"密码不合法！");
                 return;
             }
+        }else{
+            ToastUtil.show(mContext,"密码不合法！");
         }
         if (VerificationUtils.matcherPhoneNum(etUserPhone.getText().toString())){
             admin.setPhone(etUserPhone.getText().toString());
