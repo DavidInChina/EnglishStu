@@ -55,6 +55,7 @@ dependencies {
     compile 'com.orhanobut:logger:1.15'
     compile 'com.android.support:design:25.3.1'
     testCompile 'junit:junit:4.12'
+    compile 'com.davidecirillo.multichoicerecyclerview:multichoicerecyclerview:2.0.0'
 }
 repositories {
     mavenCentral()
