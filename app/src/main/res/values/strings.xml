@@ -3,7 +3,7 @@
     <string name="login_top">用户登录</string>
     <string name="login_account_hint">账号</string>
     <string name="login_password_hint">密码</string>
-    <string name="login_choose_identify">身份</string>
+    <string name="login_choose_identify">管理员</string>
     <string name="login_button">登录</string>
 
     <!-- TODO: Remove or change this placeholder text -->

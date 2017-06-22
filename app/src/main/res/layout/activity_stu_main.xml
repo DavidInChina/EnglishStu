@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="欢迎来到主页,这里是fragment容器"
+            android:text="欢迎来到学生主页,这里是fragment容器"
             android:textColor="@color/black"
             android:textSize="@dimen/text_size_25" />
     </FrameLayout>

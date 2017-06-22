@@ -7,10 +7,7 @@ import android.support.v4.app.FragmentActivity
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
-import android.widget.EditText
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
 import bdkj.com.englishstu.R
 import bdkj.com.englishstu.R.layout.activity_login
 import bdkj.com.englishstu.base.Application
@@ -18,10 +15,13 @@ import bdkj.com.englishstu.common.beans.Admin
 import bdkj.com.englishstu.common.dbinfo.AdmDbUtils
 import bdkj.com.englishstu.common.tool.IntentUtil
 import bdkj.com.englishstu.common.tool.ToastUtil
+import bdkj.com.englishstu.selector.ChooseData
+import bdkj.com.englishstu.selector.SelectPopWindow
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
 import icepick.Icepick
+import java.util.ArrayList
 
 class LoginActivity : FragmentActivity() {
     @BindView(R.id.btnLogin)
@@ -34,20 +34,24 @@ class LoginActivity : FragmentActivity() {
     lateinit var reLeft: RelativeLayout
     @BindView(R.id.tv_forget_ps)
     lateinit var tvForgetPs: TextView
+    @BindView(R.id.mBottom)
+    lateinit var mButton: View
+    @BindView(R.id.tv_identify_choose)
+    lateinit var tvIdentifyChoose: TextView
     lateinit var mContext: Context
 
     lateinit var account: String
     lateinit var password: String
-    var identify: Int = 0//0管理员，1老师，2学生，默认管理员
+    var identify: String = "0"//0管理员，1老师，2学生，默认管理员
 
     @OnClick(R.id.btnLogin)
     internal fun login() {
         account = etLoginAccount.text.toString()
         password = etLoginPassword.text.toString()
         if ("" != account) {
-            if (password.length in 6..10) {
+            if (password.length in 6..18) {
                 when (identify) {
-                    0 -> {
+                    "0" -> {
                         val result = AdmDbUtils.adminLogin(account, password)
                         ToastUtil.show(mContext, result.msg)
                         if (result.code == 0) {
@@ -57,7 +61,7 @@ class LoginActivity : FragmentActivity() {
                             }
                         }
                     }
-                    1 -> {
+                    "1" -> {
                         val result = AdmDbUtils.adminLogin(account, password)
                         ToastUtil.show(mContext, result.msg)
                         if (result.code == 0) {
@@ -65,7 +69,7 @@ class LoginActivity : FragmentActivity() {
                             finish()
                         }
                     }
-                    2 -> {
+                    "2" -> {
                         val result = AdmDbUtils.adminLogin(account, password)
                         ToastUtil.show(mContext, result.msg)
                         if (result.code == 0) {
@@ -83,9 +87,25 @@ class LoginActivity : FragmentActivity() {
         }
     }
 
+    private val identifies = ArrayList<ChooseData>()
     @OnClick(R.id.rl_left)
     internal fun chooseIdentify() {
-        ToastUtil.show(mContext, "选择身份")
+
+            SelectPopWindow.Builder(this)
+                    .setNameArray(identifies)
+                    .setSIngleChoose(true)
+                    .setConfirmListener { selectedList ->
+                        if (selectedList.size>0){
+                            ToastUtil.show(mContext, selectedList[0].showText)
+                            identify =  selectedList[0].chooseDate
+                            tvIdentifyChoose.text = selectedList[0].showText
+                        }
+                        }
+                    .setCancel("取消")
+                    .setConfirm("完成")
+                    .setTitle("班级列表")
+                    .build()
+                    .show(mButton)
     }
 
     @SuppressLint("SetTextI18n")
@@ -95,9 +115,14 @@ class LoginActivity : FragmentActivity() {
         ButterKnife.bind(this)
         mContext = this
         initViews()
+        initChoose()
         Icepick.restoreInstanceState(this, savedInstanceState)
     }
-
+    fun initChoose(){
+        identifies.add(ChooseData("管理员", "0", false))
+        identifies.add(ChooseData("教师用户", "1", false))
+        identifies.add(ChooseData("学生用户", "2", false))
+    }
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
         Icepick.saveInstanceState(this, outState)

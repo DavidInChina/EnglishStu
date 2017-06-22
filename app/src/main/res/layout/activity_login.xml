@@ -115,5 +115,9 @@
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_20" />
     </RelativeLayout>
-
+    <View
+        android:id="@+id/mBottom"
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
 </FrameLayout>
