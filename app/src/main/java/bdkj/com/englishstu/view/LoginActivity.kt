@@ -7,12 +7,19 @@ import android.support.v4.app.FragmentActivity
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.RelativeLayout
+import android.widget.TextView
 import bdkj.com.englishstu.R
 import bdkj.com.englishstu.R.layout.activity_login
 import bdkj.com.englishstu.base.Application
 import bdkj.com.englishstu.common.beans.Admin
+import bdkj.com.englishstu.common.beans.Student
+import bdkj.com.englishstu.common.beans.Teacher
 import bdkj.com.englishstu.common.dbinfo.AdmDbUtils
+import bdkj.com.englishstu.common.dbinfo.StuDbUtils
+import bdkj.com.englishstu.common.dbinfo.TeaDbUtils
 import bdkj.com.englishstu.common.tool.IntentUtil
 import bdkj.com.englishstu.common.tool.ToastUtil
 import bdkj.com.englishstu.selector.ChooseData
@@ -21,7 +28,7 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
 import icepick.Icepick
-import java.util.ArrayList
+import java.util.*
 
 class LoginActivity : FragmentActivity() {
     @BindView(R.id.btnLogin)
@@ -62,19 +69,24 @@ class LoginActivity : FragmentActivity() {
                         }
                     }
                     "1" -> {
-                        val result = AdmDbUtils.adminLogin(account, password)
+                        val result = TeaDbUtils.teaLogin(account, password)
                         ToastUtil.show(mContext, result.msg)
                         if (result.code == 0) {
-                            IntentUtil.launcher(mContext, TeaMainActivity::class.java)
-                            finish()
+                            if (Application.setTeacherInfo(mContext, (result.data as Teacher?))) {
+                                IntentUtil.launcher(mContext, TeaMainActivity::class.java)
+                                finish()
+                            }
                         }
                     }
                     "2" -> {
-                        val result = AdmDbUtils.adminLogin(account, password)
+                        val result = StuDbUtils.stuLogin(account, password)
                         ToastUtil.show(mContext, result.msg)
                         if (result.code == 0) {
-                            IntentUtil.launcher(mContext, StuMainActivity::class.java)
-                            finish()
+                            if (Application.setStudentInfo(mContext, (result.data as Student?))) {
+                                IntentUtil.launcher(mContext, StuMainActivity::class.java)
+                                finish()
+                            }
+
                         }
                     }
                 }
@@ -91,21 +103,22 @@ class LoginActivity : FragmentActivity() {
     @OnClick(R.id.rl_left)
     internal fun chooseIdentify() {
 
-            SelectPopWindow.Builder(this)
-                    .setNameArray(identifies)
-                    .setSIngleChoose(true)
-                    .setConfirmListener { selectedList ->
-                        if (selectedList.size>0){
-                            ToastUtil.show(mContext, selectedList[0].showText)
-                            identify =  selectedList[0].chooseDate
-                            tvIdentifyChoose.text = selectedList[0].showText
-                        }
-                        }
-                    .setCancel("取消")
-                    .setConfirm("完成")
-                    .setTitle("班级列表")
-                    .build()
-                    .show(mButton)
+        SelectPopWindow.Builder(this)
+                .setNameArray(identifies)
+                .setSIngleChoose(true)
+                .setConfirmListener { selectedList ->
+                    if (selectedList.size > 0) {
+//                            ToastUtil.show(mContext, selectedList[0].showText)
+                        identify = selectedList[0].chooseDate
+                        tvIdentifyChoose.text = selectedList[0].showText
+                        initViews()
+                    }
+                }
+                .setCancel("取消")
+                .setConfirm("完成")
+                .setTitle("登录身份")
+                .build()
+                .show(mButton)
     }
 
     @SuppressLint("SetTextI18n")
@@ -118,25 +131,57 @@ class LoginActivity : FragmentActivity() {
         initChoose()
         Icepick.restoreInstanceState(this, savedInstanceState)
     }
-    fun initChoose(){
+
+    fun initChoose() {
         identifies.add(ChooseData("管理员", "0", false))
         identifies.add(ChooseData("教师用户", "1", false))
         identifies.add(ChooseData("学生用户", "2", false))
     }
+
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
         Icepick.saveInstanceState(this, outState)
     }
 
     fun initViews() {
-        var admin = Application.getAdminInfo()
-        if (null != admin) {
-            ToastUtil.show(mContext, admin.userAccount)
-            etLoginAccount.setText(admin.userAccount)
-            etLoginPassword.setText(admin.userPassword)//这里关于密码加密的问题
-            etLoginAccount.setSelection(admin.userAccount.length)
+        when (identify) {
+            "0" -> {
+                var admin = Application.getAdminInfo()
+                if (null != admin) {
+                    etLoginAccount.setText(admin.userAccount)
+                    etLoginPassword.setText(admin.userPassword)
+                    etLoginAccount.setSelection(admin.userAccount.length)
+                } else {
+                    reset()
+                }
+            }
+            "1" -> {
+                var teacher = Application.getTeacherInfo()
+                if (null != teacher) {
+                    etLoginAccount.setText(teacher.userAccount)
+                    etLoginPassword.setText(teacher.userPassword)
+                    etLoginAccount.setSelection(teacher.userAccount.length)
+                } else {
+                    reset()
+                }
+            }
+            "2" -> {
+                var student = Application.getStudentInfo()
+                if (null != student) {
+                    etLoginAccount.setText(student.userAccount)
+                    etLoginPassword.setText(student.userPassword)
+                    etLoginAccount.setSelection(student.userAccount.length)
+                } else {
+                    reset()
+                }
+            }
         }
-        AdmDbUtils.adminInsert()
+
+    }
+
+    fun reset() {
+        etLoginAccount.setText("")
+        etLoginPassword.setText("")
     }
 
     /**

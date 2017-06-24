@@ -280,7 +280,6 @@ public class SelectPopWindow {
                 }else {
                     selectedNumberTV.setVisibility(View.GONE);
                 }
-
                 mIndexList = indexList;
 
             }

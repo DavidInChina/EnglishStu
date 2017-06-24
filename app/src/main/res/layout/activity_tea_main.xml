@@ -1,12 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="bdkj.com.englishstu.mvp.view.TeaMainActivity">
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:text="教师首页"/>
-</android.support.constraint.ConstraintLayout>
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/top_title"
+        layout="@layout/action_top_teacher" />
+
+    <include
+        android:id="@+id/left_menu"
+        layout="@layout/menu_left_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@id/top_title" />
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="2dp"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@id/left_menu"
+        android:background="@color/dark_green" />
+
+    <FrameLayout
+        android:layout_below="@id/top_title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/fragmentView"
+        android:layout_toRightOf="@id/view_line">
+
+    </FrameLayout>
+    <View
+        android:id="@+id/mBottom"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+</RelativeLayout>

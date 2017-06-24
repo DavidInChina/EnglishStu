@@ -23,7 +23,6 @@ import bdkj.com.englishstu.common.beans.Teacher;
 import bdkj.com.englishstu.common.beans.TeacherDao;
 import bdkj.com.englishstu.common.beans.Test;
 import bdkj.com.englishstu.common.beans.TestDao;
-import bdkj.com.englishstu.common.tool.MD5Util;
 import bdkj.com.englishstu.common.tool.TimeUtil;
 
 /**
@@ -44,7 +43,7 @@ public class TeaDbUtils {
         TeacherDao studentDao = Application.getDaoSession().getTeacherDao();
         Teacher teacher = studentDao.queryBuilder()
                 .where(TeacherDao.Properties.UserAccount.eq(account)).build().unique();
-        if (null != teacher && teacher.getUserPassword().equals(MD5Util.md5Encode(password))) {
+        if (null != teacher && teacher.getUserPassword().equals(password)) {
             result.setCode(0);
             result.setData(teacher);
             result.setMsg("登录成功！");
@@ -134,6 +133,9 @@ public class TeaDbUtils {
      * @return
      */
     public static JsonEntity addNote(Note note) {
+        note.setId(UUID.randomUUID().toString());
+        note.setCreateDate(new Date(TimeUtil.getCurrentMillis()));
+        note.setUpdateDate(new Date(TimeUtil.getCurrentMillis()));//设置基本字段
         JsonEntity result = new JsonEntity<>();
         NoteDao noteDao = Application.getDaoSession().getNoteDao();
         NoteRecordDao recordDao = Application.getDaoSession().getNoteRecordDao();

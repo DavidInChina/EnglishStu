@@ -10,7 +10,7 @@
     </style>
     <style name="menu_radio_button">
         <item name="android:background">@drawable/bg_btn_check</item>
-        <item name="android:textSize">@dimen/text_size_18</item>
+        <item name="android:textSize">@dimen/text_size_15</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:textColor">@drawable/tc_btn_check</item>
         <item name="android:height">45dp</item>

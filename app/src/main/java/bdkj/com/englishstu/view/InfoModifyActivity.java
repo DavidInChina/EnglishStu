@@ -20,7 +20,6 @@ import bdkj.com.englishstu.base.JsonEntity;
 import bdkj.com.englishstu.base.baseView.BaseActivity;
 import bdkj.com.englishstu.common.beans.Admin;
 import bdkj.com.englishstu.common.dbinfo.AdmDbUtils;
-import bdkj.com.englishstu.common.tool.StringUtil;
 import bdkj.com.englishstu.common.tool.ToastUtil;
 import bdkj.com.englishstu.common.tool.VerificationUtils;
 import bdkj.com.englishstu.common.widget.CircleImageView;
@@ -98,8 +97,6 @@ public class InfoModifyActivity extends BaseActivity {
                 ToastUtil.show(mContext,"密码不合法！");
                 return;
             }
-        }else{
-            ToastUtil.show(mContext,"密码不合法！");
         }
         if (VerificationUtils.matcherPhoneNum(etUserPhone.getText().toString())){
             admin.setPhone(etUserPhone.getText().toString());

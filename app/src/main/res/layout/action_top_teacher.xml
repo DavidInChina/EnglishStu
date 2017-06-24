@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="45dp"
+android:background="@color/topbar"
+android:orientation="horizontal">
+
+<FrameLayout
+    android:layout_width="140dp"
+    android:layout_height="match_parent"
+    android:background="@color/dark_green">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:drawableLeft="@mipmap/btn_index_normal"
+        android:drawablePadding="@dimen/normal_5"
+        android:gravity="center"
+        android:text="首页"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_15" />
+</FrameLayout>
+
+<ImageView
+    android:id="@+id/iv_search_notice"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginLeft="@dimen/normal_10"
+    android:gravity="center"
+    android:padding="@dimen/normal_10"
+    android:src="@drawable/search_pressed" />
+
+<ImageView
+    android:id="@+id/iv_edit_notice"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginLeft="@dimen/normal_10"
+    android:gravity="center"
+    android:padding="@dimen/normal_10"
+    android:src="@drawable/found_pressed" />
+
+<FrameLayout
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    >
+    <TextView
+        android:id="@+id/tv_top_title"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="高三年级（2）班"
+        android:textColor="@color/white"
+        android:drawablePadding="@dimen/normal_5"
+        android:drawableRight="@mipmap/btn_down_normal"
+        android:textSize="@dimen/text_size_18" />
+</FrameLayout>
+
+<RelativeLayout
+    android:layout_width="120dp"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_text_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/normal_10"
+        android:layout_marginTop="@dimen/normal_5"
+        android:text="英语教育软件"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_12" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tv_text_top"
+        android:layout_centerInParent="true"
+        android:layout_marginRight="@dimen/normal_10"
+        android:gravity="right"
+        android:text="教师"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_12" />
+</RelativeLayout>
+</LinearLayout>

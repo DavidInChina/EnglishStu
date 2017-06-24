@@ -46,6 +46,12 @@ public class MultiSelectListAdapter extends MultiChoiceAdapter<MultiSelectListAd
         choiceData = list;
         mOnSelectChangeListener = listener;
         this.singleChoose = singleChoose;
+        if (singleChoose){
+            for (ChooseData data1:choiceData
+                    ) {
+                data1.setChoose(false);
+            }
+        }
     }
 
     @Override
@@ -59,12 +65,6 @@ public class MultiSelectListAdapter extends MultiChoiceAdapter<MultiSelectListAd
          ChooseData data = choiceData.get(position);
         // change the state
         holder.choiceNameBtn.setText(data.getShowText());
-        if (singleChoose){
-            for (ChooseData data1:choiceData
-                    ) {
-              data1.setChoose(false);
-            }
-        }
         holder.choiceNameBtn.setSelected(data.isChoose());
         if (mOnSelectChangeListener != null){//这里用来显示默认选中内容的数目
             mOnSelectChangeListener.onChanged(getSelectedData(),getSelectedNumber());

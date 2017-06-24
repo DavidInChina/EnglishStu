@@ -4,7 +4,9 @@
     <inspection_tool class="AndroidDomInspection" enabled="false" level="ERROR" enabled_by_default="false" />
     <inspection_tool class="AndroidKLintNewApi" enabled="false" level="ERROR" enabled_by_default="false" />
     <inspection_tool class="AndroidLintAppCompatCustomView" enabled="false" level="ERROR" enabled_by_default="false" />
+    <inspection_tool class="AndroidLintApplySharedPref" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="AndroidLintGradleCompatible" enabled="false" level="ERROR" enabled_by_default="false" />
+    <inspection_tool class="AndroidLintMissingSuperCall" enabled="false" level="ERROR" enabled_by_default="false" />
     <inspection_tool class="AndroidLintNewApi" enabled="false" level="ERROR" enabled_by_default="false" />
     <inspection_tool class="AndroidLintRtlHardcoded" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="AndroidLintStaticFieldLeak" enabled="false" level="WARNING" enabled_by_default="false" />

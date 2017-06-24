@@ -1,18 +1,20 @@
 package bdkj.com.englishstu.common.beans;
 
 import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Index;
 import org.greenrobot.greendao.annotation.NotNull;
 import org.greenrobot.greendao.annotation.Unique;
-import org.greenrobot.greendao.annotation.Generated;
-import java.util.Date;
+
+import java.io.Serializable;
 
 /**
  * Created by davidinchina on 2017/5/25.
  */
 @Entity(indexes = {@Index(value = "updateDate DESC", unique = true)})
-public class Student {
+public class Student implements Serializable{
+    static final long serialVersionUID = 48L;
     @Id
     @NotNull
     @Unique

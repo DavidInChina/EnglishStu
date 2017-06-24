@@ -57,6 +57,12 @@
         <activity
             android:name=".view.EditTeacherActivity"
             android:screenOrientation="landscape" />
+        <activity
+            android:name=".view.TeaInfoModifyActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".view.TeaEditNoticeActivity"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>

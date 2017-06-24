@@ -19,6 +19,8 @@ import bdkj.com.englishstu.R;
 import bdkj.com.englishstu.common.beans.Admin;
 import bdkj.com.englishstu.common.beans.DaoMaster;
 import bdkj.com.englishstu.common.beans.DaoSession;
+import bdkj.com.englishstu.common.beans.Student;
+import bdkj.com.englishstu.common.beans.Teacher;
 import bdkj.com.englishstu.common.tool.SerializeUtils;
 
 public class Application
@@ -26,7 +28,8 @@ public class Application
 
     private static Context mContext;
     private static Admin adminInfo;
-
+    private static Teacher teacherInfo;
+    private static Student studentInfo;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -109,6 +112,56 @@ public class Application
             return admin;
         } else {
             return adminInfo;
+        }
+    }
+    public static boolean setTeacherInfo(Context mContext, Teacher teacher) {
+        teacherInfo = new Teacher();
+        teacherInfo = teacher;
+        return SerializeUtils.writeObject(new File(mContext.getFilesDir(), Constants.TEACHER_INFO_NAME), teacherInfo);
+    }
+
+    /**
+     * 获取用户信息
+     *
+     * @return
+     */
+    public static Teacher getTeacherInfo() {
+        if (teacherInfo == null) {
+            Teacher teacher = null;
+            Object objUser = SerializeUtils.readObject(new File(mContext.getFilesDir(), Constants.TEACHER_INFO_NAME));
+            if (objUser == null || !(objUser instanceof Teacher)) {
+                return null;
+            }
+            teacher = (Teacher) objUser;
+            teacherInfo = teacher;
+            return teacher;
+        } else {
+            return teacherInfo;
+        }
+    }
+    public static boolean setStudentInfo(Context mContext, Student student) {
+        studentInfo = new Student();
+        studentInfo = student;
+        return SerializeUtils.writeObject(new File(mContext.getFilesDir(), Constants.STUDENT_INFO_NAME), student);
+    }
+
+    /**
+     * 获取用户信息
+     *
+     * @return
+     */
+    public static Student getStudentInfo() {
+        if (studentInfo == null) {
+            Student student = null;
+            Object objUser = SerializeUtils.readObject(new File(mContext.getFilesDir(), Constants.STUDENT_INFO_NAME));
+            if (objUser == null || !(objUser instanceof Student)) {
+                return null;
+            }
+            student = (Student) objUser;
+            studentInfo = student;
+            return student;
+        } else {
+            return studentInfo;
         }
     }
 }

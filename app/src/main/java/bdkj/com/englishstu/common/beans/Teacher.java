@@ -7,19 +7,22 @@ import org.greenrobot.greendao.annotation.Index;
 import org.greenrobot.greendao.annotation.NotNull;
 import org.greenrobot.greendao.annotation.Unique;
 
+import java.io.Serializable;
+
 /**
  * Created by davidinchina on 2017/5/25.
  */
 
 @Entity(indexes = {@Index(value = "updateDate DESC", unique = true)})
-public class Teacher {
+public class Teacher implements Serializable{
+    static final long serialVersionUID = 44L;
     @Id
     @NotNull
     @Unique
     private String id;
 
     @NotNull
-    private String classIds;//多个值
+    private String classIds;//多个值，格式是：  班级id;班级名称，班级id;班级名称
     private String userName;
     private String number;//工号
     private String userHead;

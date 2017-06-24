@@ -66,6 +66,7 @@ public class AdmMainActivity extends BaseActivity {
     private static final String TYPE_STUDENT = "student";
     private static final String TYPE_SETTING = "setting";
     private String currentType = TYPE_SETTING;//设置为不同第一选项，可以首次切换
+    private long lastTime = 0;
 
     @Override
     protected int getViewId() {
@@ -156,16 +157,26 @@ public class AdmMainActivity extends BaseActivity {
             }
             transaction.replace(R.id.fragmentView, fragmentMap.get(tag));
             currentType = tag;
-            if (currentType.equals(TYPE_SETTING)){
+            if (currentType.equals(TYPE_SETTING)) {
                 ivSearchNotice.setVisibility(View.INVISIBLE);
                 ivEditNotice.setVisibility(View.INVISIBLE);
-            }else{
+            } else {
                 ivSearchNotice.setVisibility(View.VISIBLE);
                 ivEditNotice.setVisibility(View.VISIBLE);
             }
             transaction.commit();
         }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (System.currentTimeMillis() - lastTime > 2000) {
+            ToastUtil.show(mContext, "再按一次退出应用");
+            lastTime = System.currentTimeMillis();
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @OnClick({R.id.iv_search_notice, R.id.iv_edit_notice})
