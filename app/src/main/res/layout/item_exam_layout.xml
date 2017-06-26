@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bdkj.com.englishstu.swipeitem.widget.SwipeItemLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/item_contact_swipe_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/regular_dimen_x2"
+    app:bga_sil_bottomMode="pullOut"
+    app:bga_sil_springDistance="@dimen/regular_dimen_x20"
+    app:bga_sil_swipeDirection="left">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/normal_5"
+        android:background="@color/red"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/item_contact_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/red"
+            android:clickable="true"
+            android:gravity="center"
+            android:padding="@dimen/regular_dimen_x15"
+            android:text="@string/item_delete"
+            android:textColor="@android:color/white"
+            android:textSize="25sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_left_img"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="@dimen/regular_dimen_x15"
+            android:src="@mipmap/bg_login" />
+
+
+        <LinearLayout
+            android:id="@+id/rl_center_wrap"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/normal_10"
+            android:layout_marginRight="@dimen/normal_10"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_exam_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|top"
+                android:layout_marginBottom="@dimen/normal_5"
+                android:layout_marginLeft="@dimen/normal_10"
+                android:layout_marginRight="@dimen/normal_10"
+                android:layout_marginTop="@dimen/normal_5"
+                android:text="高考听说练习题"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_18" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/normal_10">
+
+                <TextView
+                    android:id="@+id/tv_exam_level"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/normal_5"
+                    android:layout_marginLeft="@dimen/normal_10"
+                    android:layout_marginRight="@dimen/normal_10"
+                    android:layout_marginTop="@dimen/normal_5"
+                    android:text="试题难度：高级"
+                    android:textColor="@color/hint_blue"
+                    android:textSize="@dimen/text_size_18" />
+
+                <TextView
+                    android:id="@+id/tv_exam_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/normal_5"
+                    android:layout_marginLeft="@dimen/normal_10"
+                    android:layout_marginRight="@dimen/normal_10"
+                    android:layout_marginTop="@dimen/normal_5"
+                    android:text="试题权限：练习和考试"
+                    android:textColor="@color/hint_blue"
+                    android:textSize="@dimen/text_size_18" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/normal_10">
+
+                <TextView
+                    android:id="@+id/tv_exam_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/normal_5"
+                    android:layout_marginLeft="@dimen/normal_10"
+                    android:layout_marginRight="@dimen/normal_10"
+                    android:layout_marginTop="@dimen/normal_5"
+                    android:text="入库时间：2017-5-21"
+                    android:textColor="@color/hint_blue"
+                    android:textSize="@dimen/text_size_18" />
+
+                <TextView
+                    android:id="@+id/tv_exam_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/normal_5"
+                    android:layout_marginLeft="@dimen/normal_10"
+                    android:layout_marginRight="@dimen/normal_10"
+                    android:layout_marginTop="@dimen/normal_5"
+                    android:text="试题内容：校园生活"
+                    android:textColor="@color/hint_blue"
+                    android:textSize="@dimen/text_size_18" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_right_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/regular_dimen_x40"
+                android:background="@drawable/bg_item_check"
+                android:paddingBottom="@dimen/normal_10"
+                android:paddingLeft="@dimen/regular_dimen_x25"
+                android:paddingRight="@dimen/regular_dimen_x25"
+                android:paddingTop="@dimen/normal_10"
+                android:text="查看"
+                android:textColor="@color/topbar"
+                android:textSize="@dimen/text_size_15" />
+
+            <TextView
+                android:id="@+id/tv_right_status2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/regular_dimen_x40"
+                android:text="已查看"
+                android:textColor="@color/hint_grey"
+                android:textSize="@dimen/text_size_15"
+                android:visibility="invisible" />
+        </FrameLayout>
+
+    </LinearLayout>
+</bdkj.com.englishstu.swipeitem.widget.SwipeItemLayout>

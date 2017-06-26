@@ -101,7 +101,7 @@ public class TeaDbUtils {
     public static JsonEntity noteList(String teacherId, String classesId) {
         JsonEntity<List<Note>> result = new JsonEntity<>();
         NoteDao noteDao = Application.getDaoSession().getNoteDao();
-        List<Note> list = noteDao.queryBuilder()
+        List<Note> list = noteDao.queryBuilder().orderDesc(NoteDao.Properties.CreateDate)
                 .where(NoteDao.Properties.AuthorId.eq(teacherId), NoteDao.Properties.ClassesId.eq(classesId)).build().list();
         result.setCode(0);
         result.setData(list);

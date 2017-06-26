@@ -2,6 +2,8 @@ package bdkj.com.englishstu.view;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -28,9 +30,9 @@ import bdkj.com.englishstu.common.tool.IntentUtil;
 import bdkj.com.englishstu.common.tool.ToastUtil;
 import bdkj.com.englishstu.selector.ChooseData;
 import bdkj.com.englishstu.selector.SelectPopWindow;
-import bdkj.com.englishstu.view.Fragment.AdClassFragment;
 import bdkj.com.englishstu.view.Fragment.AdStudentFragment;
 import bdkj.com.englishstu.view.Fragment.AdTeacherFragment;
+import bdkj.com.englishstu.view.Fragment.TeExamFragment;
 import bdkj.com.englishstu.view.Fragment.TeNoticeFragment;
 import bdkj.com.englishstu.view.Fragment.TeSettingFragment;
 import butterknife.BindView;
@@ -78,6 +80,17 @@ public class TeaMainActivity extends BaseActivity {
     private String currentType = TYPE_SETTING;//设置为不同第一选项，可以首次切换
     private long lastTime = 0;
     private String currentClassId = "";//从数据库获取到的教师所在班级的id
+    private Handler handler = new Handler() {
+        public void handleMessage(Message message) {
+            switch (message.what) {
+                case 1:
+                    EventBus.getDefault().post(new ClassChoose(currentClassId));//更新fragment数据
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
 
     @Override
     protected int getViewId() {
@@ -98,11 +111,12 @@ public class TeaMainActivity extends BaseActivity {
             finish();
         }
         Logger.d(teacher.getClassIds());
-        if (!"".equals(teacher.getClassIds())){
-            String []classes = teacher.getClassIds().split(",");
+        if (!"".equals(teacher.getClassIds())) {
+            String[] classes = teacher.getClassIds().split(",");
             currentClassId = classes[0].split(";")[0];
             tvTopTitle.setText(classes[0].split(";")[1]);
-            EventBus.getDefault().post(new ClassChoose(currentClassId));//更新fragment数据
+            handler.sendEmptyMessageDelayed(1, 1000);//延时刷新数据，等待fragment加载完成
+            Logger.d(currentClassId);
         }
         Glide.with(mContext).load(teacher.getUserHead()).into(ivTopHead);
         tvUserName.setText("姓名：" + teacher.getUserName());
@@ -123,6 +137,7 @@ public class TeaMainActivity extends BaseActivity {
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
                 switch (checkedId) {
                     case R.id.rb_1:
+
                         toggleFragment(TYPE_NOTICE);
                         break;
                     case R.id.rb_2:
@@ -151,10 +166,11 @@ public class TeaMainActivity extends BaseActivity {
             if (!fragmentMap.containsKey(tag)) {
                 switch (tag) {
                     case TYPE_NOTICE:
-                        fragmentMap.put(TYPE_NOTICE, new TeNoticeFragment());
+                        TeNoticeFragment fragment = new TeNoticeFragment();
+                        fragmentMap.put(TYPE_NOTICE, fragment);
                         break;
                     case TYPE_TIKU:
-                        fragmentMap.put(TYPE_TIKU, new AdClassFragment());
+                        fragmentMap.put(TYPE_TIKU, new TeExamFragment());
                         break;
                     case TYPE_EXAM:
                         fragmentMap.put(TYPE_EXAM, new AdTeacherFragment());
@@ -215,7 +231,7 @@ public class TeaMainActivity extends BaseActivity {
                         break;
                     case TYPE_TIKU:
                         ToastUtil.show(mContext, "题库管理");
-//                        IntentUtil.launcher(mContext, EditClassActivity.class);
+                        IntentUtil.launcher(mContext, EditClassActivity.class);
                         break;
                     case TYPE_EXAM:
                         ToastUtil.show(mContext, "考试练习管理");
