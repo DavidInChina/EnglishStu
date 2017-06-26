@@ -71,7 +71,7 @@ public class ExamAdapter extends RecyclerView.Adapter<ExamAdapter.ViewHolder> {
         final Exam exam = examList.get(position);
         holder.tvExamName.setText(exam.getName());
         holder.tvExamLevel.setText("试题难度：" + exam.getLevel());
-        Glide.with(mContext).load(exam.getImg()).into(holder.ivLeftImg);
+        Glide.with(mContext).load(exam.getLogo()).into(holder.ivLeftImg);
         holder.tvExamStatus.setText("试题权限：" + exam.getType());
         holder.tvExamTime.setText("入库日期：" + TimeUtil.date2String(exam.getUpdateDate()));
         holder.tvExamContent.setText("试题内容：" + exam.getAbout());

@@ -31,7 +31,7 @@ public class Exam implements Serializable{
     private String classId;
     private String teacherId;
     private String img;
-    private String words;//一个或多个单词
+    private String words;//三个单词
     private String sentence;//句子
     private Date updateDate;
     private Date createDate;

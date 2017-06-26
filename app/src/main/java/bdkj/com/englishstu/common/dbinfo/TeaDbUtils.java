@@ -240,6 +240,10 @@ public class TeaDbUtils {
      * @return
      */
     public static JsonEntity addExam(Exam exam) {
+        exam.setId(UUID.randomUUID().toString());
+        exam.setCreateDate(new Date(TimeUtil.getCurrentMillis()));
+        exam.setUpdateDate(new Date(TimeUtil.getCurrentMillis()));//设置基本字段
+        exam.setImg("");//多余字段
         JsonEntity result = new JsonEntity<>();
         ExamDao examDao = Application.getDaoSession().getExamDao();
         examDao.insert(exam);

@@ -63,6 +63,9 @@
         <activity
             android:name=".view.TeaEditNoticeActivity"
             android:screenOrientation="landscape" />
+        <activity
+            android:name=".view.EditExamActivity"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>

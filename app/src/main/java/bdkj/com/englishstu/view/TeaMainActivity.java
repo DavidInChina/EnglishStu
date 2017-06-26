@@ -91,6 +91,7 @@ public class TeaMainActivity extends BaseActivity {
             }
         }
     };
+    private List<ChooseData> classList;
 
     @Override
     protected int getViewId() {
@@ -223,15 +224,15 @@ public class TeaMainActivity extends BaseActivity {
                 }
                 break;
             case R.id.iv_edit_notice:
+                Bundle bundle = new Bundle();
                 switch (currentType) {
                     case TYPE_NOTICE:
-                        Bundle bundle = new Bundle();
                         bundle.putString("classId", currentClassId);
                         IntentUtil.launcher(mContext, TeaEditNoticeActivity.class, bundle);
                         break;
                     case TYPE_TIKU:
-                        ToastUtil.show(mContext, "题库管理");
-                        IntentUtil.launcher(mContext, EditClassActivity.class);
+                        bundle.putString("classId", currentClassId);
+                        IntentUtil.launcher(mContext, EditExamActivity.class, bundle);
                         break;
                     case TYPE_EXAM:
                         ToastUtil.show(mContext, "考试练习管理");
@@ -248,13 +249,16 @@ public class TeaMainActivity extends BaseActivity {
     }
 
     public void choseClass() {
-        List<ChooseData> list = new ArrayList<>();//这里从后台取出老师所在班级信息
-        String classIds[] = teacher.getClassIds().split(",");
-        for (int i = 0; i < classIds.length; i++) {
-            list.add(new ChooseData(classIds[i].split(";")[1], classIds[i], false));
+        if (null == classList) {
+            classList = new ArrayList<>();//这里从后台取出老师所在班级信息
+            String classIds[] = teacher.getClassIds().split(",");
+            for (int i = 0; i < classIds.length; i++) {
+                classList.add(new ChooseData(classIds[i].split(";")[1], classIds[i], false));
+            }
         }
+
         new SelectPopWindow.Builder(this)
-                .setNameArray((ArrayList<ChooseData>) list)
+                .setNameArray((ArrayList<ChooseData>) classList)
                 .setSIngleChoose(true)
                 .setConfirmListener(new SelectPopWindow.OnConfirmClickListener() {
                     @Override
