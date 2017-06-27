@@ -22,6 +22,7 @@ import bdkj.com.englishstu.common.beans.Teacher;
 import bdkj.com.englishstu.common.dbinfo.TeaDbUtils;
 import bdkj.com.englishstu.common.divider.RecDivider;
 import bdkj.com.englishstu.common.eventbus.ClassChoose;
+import bdkj.com.englishstu.common.eventbus.RequestClassId;
 import bdkj.com.englishstu.common.tool.ToastUtil;
 import bdkj.com.englishstu.xrecyclerview.ProgressStyle;
 import bdkj.com.englishstu.xrecyclerview.XRecyclerView;
@@ -105,7 +106,8 @@ public class TeExamFragment extends BaseFragment implements RecycleItemClickList
         mAdapter.setClickListener(this);
         recyclerView.setAdapter(mAdapter);
         recyclerView.addItemDecoration(new RecDivider(mContext, RecDivider.VERTICAL_LIST));
-        recyclerView.setRefreshing(true);
+//        recyclerView.setRefreshing(true);
+        EventBus.getDefault().post(new RequestClassId());
     }
 
     @Override

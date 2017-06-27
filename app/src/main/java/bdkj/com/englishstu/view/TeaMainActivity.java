@@ -26,15 +26,16 @@ import bdkj.com.englishstu.base.Application;
 import bdkj.com.englishstu.base.baseView.BaseActivity;
 import bdkj.com.englishstu.common.beans.Teacher;
 import bdkj.com.englishstu.common.eventbus.ClassChoose;
+import bdkj.com.englishstu.common.eventbus.RequestClassId;
 import bdkj.com.englishstu.common.tool.IntentUtil;
 import bdkj.com.englishstu.common.tool.ToastUtil;
 import bdkj.com.englishstu.selector.ChooseData;
 import bdkj.com.englishstu.selector.SelectPopWindow;
 import bdkj.com.englishstu.view.Fragment.AdStudentFragment;
-import bdkj.com.englishstu.view.Fragment.AdTeacherFragment;
 import bdkj.com.englishstu.view.Fragment.TeExamFragment;
 import bdkj.com.englishstu.view.Fragment.TeNoticeFragment;
 import bdkj.com.englishstu.view.Fragment.TeSettingFragment;
+import bdkj.com.englishstu.view.Fragment.TeTestFragment;
 import butterknife.BindView;
 import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
@@ -100,8 +101,17 @@ public class TeaMainActivity extends BaseActivity {
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
         initLeftMenu();
         initData();
+    }
+    public  void onEventMainThread(RequestClassId classId){
+        EventBus.getDefault().post(new ClassChoose(currentClassId));//更新fragment数据
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @SuppressLint("SetTextI18n")
@@ -116,7 +126,7 @@ public class TeaMainActivity extends BaseActivity {
             String[] classes = teacher.getClassIds().split(",");
             currentClassId = classes[0].split(";")[0];
             tvTopTitle.setText(classes[0].split(";")[1]);
-            handler.sendEmptyMessageDelayed(1, 1000);//延时刷新数据，等待fragment加载完成
+//            handler.sendEmptyMessageDelayed(1, 1000);//延时刷新数据，等待fragment加载完成
             Logger.d(currentClassId);
         }
         Glide.with(mContext).load(teacher.getUserHead()).into(ivTopHead);
@@ -174,7 +184,7 @@ public class TeaMainActivity extends BaseActivity {
                         fragmentMap.put(TYPE_TIKU, new TeExamFragment());
                         break;
                     case TYPE_EXAM:
-                        fragmentMap.put(TYPE_EXAM, new AdTeacherFragment());
+                        fragmentMap.put(TYPE_EXAM, new TeTestFragment());
                         break;
                     case TYPE_MARK:
                         fragmentMap.put(TYPE_MARK, new AdStudentFragment());

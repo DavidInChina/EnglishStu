@@ -8,6 +8,7 @@ import org.greenrobot.greendao.annotation.NotNull;
 import org.greenrobot.greendao.annotation.Transient;
 import org.greenrobot.greendao.annotation.Unique;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -17,7 +18,8 @@ import java.util.Date;
 
 
 @Entity(indexes = {@Index(value = "updateDate DESC", unique = true)})
-public class Test {
+public class Test implements Serializable{
+    static final long serialVersionUID = 55L;
     @Id
     @NotNull
     @Unique

@@ -3,10 +3,11 @@ package bdkj.com.englishstu.view.Fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,16 +16,14 @@ import bdkj.com.englishstu.R;
 import bdkj.com.englishstu.base.Application;
 import bdkj.com.englishstu.base.JsonEntity;
 import bdkj.com.englishstu.base.baseView.BaseFragment;
-import bdkj.com.englishstu.common.adapter.NoticeAdapter;
-import bdkj.com.englishstu.common.beans.Note;
+import bdkj.com.englishstu.common.adapter.TestAdapter;
 import bdkj.com.englishstu.common.beans.Teacher;
+import bdkj.com.englishstu.common.beans.Test;
 import bdkj.com.englishstu.common.dbinfo.TeaDbUtils;
 import bdkj.com.englishstu.common.divider.RecDivider;
 import bdkj.com.englishstu.common.eventbus.ClassChoose;
 import bdkj.com.englishstu.common.eventbus.RequestClassId;
-import bdkj.com.englishstu.common.tool.IntentUtil;
 import bdkj.com.englishstu.common.tool.ToastUtil;
-import bdkj.com.englishstu.view.NoteDetailActivity;
 import bdkj.com.englishstu.xrecyclerview.ProgressStyle;
 import bdkj.com.englishstu.xrecyclerview.XRecyclerView;
 import bdkj.com.englishstu.xrecyclerview.viewholder.RecycleItemClickListener;
@@ -32,14 +31,14 @@ import butterknife.BindView;
 import de.greenrobot.event.EventBus;
 
 /**
- * A simple {@link Fragment} subclass.
+ * 题库
  */
-public class TeNoticeFragment extends BaseFragment implements RecycleItemClickListener {
+public class TeTestFragment extends BaseFragment implements RecycleItemClickListener {
     @BindView(R.id.recycler_view)
     XRecyclerView recyclerView;
 
-    private List<Note> listData;
-    private NoticeAdapter mAdapter;
+    private List<Test> listData;
+    private TestAdapter mAdapter;
     private Teacher teacher;
     private String currentClassId = "";
 
@@ -81,15 +80,16 @@ public class TeNoticeFragment extends BaseFragment implements RecycleItemClickLi
         recyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
         recyclerView.setArrowImageView(R.mipmap.iconfont_downgrey);
         recyclerView.setLoadingMoreEnabled(false);
-        listData = new ArrayList<Note>();
+        listData = new ArrayList<Test>();
         recyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
                 listData.clear();
-                JsonEntity entity = TeaDbUtils.noteList(teacher.getId(), currentClassId);
+                JsonEntity entity = TeaDbUtils.testList(teacher.getId(), currentClassId);
                 if (entity.getCode() == 0) {
-                    for (Note note : (List<Note>) entity.getData()) {
-                        listData.add(note);
+                    Logger.d(entity.getData());
+                    for (Test exam : (List<Test>) entity.getData()) {
+                        listData.add(exam);
                     }
                 } else {
                     ToastUtil.show(mContext, entity.getMsg());
@@ -102,7 +102,7 @@ public class TeNoticeFragment extends BaseFragment implements RecycleItemClickLi
             public void onLoadMore() {
             }
         });
-        mAdapter = new NoticeAdapter(mContext, (ArrayList<Note>) listData);
+        mAdapter = new TestAdapter(mContext, (ArrayList<Test>) listData);
         mAdapter.setClickListener(this);
         recyclerView.setAdapter(mAdapter);
         recyclerView.addItemDecoration(new RecDivider(mContext, RecDivider.VERTICAL_LIST));
@@ -112,9 +112,9 @@ public class TeNoticeFragment extends BaseFragment implements RecycleItemClickLi
 
     @Override
     public void onItemClick(View view, int postion) {
-        Note note = (Note) view.getTag();
+        Test test = (Test) view.getTag();
         Bundle bundle = new Bundle();
-        bundle.putSerializable("note", note);
-        IntentUtil.launcher(mContext, NoteDetailActivity.class, bundle);
+        bundle.putSerializable("test", test);
+//        IntentUtil.launcher(mContext, NoteDetailActivity.class,bundle);
     }
 }

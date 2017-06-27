@@ -36,6 +36,8 @@ dependencies {
     //6.0运行时权限
     //页面间通信
     //dialog
+    //Material风格日期选择
+    compile 'com.wdullaer:materialdatetimepicker:3.1.3'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile "com.jakewharton:butterknife:$butterknife_version"
     kapt "com.jakewharton:butterknife-compiler:$butterknife_version"
