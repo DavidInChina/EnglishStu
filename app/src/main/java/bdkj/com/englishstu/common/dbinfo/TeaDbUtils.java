@@ -276,8 +276,8 @@ public class TeaDbUtils {
     public static JsonEntity deleteExam(String examId) {
         JsonEntity result = new JsonEntity<>();
         ExamDao examDao = Application.getDaoSession().getExamDao();
-        Exam examItem = examDao.queryBuilder().build().unique();
-        if (examItem.getId().equals(examId)) {
+        Exam examItem = examDao.queryBuilder().where(ExamDao.Properties.Id.eq(examId)).build().unique();
+        if (null != examItem) {
             TestDao testDao = Application.getDaoSession().getTestDao();
             List<Test> recordList = testDao.queryBuilder().where(TestDao.Properties.ExamId.eq(examItem.getId()))
                     .build().list();
@@ -337,6 +337,9 @@ public class TeaDbUtils {
      * @return
      */
     public static JsonEntity addTest(Test test) {
+        test.setId(UUID.randomUUID().toString());
+        test.setCreateDate(new Date(TimeUtil.getCurrentMillis()));
+        test.setUpdateDate(new Date(TimeUtil.getCurrentMillis()));//设置基本字段
         JsonEntity result = new JsonEntity<>();
         TestDao testDao = Application.getDaoSession().getTestDao();
         testDao.insert(test);

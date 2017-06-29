@@ -27,7 +27,7 @@
                 android:padding="@dimen/regular_dimen_x20">
 
                 <ImageView
-                    android:id="@+id/civ_exam_logo"
+                    android:id="@+id/civ_test_logo"
                     android:layout_width="120dp"
                     android:layout_height="100dp"
                     android:src="@mipmap/bg_welcome" />
@@ -56,7 +56,7 @@
                     android:textSize="@dimen/text_size_15" />
 
                 <EditText
-                    android:id="@+id/et_exam_name"
+                    android:id="@+id/et_test_name"
                     android:layout_width="@dimen/regular_dimen_x160"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -92,7 +92,7 @@
                     android:textSize="@dimen/text_size_15" />
 
                 <TextView
-                    android:id="@+id/tv_exam_hard"
+                    android:id="@+id/tv_test_type"
                     android:layout_width="@dimen/regular_dimen_x160"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -130,7 +130,7 @@
                     android:textSize="@dimen/text_size_15" />
 
                 <TextView
-                    android:id="@+id/tv_exam_status"
+                    android:id="@+id/tv_exam_name"
                     android:layout_width="@dimen/regular_dimen_x160"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -138,7 +138,7 @@
                     android:gravity="right"
                     android:paddingBottom="@dimen/regular_dimen_x10"
                     android:paddingTop="@dimen/regular_dimen_x10"
-                    android:text="高考听说练习题"
+                    android:text=""
                     android:textColor="@color/hint_grey"
                     android:textSize="@dimen/text_size_15" />
             </RelativeLayout>
@@ -167,7 +167,7 @@
                     android:textSize="@dimen/text_size_15" />
 
                 <TextView
-                    android:id="@+id/tv_exam_about"
+                    android:id="@+id/tv_test_begin"
                     android:layout_width="@dimen/regular_dimen_x160"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"

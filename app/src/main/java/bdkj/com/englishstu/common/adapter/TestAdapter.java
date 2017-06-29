@@ -72,7 +72,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
         holder.tvTestName.setText(test.getName());
         holder.tvTestAuthor.setText("试题发布：" + test.getTeacherName());
         Glide.with(mContext).load(test.getImg()).into(holder.ivLeftImg);
-        holder.tvTestTime.setText("答题日期：" + test.getBeginTime() + "-" + test.getTeacherName());
+        holder.tvTestTime.setText("答题日期：" + test.getBeginTime() + "-" + test.getEndTime().split(" ")[1]);
         holder.tvTestContent.setText("试题类别：" + test.getType());
         SwipeItemLayout swipeRoot = holder.itemContactSwipeRoot;
         swipeRoot.setDelegate(new SwipeItemLayout.SwipeItemLayoutDelegate() {

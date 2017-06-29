@@ -6,8 +6,12 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewCompat;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
@@ -16,6 +20,7 @@ import com.yanzhenjie.permission.PermissionListener;
 
 import java.util.List;
 
+import bdkj.com.englishstu.R;
 import bdkj.com.englishstu.common.data.PermissionData;
 import bdkj.com.englishstu.common.tool.ToastUtil;
 import butterknife.ButterKnife;
@@ -24,9 +29,11 @@ import me.drakeet.materialdialog.MaterialDialog;
 
 public abstract class BaseActivity extends FragmentActivity {
     protected Context mContext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setStatusBar();
         mContext = this;
         setContentView(getViewId());
         ButterKnife.bind(this);
@@ -40,6 +47,22 @@ public abstract class BaseActivity extends FragmentActivity {
         Icepick.saveInstanceState(this, outState);
     }
 
+    public void setStatusBar() {
+        Window window = getWindow();
+//取消设置透明状态栏,使 ContentView 内容不再覆盖状态栏
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+//需要设置这个 flag 才能调用 setStatusBarColor 来设置状态栏颜色
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+//设置状态栏颜色
+        window.setStatusBarColor(getResources().getColor(R.color.black));
+        ViewGroup mContentView = (ViewGroup) findViewById(Window.ID_ANDROID_CONTENT);
+        View mChildView = mContentView.getChildAt(0);
+        if (mChildView != null) {
+            //注意不是设置 ContentView 的 FitsSystemWindows, 而是设置 ContentView 的第一个子 View . 预留出系统 View 的空间.
+            ViewCompat.setFitsSystemWindows(mChildView, true);
+        }
+    }
 
     /**
      * 使得权限被允许

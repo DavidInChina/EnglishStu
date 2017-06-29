@@ -245,8 +245,8 @@ public class TeaMainActivity extends BaseActivity {
                         IntentUtil.launcher(mContext, EditExamActivity.class, bundle);
                         break;
                     case TYPE_EXAM:
-                        ToastUtil.show(mContext, "考试练习管理");
-//                        IntentUtil.launcher(mContext, EditTeacherActivity.class);
+                        bundle.putString("classId", currentClassId);
+                        IntentUtil.launcher(mContext, EditTestActivity.class,bundle);
                         break;
                     case TYPE_MARK:
                         break;
