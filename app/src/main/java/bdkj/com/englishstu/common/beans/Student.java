@@ -21,7 +21,7 @@ public class Student implements Serializable{
     private String id;
 
     @NotNull
-    private String classIds;//单个班级id
+    private String classIds;//单个班级id,格式： 班级名称，班级id
     private String userName;
     private String number;
     private String userHead;

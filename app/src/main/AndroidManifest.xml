@@ -69,6 +69,9 @@
         <activity
             android:name=".view.EditTestActivity"
             android:screenOrientation="landscape" />
+        <activity
+            android:name=".view.EditStudentActivity"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>

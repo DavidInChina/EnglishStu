@@ -21,7 +21,6 @@ import bdkj.com.englishstu.common.beans.StudentDao;
 import bdkj.com.englishstu.common.beans.Teacher;
 import bdkj.com.englishstu.common.beans.TeacherDao;
 import bdkj.com.englishstu.common.beans.TestDao;
-import bdkj.com.englishstu.common.tool.MD5Util;
 import bdkj.com.englishstu.common.tool.NumberFactory;
 import bdkj.com.englishstu.common.tool.TimeUtil;
 
@@ -78,6 +77,7 @@ public class AdmDbUtils {
         }
         return result;
     }
+
     /**
      * 修改个人信息
      *
@@ -92,6 +92,7 @@ public class AdmDbUtils {
         result.setMsg("修改个人信息成功！");
         return result;
     }
+
     /**
      * 根据管理员id获取公告列表
      *
@@ -103,7 +104,7 @@ public class AdmDbUtils {
         NoteDao noteDao = Application.getDaoSession().getNoteDao();
         List<Note> list = noteDao.queryBuilder().orderDesc(NoteDao.Properties.CreateDate).build().list();
 //                .where(NoteDao.Properties.AuthorId.eq(adminId)).build().list();
-        Logger.d(list.size()+"");
+        Logger.d(list.size() + "");
         result.setCode(0);
         result.setData(list);
         result.setMsg("获取列表成功！");
@@ -143,7 +144,7 @@ public class AdmDbUtils {
         StudentDao studentDao = Application.getDaoSession().getStudentDao();
         ClassesDao classesDao = Application.getDaoSession().getClassesDao();
         List<Classes> classes = classesDao.queryBuilder().build().list();
-        if(classes.size()>0){
+        if (classes.size() > 0) {
             for (Classes classe : classes) {
                 List<Student> list = studentDao.queryBuilder().where(StudentDao.Properties.ClassIds.eq(classe.getId())).list();
                 for (Student student : list) {
@@ -161,7 +162,7 @@ public class AdmDbUtils {
             }
             result.setCode(0);
             result.setMsg("添加公告成功！");
-        }else{
+        } else {
             result.setMsg("请先添加班级！");
         }
         return result;
@@ -202,7 +203,7 @@ public class AdmDbUtils {
         JsonEntity result = new JsonEntity<>();
         NoteDao noteDao = Application.getDaoSession().getNoteDao();
         Note noteItem = noteDao.queryBuilder().where(NoteDao.Properties.Id.eq(noteId)).build().unique();
-        if (null!=noteItem) {
+        if (null != noteItem) {
             NoteRecordDao noteRecordDao = Application.getDaoSession().getNoteRecordDao();
             List<NoteRecord> recordList = noteRecordDao.queryBuilder().where(NoteRecordDao.Properties.NoteId.eq(noteItem.getId()))
                     .build().list();
@@ -248,10 +249,10 @@ public class AdmDbUtils {
         StudentDao studentDao = Application.getDaoSession().getStudentDao();
         TestDao testDao = Application.getDaoSession().getTestDao();
         List<Classes> list = classDao.queryBuilder().orderDesc(ClassesDao.Properties.UpdateDate).build().list();
-        for (Classes c:list) {
-                c.setTeacherNumber(teacherDao.queryBuilder().where(TeacherDao.Properties.ClassIds.like(c.getId())).build().list().size());//教师所在班级包括当前班级
-                c.setClassNumber(studentDao.queryBuilder().where(StudentDao.Properties.ClassIds.eq(c.getId())).build().list().size());
-                c.setTestNumber(testDao.queryBuilder().where(TestDao.Properties.ClassId.eq(c.getId())).build().list().size());
+        for (Classes c : list) {
+            c.setTeacherNumber(teacherDao.queryBuilder().where(TeacherDao.Properties.ClassIds.like(c.getId())).build().list().size());//教师所在班级包括当前班级
+            c.setClassNumber(studentDao.queryBuilder().where(StudentDao.Properties.ClassIds.eq(c.getId())).build().list().size());
+            c.setTestNumber(testDao.queryBuilder().where(TestDao.Properties.ClassId.eq(c.getId())).build().list().size());
         }
         result.setCode(0);
         result.setData(list);
@@ -334,19 +335,36 @@ public class AdmDbUtils {
         result.setMsg("添加教师成功！");
         return result;
     }
+
     public static JsonEntity getMaxNumber() {
-        String number ="";
+        String number = "";
         TeacherDao teacherDao = Application.getDaoSession().getTeacherDao();
         List<Teacher> teachers = teacherDao.queryBuilder().orderDesc(TeacherDao.Properties.CreateDate).build().list();
-        if (null==teachers||teachers.size()==0){
-             number = NumberFactory.getNumber(null);
-        }else{
+        if (null == teachers || teachers.size() == 0) {
+            number = NumberFactory.getNumber(null);
+        } else {
             number = NumberFactory.getNumber(teachers.get(0).getNumber());//第一位教师
         }
         JsonEntity result = new JsonEntity<>();
         result.setData(number);
         result.setCode(0);
-        result.setMsg("添加教师成功！");
+        result.setMsg("获取最大教师工号成功！");
+        return result;
+    }
+
+    public static JsonEntity getMaxStuNumber() {
+        String number = "";
+        StudentDao studentDao = Application.getDaoSession().getStudentDao();
+        List<Student> students = studentDao.queryBuilder().orderDesc(StudentDao.Properties.CreateDate).build().list();
+        if (null == students || students.size() == 0) {
+            number = NumberFactory.getStuNumber(null);
+        } else {
+            number = NumberFactory.getStuNumber(students.get(0).getNumber());
+        }
+        JsonEntity result = new JsonEntity<>();
+        result.setData(number);
+        result.setCode(0);
+        result.setMsg("获取最大学生工号成功！");
         return result;
     }
 
@@ -425,6 +443,9 @@ public class AdmDbUtils {
      * @return
      */
     public static JsonEntity addStudent(Student student) {
+        student.setId(UUID.randomUUID().toString());
+        student.setCreateDate(new Date(TimeUtil.getCurrentMillis()));
+        student.setUpdateDate(new Date(TimeUtil.getCurrentMillis()));
         JsonEntity result = new JsonEntity<>();
         StudentDao classDao = Application.getDaoSession().getStudentDao();
         classDao.insert(student);
@@ -440,8 +461,8 @@ public class AdmDbUtils {
      */
     public static JsonEntity studentList() {
         JsonEntity<List<Student>> result = new JsonEntity<>();
-        StudentDao classDao = Application.getDaoSession().getStudentDao();
-        List<Student> list = classDao.queryBuilder().build().list();
+        StudentDao studentDao = Application.getDaoSession().getStudentDao();
+        List<Student> list = studentDao.queryBuilder().build().list();
         result.setCode(0);
         result.setData(list);
         result.setMsg("获取列表成功！");

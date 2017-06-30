@@ -206,6 +206,7 @@ public class AdmMainActivity extends BaseActivity {
                         IntentUtil.launcher(mContext, EditTeacherActivity.class);
                         break;
                     case TYPE_STUDENT:
+                        IntentUtil.launcher(mContext, EditStudentActivity.class);
                         break;
                 }
                 break;

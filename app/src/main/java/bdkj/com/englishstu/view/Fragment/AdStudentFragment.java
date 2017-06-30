@@ -10,9 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bdkj.com.englishstu.R;
+import bdkj.com.englishstu.base.JsonEntity;
 import bdkj.com.englishstu.base.baseView.BaseFragment;
 import bdkj.com.englishstu.common.adapter.StudentAdapter;
 import bdkj.com.englishstu.common.beans.Student;
+import bdkj.com.englishstu.common.dbinfo.AdmDbUtils;
 import bdkj.com.englishstu.common.divider.RecDivider;
 import bdkj.com.englishstu.common.tool.ToastUtil;
 import bdkj.com.englishstu.xrecyclerview.ProgressStyle;
@@ -47,32 +49,28 @@ public class AdStudentFragment extends BaseFragment implements RecycleItemClickL
         recyclerView.setRefreshProgressStyle(ProgressStyle.Pacman);
         recyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
         recyclerView.setArrowImageView(R.mipmap.iconfont_downgrey);
-        recyclerView.setLoadingMoreEnabled(true);
+        recyclerView.setLoadingMoreEnabled(false);
         listData = new ArrayList<Student>();
         recyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
                 listData.clear();
-                recyclerView.setLoadingMoreEnabled(true);
-                for (int i = 0; i < 10; i++) {
-                    listData.add(new Student());
+                JsonEntity jsonEntity = AdmDbUtils.studentList();
+                if (jsonEntity.getCode() == 0) {
+                    List<Student> students = (List<Student>) jsonEntity.getData();
+                    for (Student student:students) {
+                        listData.add(student);
+                    }
+                }else {
+                    ToastUtil.show(mContext,jsonEntity.getMsg());
                 }
+
                 mAdapter.notifyDataSetChanged();
                 recyclerView.refreshComplete();
             }
 
             @Override
             public void onLoadMore() {
-                if (listData.size() < 40) {
-                    for (int i = 0; i < 10; i++) {
-                        listData.add(new Student());
-                    }
-                    mAdapter.notifyDataSetChanged();
-                    recyclerView.loadMoreComplete();
-                } else {
-                    recyclerView.loadMoreComplete();
-                    recyclerView.setLoadingMoreEnabled(false);
-                }
             }
         });
         mAdapter = new StudentAdapter(mContext, (ArrayList<Student>) listData);
@@ -84,6 +82,6 @@ public class AdStudentFragment extends BaseFragment implements RecycleItemClickL
 
     @Override
     public void onItemClick(View view, int postion) {
-        ToastUtil.show(mContext, "点击了第" + postion + "项");
+//        ToastUtil.show(mContext, "点击了第" + postion + "项");
     }
 }

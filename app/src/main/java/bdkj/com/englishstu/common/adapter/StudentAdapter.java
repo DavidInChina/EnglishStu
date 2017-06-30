@@ -7,11 +7,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import bdkj.com.englishstu.R;
+import bdkj.com.englishstu.base.JsonEntity;
 import bdkj.com.englishstu.common.beans.Student;
+import bdkj.com.englishstu.common.dbinfo.AdmDbUtils;
+import bdkj.com.englishstu.common.tool.TimeUtil;
+import bdkj.com.englishstu.common.tool.ToastUtil;
+import bdkj.com.englishstu.common.widget.CircleImageView;
 import bdkj.com.englishstu.swipeitem.widget.SwipeItemLayout;
 import bdkj.com.englishstu.xrecyclerview.viewholder.BaseViewHolder;
 import bdkj.com.englishstu.xrecyclerview.viewholder.RecycleItemClickListener;
@@ -22,6 +29,7 @@ import bdkj.com.englishstu.xrecyclerview.viewholder.RecycleItemLongClickListener
  */
 
 public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHolder> {
+
     private List<Student> noteList = null;
     private Context mContext;
     public RecycleItemClickListener clickListener;
@@ -56,16 +64,19 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_student_layout, parent, false);
-        return new StudentAdapter.ViewHolder(view, clickListener, longClickListener);
+        return new ViewHolder(view, clickListener, longClickListener);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final Student note = noteList.get(position);
+        final Student student = noteList.get(position);
         SwipeItemLayout swipeRoot = holder.itemContactSwipeRoot;
-        if (position % 2 == 0) {
-            swipeRoot.setSwipeAble(false);//设置不可删除
-        }
+        Glide.with(mContext).load(student.getUserHead()).into(holder.ivLeftImg);
+        holder.tvStuName.setText(student.getUserName());
+        holder.tvStuNumber.setText("学号：" + student.getNumber());
+        holder.tvStuSex.setText("性别：" + student.getSex());
+        holder.tvStuClass.setText("班级：" + student.getClassIds().split(",")[0]);
+        holder.tvStuTime.setText("入学时间：" + TimeUtil.date2String(student.getCreateDate()));
         swipeRoot.setDelegate(new SwipeItemLayout.SwipeItemLayoutDelegate() {
             @Override
             public void onSwipeItemLayoutOpened(SwipeItemLayout swipeItemLayout) {
@@ -83,7 +94,21 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHold
                 closeOpenedSwipeItemLayoutWithAnim();
             }
         });
-        holder.baseView.setTag(note);
+        holder.itemContactDelete.setTag(student);
+        holder.itemContactDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Student student1 = (Student) v.getTag();
+                JsonEntity entity = AdmDbUtils.deleteStudent(student1.getId());
+                if (entity.getCode() == 0) {
+                    noteList.remove(student1);
+                    notifyDataSetChanged();
+                } else {
+                    ToastUtil.show(mContext, entity.getMsg());
+                }
+            }
+        });
+        holder.baseView.setTag(student);
     }
 
     public void closeOpenedSwipeItemLayoutWithAnim() {
@@ -103,6 +128,12 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHold
         TextView itemContactDelete;
         SwipeItemLayout itemContactSwipeRoot;
         public View baseView;
+        CircleImageView ivLeftImg;
+        TextView tvStuName;
+        TextView tvStuNumber;
+        TextView tvStuSex;
+        TextView tvStuClass;
+        TextView tvStuTime;
 
         public ViewHolder(View view) {
             super(view);
@@ -117,6 +148,12 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHold
             baseView = view;
             itemContactDelete = (TextView) view.findViewById(R.id.item_contact_delete);
             itemContactSwipeRoot = (SwipeItemLayout) view.findViewById(R.id.item_contact_swipe_root);
+            ivLeftImg = (CircleImageView) view.findViewById(R.id.iv_left_img);
+            tvStuName = (TextView) view.findViewById(R.id.tv_stu_name);
+            tvStuNumber = (TextView) view.findViewById(R.id.tv_stu_number);
+            tvStuSex = (TextView) view.findViewById(R.id.tv_stu_sex);
+            tvStuClass = (TextView) view.findViewById(R.id.tv_stu_class);
+            tvStuTime = (TextView) view.findViewById(R.id.tv_stu_time);
         }
     }
 }

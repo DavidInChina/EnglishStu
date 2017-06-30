@@ -37,7 +37,7 @@
         android:background="@color/white"
         android:orientation="horizontal">
 
-        <ImageView
+        <bdkj.com.englishstu.common.widget.CircleImageView
             android:id="@+id/iv_left_img"
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -57,7 +57,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv_title"
+                android:id="@+id/tv_stu_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left|top"
@@ -76,6 +76,7 @@
                 android:layout_marginRight="@dimen/normal_10">
 
                 <TextView
+                    android:id="@+id/tv_stu_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
@@ -89,6 +90,7 @@
                     android:textSize="@dimen/text_size_18" />
 
                 <TextView
+                    android:id="@+id/tv_stu_sex"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -108,6 +110,7 @@
                 android:layout_marginRight="@dimen/normal_10">
 
                 <TextView
+                    android:id="@+id/tv_stu_class"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
@@ -121,6 +124,7 @@
                     android:textSize="@dimen/text_size_18" />
 
                 <TextView
+                    android:id="@+id/tv_stu_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
