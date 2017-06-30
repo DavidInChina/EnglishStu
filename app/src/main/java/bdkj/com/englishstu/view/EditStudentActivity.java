@@ -27,7 +27,6 @@ import bdkj.com.englishstu.common.widget.CircleImageView;
 import bdkj.com.englishstu.selector.ChooseData;
 import bdkj.com.englishstu.selector.SelectPopWindow;
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class EditStudentActivity extends BaseActivity {
@@ -237,11 +236,5 @@ public class EditStudentActivity extends BaseActivity {
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 
 }

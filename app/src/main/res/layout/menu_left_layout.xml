@@ -34,7 +34,7 @@
             android:layout_marginTop="@dimen/normal_5"
             android:text="姓名：赵伟"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_size_15" />
+            android:textSize="@dimen/text_size_12" />
 
         <TextView
             android:id="@+id/tv_user_number"
@@ -44,7 +44,7 @@
             android:layout_marginTop="@dimen/normal_5"
             android:text="编号：12212121"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_size_15" />
+            android:textSize="@dimen/text_size_12" />
     </LinearLayout>
 
     <RadioGroup

@@ -1,0 +1,287 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="bdkj.com.englishstu.view.Fragment.AdTeacherFragment">
+
+    <include layout="@layout/action_top_normal" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_setting_wrapper"
+            android:orientation="vertical"
+            android:paddingLeft="150dp"
+            android:paddingRight="150dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@color/normal_grey"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="@dimen/regular_dimen_x20">
+
+                <bdkj.com.englishstu.common.widget.CircleImageView
+                    android:id="@+id/civ_user_head"
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
+                    android:src="@mipmap/bg_welcome" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/hint_blue" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/regular_dimen_x25"
+                android:paddingLeft="@dimen/regular_dimen_x20"
+                android:paddingRight="@dimen/regular_dimen_x20">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:text="登录账号"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_15" />
+
+                <EditText
+                    android:id="@+id/et_user_account"
+                    android:layout_width="@dimen/regular_dimen_x160"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:paddingBottom="@dimen/regular_dimen_x15"
+                    android:paddingTop="@dimen/regular_dimen_x15"
+                    android:textColor="@color/hint_grey"
+                    android:textSize="@dimen/text_size_15" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/normal_10"
+                android:layout_marginRight="@dimen/normal_10"
+                android:background="@color/hint_blue" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/regular_dimen_x25"
+                android:paddingLeft="@dimen/regular_dimen_x20"
+                android:paddingRight="@dimen/regular_dimen_x20">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:text="用户名"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_15" />
+
+                <EditText
+                    android:id="@+id/et_user_name"
+                    android:layout_width="@dimen/regular_dimen_x160"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:paddingBottom="@dimen/regular_dimen_x15"
+                    android:paddingTop="@dimen/regular_dimen_x15"
+                    android:textColor="@color/hint_grey"
+                    android:textSize="@dimen/text_size_15" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/normal_10"
+                android:layout_marginRight="@dimen/normal_10"
+                android:background="@color/hint_blue" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/regular_dimen_x25"
+                android:paddingLeft="@dimen/regular_dimen_x20"
+                android:paddingRight="@dimen/regular_dimen_x20">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:text="学生性别"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_15" />
+
+                <TextView
+                    android:id="@+id/et_user_sex"
+                    android:layout_width="@dimen/regular_dimen_x160"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:gravity="right"
+                    android:paddingBottom="@dimen/regular_dimen_x15"
+                    android:paddingTop="@dimen/regular_dimen_x15"
+                    android:textColor="@color/hint_grey"
+                    android:textSize="@dimen/text_size_15" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/normal_10"
+                android:layout_marginRight="@dimen/normal_10"
+                android:background="@color/hint_blue" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/regular_dimen_x25"
+                android:paddingLeft="@dimen/regular_dimen_x20"
+                android:paddingRight="@dimen/regular_dimen_x20">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:text="登录密码"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_15" />
+
+                <EditText
+                    android:id="@+id/et_user_password"
+                    android:layout_width="@dimen/regular_dimen_x160"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:hint="不改勿填"
+                    android:inputType="textPassword"
+                    android:paddingBottom="@dimen/regular_dimen_x15"
+                    android:paddingTop="@dimen/regular_dimen_x15"
+                    android:textColor="@color/hint_grey"
+                    android:textSize="@dimen/text_size_15" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/normal_10"
+                android:layout_marginRight="@dimen/normal_10"
+                android:background="@color/hint_blue" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/regular_dimen_x25"
+                android:paddingLeft="@dimen/regular_dimen_x20"
+                android:paddingRight="@dimen/regular_dimen_x20">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:text="联系电话"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_15" />
+
+                <EditText
+                    android:id="@+id/et_user_phone"
+                    android:layout_width="@dimen/regular_dimen_x160"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:paddingBottom="@dimen/regular_dimen_x15"
+                    android:paddingTop="@dimen/regular_dimen_x15"
+                    android:textColor="@color/hint_grey"
+                    android:textSize="@dimen/text_size_15" />
+            </RelativeLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/normal_10"
+                android:layout_marginRight="@dimen/normal_10"
+                android:background="@color/hint_blue" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/regular_dimen_x25"
+                android:paddingLeft="@dimen/regular_dimen_x20"
+                android:paddingRight="@dimen/regular_dimen_x20">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:text="联系邮箱"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_15" />
+
+                <EditText
+                    android:id="@+id/et_user_email"
+                    android:layout_width="@dimen/regular_dimen_x160"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:paddingBottom="@dimen/regular_dimen_x15"
+                    android:paddingTop="@dimen/regular_dimen_x15"
+                    android:textColor="@color/hint_grey"
+                    android:textSize="@dimen/text_size_15" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/normal_10"
+                android:layout_marginRight="@dimen/normal_10"
+                android:background="@color/hint_blue" />
+
+            <Button
+                android:id="@+id/btn_save"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/regular_dimen_x30"
+                android:layout_marginLeft="60dp"
+                android:layout_marginRight="60dp"
+                android:layout_marginTop="@dimen/regular_dimen_x30"
+                android:background="@drawable/bg_btn_save"
+                android:paddingBottom="@dimen/regular_dimen_x6"
+                android:paddingTop="@dimen/regular_dimen_x6"
+                android:text="@string/btn_save_update"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_16" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <View
+        android:id="@+id/mBottom"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true" />
+</LinearLayout>

@@ -17,7 +17,6 @@ import bdkj.com.englishstu.common.beans.Student;
 import bdkj.com.englishstu.common.beans.StudentDao;
 import bdkj.com.englishstu.common.beans.Test;
 import bdkj.com.englishstu.common.beans.TestDao;
-import bdkj.com.englishstu.common.tool.MD5Util;
 
 /**
  * Created by davidinchina on 2017/5/25.
@@ -37,7 +36,7 @@ public class StuDbUtils {
         StudentDao studentDao = Application.getDaoSession().getStudentDao();
         List<Student> list = studentDao.queryBuilder().limit(1)
                 .where(StudentDao.Properties.UserAccount.eq(account)).build().list();
-        if (list.size() > 0 && list.get(0).getUserPassword().equals(MD5Util.md5Encode(password))) {
+        if (list.size() > 0 && list.get(0).getUserPassword().equals(password)) {
             result.setCode(0);
             result.setData(list.get(0));
             result.setMsg("登录成功！");
@@ -72,7 +71,7 @@ public class StuDbUtils {
         JsonEntity<List<Note>> result = new JsonEntity<>();
         NoteRecordDao noteRecordDao = Application.getDaoSession().getNoteRecordDao();
         List<Note> notes = new LinkedList<>();
-        List<NoteRecord> list = noteRecordDao.queryBuilder().limit(1)
+        List<NoteRecord> list = noteRecordDao.queryBuilder()
                 .where(NoteRecordDao.Properties.StudentId.eq(studentId)).build().list();
         NoteDao noteDao = Application.getDaoSession().getNoteDao();
         if (list.size() > 0) {
@@ -103,11 +102,15 @@ public class StuDbUtils {
         NoteRecordDao noteRecordDao = Application.getDaoSession().getNoteRecordDao();
         NoteRecord record = noteRecordDao.queryBuilder()
                 .where(NoteRecordDao.Properties.Id.eq(recordId)).build().unique();
-        record.setStatus(1);
-        noteRecordDao.update(record);
-        result.setCode(0);
-        result.setData(null);
-        result.setMsg("阅读公告成功！");
+        if (null != record) {
+            record.setStatus(1);
+            noteRecordDao.update(record);
+            result.setCode(0);
+            result.setData(null);
+            result.setMsg("阅读公告成功！");
+        } else {
+            result.setMsg("阅读公告失败！");
+        }
         return result;
     }
 

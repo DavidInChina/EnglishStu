@@ -5,7 +5,7 @@
 
     <include
         android:id="@+id/top_title"
-        layout="@layout/action_top" />
+        layout="@layout/action_top_stu" />
 
     <include
         android:id="@+id/left_menu"
@@ -14,18 +14,23 @@
         android:layout_height="match_parent"
         android:layout_below="@id/top_title" />
 
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="2dp"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@id/left_menu"
+        android:background="@color/dark_green" />
+
     <FrameLayout
+        android:id="@+id/fragmentView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_toRightOf="@id/left_menu">
+        android:layout_below="@id/top_title"
+        android:layout_toRightOf="@id/view_line" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="欢迎来到学生主页,这里是fragment容器"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_size_25" />
-    </FrameLayout>
-
+    <View
+        android:id="@+id/mBottom"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true" />
 </RelativeLayout>
