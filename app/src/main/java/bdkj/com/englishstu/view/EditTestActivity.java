@@ -31,7 +31,6 @@ import bdkj.com.englishstu.common.wheelpicker.DatePicker;
 import bdkj.com.englishstu.selector.ChooseData;
 import bdkj.com.englishstu.selector.SelectPopWindow;
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class EditTestActivity extends BaseActivity {
@@ -60,7 +59,7 @@ public class EditTestActivity extends BaseActivity {
     private List<ChooseData> examList;
     private List<ChooseData> typeList;
     private ChooseData chooseData;//已选的试题
-    private String testType = "练习";
+    private String testType = "考试";//默认考试
     private String classId = "";
     private Teacher teacher;
 
@@ -268,13 +267,6 @@ public class EditTestActivity extends BaseActivity {
         }
     }
 
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 
 
 }

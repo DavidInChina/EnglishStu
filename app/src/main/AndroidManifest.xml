@@ -75,6 +75,9 @@
         <activity
             android:name=".view.StuInfoModifyActivity"
             android:screenOrientation="landscape" />
+        <activity
+            android:name=".view.AnswerExamActivity"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>

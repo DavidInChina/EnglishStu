@@ -372,7 +372,7 @@ public class TeaDbUtils {
     public static JsonEntity deleteTest(String testId) {
         JsonEntity result = new JsonEntity<>();
         TestDao testDao = Application.getDaoSession().getTestDao();
-        Test test = testDao.queryBuilder().build().unique();
+        Test test = testDao.queryBuilder().where(TestDao.Properties.Id.eq(testId)).build().unique();
         if (null != test) {
             MarkDao markDao = Application.getDaoSession().getMarkDao();
             List<Mark> recordList = markDao.queryBuilder().where(MarkDao.Properties.TestId.eq(test.getId()))

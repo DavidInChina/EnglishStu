@@ -142,7 +142,7 @@ public class EditStudentActivity extends BaseActivity {
         List<ChooseData> list = new ArrayList<>();//这里从后台取出老师所在班级信息
         if (entity.getCode() == 0) {
             for (Classes classes : (List<Classes>) entity.getData()) {
-                list.add(new ChooseData(classes.getName(), classes.getId() + "," + classes.getName(), false));//是否已选
+                list.add(new ChooseData(classes.getName(), classes.getName() + "," + classes.getId(), false));//是否已选
             }
         } else {
             ToastUtil.show(mContext, entity.getMsg());
@@ -196,8 +196,8 @@ public class EditStudentActivity extends BaseActivity {
             ToastUtil.show(mContext, "学生登录密码不合法！");
             return;
         }
-        if (!"".equals(etStuClasses.getText().toString())) {
-            student.setClassIds(etStuClasses.getText().toString());
+        if (!"".equals(stuClasses)) {
+            student.setClassIds(stuClasses);
         } else {
             ToastUtil.show(mContext, "请选择学生所在班级！");
             return;

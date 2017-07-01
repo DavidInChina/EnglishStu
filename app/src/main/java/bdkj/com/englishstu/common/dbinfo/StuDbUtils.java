@@ -120,7 +120,7 @@ public class StuDbUtils {
      * @param classesId
      * @return
      */
-    public static JsonEntity testList(String studentId, String classesId, int type) {
+    public static JsonEntity testList(String studentId, String classesId, String type) {
         JsonEntity<List<Test>> result = new JsonEntity<>();
         TestDao testDao = Application.getDaoSession().getTestDao();
         List<Test> list = testDao.queryBuilder()

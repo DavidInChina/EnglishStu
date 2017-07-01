@@ -26,8 +26,10 @@ import bdkj.com.englishstu.common.beans.Student;
 import bdkj.com.englishstu.common.eventbus.ClassChoose;
 import bdkj.com.englishstu.common.tool.ToastUtil;
 import bdkj.com.englishstu.selector.ChooseData;
+import bdkj.com.englishstu.view.Fragment.StuExamFragment;
 import bdkj.com.englishstu.view.Fragment.StuNoticeFragment;
 import bdkj.com.englishstu.view.Fragment.StuSettingFragment;
+import bdkj.com.englishstu.view.Fragment.StuTestFragment;
 import bdkj.com.englishstu.view.Fragment.TeSettingFragment;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -155,18 +157,23 @@ public class StuMainActivity extends BaseActivity {
                 switch (tag) {
                     case TYPE_NOTICE:
                         fragmentMap.put(TYPE_NOTICE, new StuNoticeFragment());
+                        tvTopTitle.setText("班级公告");
                         break;
                     case TYPE_TEST:
-                        fragmentMap.put(TYPE_TEST, new TeSettingFragment());
+                        fragmentMap.put(TYPE_TEST, new StuTestFragment());
+                        tvTopTitle.setText("练习");
                         break;
                     case TYPE_EXAM:
-                        fragmentMap.put(TYPE_EXAM, new TeSettingFragment());
+                        fragmentMap.put(TYPE_EXAM, new StuExamFragment());
+                        tvTopTitle.setText("考试");
                         break;
                     case TYPE_MARK:
                         fragmentMap.put(TYPE_MARK, new TeSettingFragment());
+                        tvTopTitle.setText("成绩查看");
                         break;
                     case TYPE_SETTING:
                         fragmentMap.put(TYPE_SETTING, new StuSettingFragment());
+                        tvTopTitle.setText("个人设置");
                         break;
                 }
             }
