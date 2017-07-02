@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="45dp"
+    android:background="@color/topbar"
+    android:orientation="horizontal">
+
+    <FrameLayout
+        android:layout_width="140dp"
+        android:layout_height="match_parent"
+        android:background="@color/dark_green">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:drawableLeft="@mipmap/btn_index_normal"
+            android:drawablePadding="@dimen/normal_5"
+            android:gravity="center"
+            android:text="答题"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_15" />
+    </FrameLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:paddingTop="@dimen/normal_10"
+        android:paddingBottom="@dimen/normal_10"
+        android:paddingLeft="@dimen/normal_10"
+        android:text="倒计时   "
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_18" />
+    <TextView
+        android:id="@+id/tv_discount"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginRight="@dimen/normal_10"
+        android:gravity="center"
+        android:paddingTop="@dimen/normal_10"
+        android:paddingBottom="@dimen/normal_10"
+        android:paddingRight="@dimen/normal_10"
+        android:text="20:00"
+        android:textColor="@color/hint_pink"
+        android:textSize="@dimen/text_size_18" />
+
+    <TextView
+        android:id="@+id/tv_top_title"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="考试说明"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_21" />
+
+    <TextView
+        android:id="@+id/tv_confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginRight="@dimen/normal_10"
+        android:gravity="center"
+        android:padding="@dimen/normal_10"
+        android:text="同意"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_18" />
+</LinearLayout>

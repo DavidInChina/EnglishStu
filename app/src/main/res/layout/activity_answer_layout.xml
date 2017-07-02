@@ -1,14 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <TextView
+    <include
+        android:id="@+id/top_title"
+        layout="@layout/action_top_answer" />
+
+    <include
+        android:id="@+id/left_menu"
+        layout="@layout/menu_left_tab"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@id/top_title" />
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="2dp"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@id/left_menu"
+        android:background="@color/dark_green" />
+
+    <FrameLayout
+        android:id="@+id/fragmentView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="答题页面"
-        android:textSize="18sp"/>
-</LinearLayout>
+        android:layout_height="match_parent"
+        android:layout_below="@id/top_title"
+        android:layout_toRightOf="@id/view_line" />
+
+    <View
+        android:id="@+id/mBottom"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true" />
+</RelativeLayout>

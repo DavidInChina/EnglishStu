@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@color/light_black"
+    android:orientation="vertical">
+
+    <RadioGroup
+        android:id="@+id/rb_menu_left"
+        android:layout_width="140dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="1dp"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/rb_1"
+            style="@style/menu_radio_button"
+            android:text="练习说明" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/dark_black" />
+
+        <RadioButton
+            android:id="@+id/rb_2"
+            style="@style/menu_radio_button"
+            android:text="单词朗读" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/dark_black" />
+
+        <RadioButton
+            android:id="@+id/rb_3"
+            style="@style/menu_radio_button"
+            android:text="语句朗读" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/dark_black" />
+
+        <RadioButton
+            android:id="@+id/rb_4"
+            style="@style/menu_radio_button"
+            android:text="提交答案" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/dark_black" />
+    </RadioGroup>
+</LinearLayout>

@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.loader.ImageLoader;
 import com.lzy.imagepicker.view.CropImageView;
+import com.youdao.sdk.app.YouDaoApplication;
 
 import org.greenrobot.greendao.database.Database;
 
@@ -30,10 +31,12 @@ public class Application
     private static Admin adminInfo;
     private static Teacher teacherInfo;
     private static Student studentInfo;
+
     @Override
     public void onCreate() {
         super.onCreate();
         mContext = this.getApplicationContext();
+        YouDaoApplication.init(this, "0e2eb96efccd3b13");//初始化有道翻译
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, ENCRYPTED ? "english-db-encrypted" : "english-db");
         Database db = ENCRYPTED ? helper.getEncryptedWritableDb("super-secret") : helper.getWritableDb();
         daoSession = new DaoMaster(db).newSession();
@@ -114,6 +117,7 @@ public class Application
             return adminInfo;
         }
     }
+
     public static boolean setTeacherInfo(Context mContext, Teacher teacher) {
         teacherInfo = new Teacher();
         teacherInfo = teacher;
@@ -139,6 +143,7 @@ public class Application
             return teacherInfo;
         }
     }
+
     public static boolean setStudentInfo(Context mContext, Student student) {
         studentInfo = new Student();
         studentInfo = student;

@@ -148,7 +148,6 @@ public class TeaMainActivity extends BaseActivity {
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
                 switch (checkedId) {
                     case R.id.rb_1:
-
                         toggleFragment(TYPE_NOTICE);
                         break;
                     case R.id.rb_2:
