@@ -1,16 +1,276 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="bdkj.com.englishstu.view.Fragment.AdClassFragment">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingTop="160dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_word"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="professional"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_25"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_translate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="professional"
+                android:textColor="@color/hint_grey"
+                android:textSize="@dimen/text_size_18" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tv_speck_en"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:drawableRight="@mipmap/btn_reading_pressed"
+                    android:drawablePadding="@dimen/normal_5"
+                    android:gravity="center"
+                    android:text="英式发音：[dog]"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_13" />
+
+                <TextView
+                    android:id="@+id/tv_speck_us"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/normal_10"
+                    android:layout_toRightOf="@id/tv_speck_en"
+                    android:gravity="center"
+                    android:text="美式发音：[dog]"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_13" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_translate_result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center|left"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_15" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingTop="160dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_word2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="professional"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_25"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_translate2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="professional"
+                android:textColor="@color/hint_grey"
+                android:textSize="@dimen/text_size_18" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tv_speck_en2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="英式发音：[dog]"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_13" />
+
+                <TextView
+                    android:id="@+id/tv_speck_us2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/normal_10"
+                    android:layout_toRightOf="@id/tv_speck_en2"
+                    android:gravity="center"
+                    android:text="美式发音：[dog]"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_13" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_translate_result2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center|left"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_15" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingTop="160dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_word3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="professional"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_25"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_translate3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="professional"
+                android:textColor="@color/hint_grey"
+                android:textSize="@dimen/text_size_18" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tv_speck_en3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="英式发音：[dog]"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_13" />
+
+                <TextView
+                    android:id="@+id/tv_speck_us3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/normal_10"
+                    android:layout_toRightOf="@id/tv_speck_en3"
+                    android:gravity="center"
+                    android:text="美式发音：[dog]"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_13" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_translate_result3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center|left"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_15" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="单词朗读"
-        android:textSize="18sp" />
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/hint_grey">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:drawableLeft="@mipmap/btn_reading_normal"
+                android:drawablePadding="@dimen/normal_5"
+                android:gravity="center"
+                android:text="朗读"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_18" />
+
+        </FrameLayout>
 
 
-</FrameLayout>
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:background="@color/white" />
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/hint_grey">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:drawableLeft="@mipmap/btn_remind_normal"
+                android:drawablePadding="@dimen/normal_5"
+                android:gravity="center"
+                android:text="提示"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_18" />
+        </FrameLayout>
+
+    </LinearLayout>
+</LinearLayout>

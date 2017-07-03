@@ -18,8 +18,11 @@ import bdkj.com.englishstu.R;
 import bdkj.com.englishstu.base.Application;
 import bdkj.com.englishstu.base.baseView.BaseActivity;
 import bdkj.com.englishstu.base.baseView.BaseFragment;
+import bdkj.com.englishstu.common.beans.Mark;
 import bdkj.com.englishstu.common.beans.Student;
 import bdkj.com.englishstu.common.beans.Test;
+import bdkj.com.englishstu.common.eventbus.RequestTest;
+import bdkj.com.englishstu.common.eventbus.TheTest;
 import bdkj.com.englishstu.common.tool.TimeUtil;
 import bdkj.com.englishstu.common.tool.ToastUtil;
 import bdkj.com.englishstu.view.Fragment.TestNoteFragment;
@@ -28,6 +31,7 @@ import bdkj.com.englishstu.view.Fragment.TestSubFragment;
 import bdkj.com.englishstu.view.Fragment.TestWordFragment;
 import butterknife.BindView;
 import butterknife.OnClick;
+import de.greenrobot.event.EventBus;
 
 public class AnswerExamActivity extends BaseActivity {
 
@@ -54,7 +58,8 @@ public class AnswerExamActivity extends BaseActivity {
     @BindView(R.id.view_line)
     View viewLine;
     private Student student;
-    private Test test;
+    private Test test;//这个是做的题
+    private Mark mark;//这是最终要完成的答题成绩
     private int discount;
     private Map<String, BaseFragment> fragmentMap = new HashMap<>();
     private static final String ANS_NOTE = "note";
@@ -84,6 +89,7 @@ public class AnswerExamActivity extends BaseActivity {
     @Override
     protected void initViews(Bundle savedInstanceState) {
         student = Application.getStudentInfo();
+        EventBus.getDefault().register(this);
         test = (Test) getIntent().getExtras().getSerializable("test");
         if (null == student || null == test) {
             ToastUtil.show(mContext, "数据获取有误！");
@@ -92,6 +98,16 @@ public class AnswerExamActivity extends BaseActivity {
         initMenu();
         initWeight();
         beginDiscount();
+    }
+
+    public void onEventMainThread(RequestTest requestTest) {
+        EventBus.getDefault().post(new TheTest(test));//更新fragment数据
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     public void initMenu() {
@@ -187,15 +203,18 @@ public class AnswerExamActivity extends BaseActivity {
                 toggleFragment(ANS_WORD);
                 rb2.setChecked(true);
                 tvConfirm.setText("下一项");
+                tvTopTitle.setText("单词朗读");
                 break;
             case ANS_SENTENCE:
                 toggleFragment(ANS_SUBMIT);
                 tvConfirm.setText("提交");
                 rb4.setChecked(true);
+                tvTopTitle.setText("提交答案");
                 break;
             case ANS_WORD:
                 toggleFragment(ANS_SENTENCE);
                 rb3.setChecked(true);
+                tvTopTitle.setText("语句朗读");
                 break;
             case ANS_SUBMIT:
                 ToastUtil.show(mContext, "保存并提交答案");
