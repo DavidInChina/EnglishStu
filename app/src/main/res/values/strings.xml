@@ -29,4 +29,6 @@
     <string name="btn_save_update">保存修改</string>
     <string name="btn_quit">退出登录</string>
     <string name="tv_link_email">联系邮箱</string>
+
+    <string formatted="false" name="tts_toast_format">缓冲进度为%d%%，播放进度为%d%%</string>
 </resources>

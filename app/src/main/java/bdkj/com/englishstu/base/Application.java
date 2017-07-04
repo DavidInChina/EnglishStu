@@ -7,6 +7,8 @@ import android.net.Uri;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechUtility;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.loader.ImageLoader;
 import com.lzy.imagepicker.view.CropImageView;
@@ -37,6 +39,7 @@ public class Application
         super.onCreate();
         mContext = this.getApplicationContext();
         YouDaoApplication.init(this, "0e2eb96efccd3b13");//初始化有道翻译
+        SpeechUtility.createUtility(this, SpeechConstant.APPID + "=59268908");//初始化科大讯飞
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, ENCRYPTED ? "english-db-encrypted" : "english-db");
         Database db = ENCRYPTED ? helper.getEncryptedWritableDb("super-secret") : helper.getWritableDb();
         daoSession = new DaoMaster(db).newSession();

@@ -16,8 +16,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:paddingTop="160dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingTop="160dp">
 
             <TextView
                 android:id="@+id/tv_word"
@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="professional"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_size_25"
                 android:textStyle="bold" />
@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="professional"
+                android:text=""
                 android:textColor="@color/hint_grey"
                 android:textSize="@dimen/text_size_18" />
 
@@ -51,10 +51,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:drawableRight="@mipmap/btn_reading_pressed"
                     android:drawablePadding="@dimen/normal_5"
+                    android:drawableRight="@mipmap/btn_reading_pressed"
                     android:gravity="center"
-                    android:text="英式发音：[dog]"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_13" />
 
@@ -62,11 +62,12 @@
                     android:id="@+id/tv_speck_us"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_speck_en"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/normal_10"
-                    android:layout_toRightOf="@id/tv_speck_en"
+                    android:drawablePadding="@dimen/normal_5"
+                    android:drawableRight="@mipmap/btn_reading_pressed"
                     android:gravity="center"
-                    android:text="美式发音：[dog]"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_13" />
             </RelativeLayout>
@@ -87,8 +88,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:paddingTop="160dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingTop="160dp">
 
             <TextView
                 android:id="@+id/tv_word2"
@@ -96,7 +97,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="professional"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_size_25"
                 android:textStyle="bold" />
@@ -107,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="professional"
+                android:text=""
                 android:textColor="@color/hint_grey"
                 android:textSize="@dimen/text_size_18" />
 
@@ -122,8 +123,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:drawablePadding="@dimen/normal_5"
+                    android:drawableRight="@mipmap/btn_reading_pressed"
                     android:gravity="center"
-                    android:text="英式发音：[dog]"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_13" />
 
@@ -131,11 +134,12 @@
                     android:id="@+id/tv_speck_us2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_speck_en2"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/normal_10"
-                    android:layout_toRightOf="@id/tv_speck_en2"
+                    android:drawablePadding="@dimen/normal_5"
+                    android:drawableRight="@mipmap/btn_reading_pressed"
                     android:gravity="center"
-                    android:text="美式发音：[dog]"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_13" />
             </RelativeLayout>
@@ -156,8 +160,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:paddingTop="160dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingTop="160dp">
 
             <TextView
                 android:id="@+id/tv_word3"
@@ -165,7 +169,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="professional"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_size_25"
                 android:textStyle="bold" />
@@ -176,7 +180,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="professional"
+                android:text=""
                 android:textColor="@color/hint_grey"
                 android:textSize="@dimen/text_size_18" />
 
@@ -191,8 +195,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:drawablePadding="@dimen/normal_5"
+                    android:drawableRight="@mipmap/btn_reading_pressed"
                     android:gravity="center"
-                    android:text="英式发音：[dog]"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_13" />
 
@@ -200,11 +206,12 @@
                     android:id="@+id/tv_speck_us3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_speck_en3"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/normal_10"
-                    android:layout_toRightOf="@id/tv_speck_en3"
+                    android:drawablePadding="@dimen/normal_5"
+                    android:drawableRight="@mipmap/btn_reading_pressed"
                     android:gravity="center"
-                    android:text="美式发音：[dog]"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_13" />
             </RelativeLayout>
@@ -230,6 +237,7 @@
         android:orientation="horizontal">
 
         <FrameLayout
+            android:id="@+id/fl_speck_voice"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -255,6 +263,7 @@
             android:background="@color/white" />
 
         <FrameLayout
+            android:id="@+id/fl_remind_voice"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

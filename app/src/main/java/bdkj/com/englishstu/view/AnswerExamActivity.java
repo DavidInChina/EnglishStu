@@ -21,8 +21,6 @@ import bdkj.com.englishstu.base.baseView.BaseFragment;
 import bdkj.com.englishstu.common.beans.Mark;
 import bdkj.com.englishstu.common.beans.Student;
 import bdkj.com.englishstu.common.beans.Test;
-import bdkj.com.englishstu.common.eventbus.RequestTest;
-import bdkj.com.englishstu.common.eventbus.TheTest;
 import bdkj.com.englishstu.common.tool.TimeUtil;
 import bdkj.com.englishstu.common.tool.ToastUtil;
 import bdkj.com.englishstu.view.Fragment.TestNoteFragment;
@@ -31,7 +29,6 @@ import bdkj.com.englishstu.view.Fragment.TestSubFragment;
 import bdkj.com.englishstu.view.Fragment.TestWordFragment;
 import butterknife.BindView;
 import butterknife.OnClick;
-import de.greenrobot.event.EventBus;
 
 public class AnswerExamActivity extends BaseActivity {
 
@@ -86,10 +83,13 @@ public class AnswerExamActivity extends BaseActivity {
         return R.layout.activity_answer_layout;
     }
 
+    public Test getCurrentTest() {
+        return test;
+    }
+
     @Override
     protected void initViews(Bundle savedInstanceState) {
         student = Application.getStudentInfo();
-        EventBus.getDefault().register(this);
         test = (Test) getIntent().getExtras().getSerializable("test");
         if (null == student || null == test) {
             ToastUtil.show(mContext, "数据获取有误！");
@@ -100,15 +100,6 @@ public class AnswerExamActivity extends BaseActivity {
         beginDiscount();
     }
 
-    public void onEventMainThread(RequestTest requestTest) {
-        EventBus.getDefault().post(new TheTest(test));//更新fragment数据
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
-    }
 
     public void initMenu() {
         rb1.setClickable(false);

@@ -9,23 +9,26 @@ import android.widget.Toast;
  * 提示框类
  */
 
-public class ToastUtil
-    {
-        /**
-         * 返回显示自定义提示框类
-         *
-         * @param context 上下文
-         * @param content 提示内容
-         * @return Toast 提示框
-         */
-        public static Toast show(Context context, String content)
-            {
-                Toast toast = new Toast(context);
-                TextView view = new TextView(context);
-                view.setText(content);
-                toast.setView(view);
-                toast.setDuration(Toast.LENGTH_SHORT);
-                toast.show();
-                return toast;
-            }
+public class ToastUtil {
+
+    private static Toast toast;
+
+    /**
+     * 返回显示自定义提示框类
+     *
+     * @param content 提示内容
+     * @return Toast 提示框
+     */
+    public static Toast show(Context mContext, String content) {
+        if (null != toast) {
+            toast.cancel();
+        }
+        toast = new Toast(mContext);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        TextView view = new TextView(mContext);
+        view.setText(content);
+        toast.setView(view);
+        toast.show();
+        return toast;
     }
+}
