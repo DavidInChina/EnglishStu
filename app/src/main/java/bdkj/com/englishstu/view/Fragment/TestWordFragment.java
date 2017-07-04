@@ -181,7 +181,7 @@ public class TestWordFragment extends BaseFragment {
         }
         //格式 "[word]\napple\nbanana\norange
         String words[] = currentExam.getWords().split(",");
-        String evaText = "[word]" + words[0] + "\\" + words[1] + "\\" + words[2];
+        String evaText = "[word]\n" + words[0] + "\n" + words[1] + "\n" + words[2];
         Logger.d(evaText);
         mLastResult = null;
         setParams();
@@ -275,11 +275,12 @@ public class TestWordFragment extends BaseFragment {
                 builder.append(result.getResultString());
 
                 if (!TextUtils.isEmpty(builder)) {
+                    ((AnswerExamActivity) getActivity()).setWordResult(builder.toString());
                     Logger.d(builder.toString());
                 }
                 flSpeckVoice.setEnabled(true);
                 mLastResult = builder.toString();
-                showProgress("评测结束");
+                showProgress("单词朗读完毕");
             }
         }
 

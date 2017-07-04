@@ -1,7 +1,9 @@
 package bdkj.com.englishstu.common.dbinfo;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
 
 import bdkj.com.englishstu.base.Application;
 import bdkj.com.englishstu.base.JsonEntity;
@@ -17,6 +19,7 @@ import bdkj.com.englishstu.common.beans.Student;
 import bdkj.com.englishstu.common.beans.StudentDao;
 import bdkj.com.englishstu.common.beans.Test;
 import bdkj.com.englishstu.common.beans.TestDao;
+import bdkj.com.englishstu.common.tool.TimeUtil;
 
 /**
  * Created by davidinchina on 2017/5/25.
@@ -173,6 +176,9 @@ public class StuDbUtils {
      * @return
      */
     public static JsonEntity addMark(Mark mark) {
+        mark.setId(UUID.randomUUID().toString());
+        mark.setCreateDate(new Date(TimeUtil.getCurrentMillis()));
+        mark.setUpdateDate(new Date(TimeUtil.getCurrentMillis()));//设置基本字段
         JsonEntity<Mark> result = new JsonEntity<>();
         MarkDao markDao = Application.getDaoSession().getMarkDao();
         markDao.insert(mark);

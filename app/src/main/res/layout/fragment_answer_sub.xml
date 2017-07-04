@@ -1,7 +1,10 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical"
     tools:context="bdkj.com.englishstu.view.Fragment.AdClassFragment">
 
     <TextView
@@ -9,8 +12,18 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="提交答案"
+        android:text="提交须知。。。"
         android:textSize="18sp" />
 
-
-</FrameLayout>
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="@dimen/normal_10"
+        android:layout_marginTop="@dimen/regular_dimen_x20"
+        android:background="@drawable/bg_btn_confirm"
+        android:text="提交"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_20" />
+</LinearLayout>

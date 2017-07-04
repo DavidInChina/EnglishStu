@@ -16,11 +16,14 @@ import java.util.Map;
 
 import bdkj.com.englishstu.R;
 import bdkj.com.englishstu.base.Application;
+import bdkj.com.englishstu.base.JsonEntity;
 import bdkj.com.englishstu.base.baseView.BaseActivity;
 import bdkj.com.englishstu.base.baseView.BaseFragment;
+import bdkj.com.englishstu.common.beans.Exam;
 import bdkj.com.englishstu.common.beans.Mark;
 import bdkj.com.englishstu.common.beans.Student;
 import bdkj.com.englishstu.common.beans.Test;
+import bdkj.com.englishstu.common.dbinfo.StuDbUtils;
 import bdkj.com.englishstu.common.tool.TimeUtil;
 import bdkj.com.englishstu.common.tool.ToastUtil;
 import bdkj.com.englishstu.view.Fragment.TestNoteFragment;
@@ -85,6 +88,48 @@ public class AnswerExamActivity extends BaseActivity {
 
     public Test getCurrentTest() {
         return test;
+    }
+
+    public void setWordResult(String wordResult) {
+        mark.setWordXml(wordResult);
+    }
+
+    public void setSentenceResult(String sentenceResult) {
+        mark.setSentenceXml(sentenceResult);
+    }
+
+    public void beginSaveMark() {
+        if (null == mark || null == mark.getSentenceXml() || "".equals(mark.getSentenceXml()) ||
+                null == mark.getWordXml() || "".equals(mark.getWordXml())) {
+            ToastUtil.show(mContext, "答题结果有误，考试结束！");
+        }
+        mark.setImg(test.getImg());
+        mark.setBeginTime(test.getBeginTime());
+        mark.setEndTime(test.getEndTime());
+        JsonEntity entity1 = StuDbUtils.getExamDetail(test.getExamId());
+        if (entity1.getCode() == 0) {
+            Exam exam = (Exam) entity1.getData();
+            if (null != exam) {
+                mark.setExamId(exam.getId());
+                mark.setExamName(exam.getName());
+            } else {
+                ToastUtil.show(mContext, "获取试题详情失败！");
+                finish();
+            }
+        } else {
+            ToastUtil.show(mContext, entity1.getMsg());
+        }
+        mark.setStudentId(student.getId());
+        mark.setStuHead(student.getUserHead());
+        mark.setStuName(student.getUserName());
+        mark.setTestType(test.getType());
+        JsonEntity entity = StuDbUtils.addMark(mark);
+        if (entity.getCode() == 0) {
+            ToastUtil.show(mContext, "答题成功，请到成绩查看查询答题结果。");
+        } else {
+            ToastUtil.show(mContext, entity.getMsg());
+        }
+        finish();
     }
 
     @Override
@@ -195,21 +240,32 @@ public class AnswerExamActivity extends BaseActivity {
                 rb2.setChecked(true);
                 tvConfirm.setText("下一项");
                 tvTopTitle.setText("单词朗读");
-                break;
-            case ANS_SENTENCE:
-                toggleFragment(ANS_SUBMIT);
-                tvConfirm.setText("提交");
-                rb4.setChecked(true);
-                tvTopTitle.setText("提交答案");
+                if (null == mark) {
+                    mark = new Mark();
+                }
                 break;
             case ANS_WORD:
-                toggleFragment(ANS_SENTENCE);
-                rb3.setChecked(true);
-                tvTopTitle.setText("语句朗读");
+                if (null != mark.getWordXml() && !"".equals(mark.getWordXml())) {
+                    toggleFragment(ANS_SENTENCE);
+                    rb3.setChecked(true);
+                    tvTopTitle.setText("语句朗读");
+                } else {
+                    ToastUtil.show(mContext, "请完成单词朗读!");
+                }
+
+                break;
+            case ANS_SENTENCE:
+                if (null != mark.getSentenceXml() && !"".equals(mark.getSentenceXml())) {
+                    toggleFragment(ANS_SUBMIT);
+                    tvConfirm.setText("提交");
+                    rb4.setChecked(true);
+                    tvTopTitle.setText("提交答案");
+                } else {
+                    ToastUtil.show(mContext, "请完成语句朗读!");
+                }
                 break;
             case ANS_SUBMIT:
-                ToastUtil.show(mContext, "保存并提交答案");
-                finish();
+                beginSaveMark();
                 break;
         }
     }
