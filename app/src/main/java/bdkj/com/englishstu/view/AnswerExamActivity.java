@@ -26,6 +26,8 @@ import bdkj.com.englishstu.common.beans.Test;
 import bdkj.com.englishstu.common.dbinfo.StuDbUtils;
 import bdkj.com.englishstu.common.tool.TimeUtil;
 import bdkj.com.englishstu.common.tool.ToastUtil;
+import bdkj.com.englishstu.common.xml.Result;
+import bdkj.com.englishstu.common.xml.XmlResultParser;
 import bdkj.com.englishstu.view.Fragment.TestNoteFragment;
 import bdkj.com.englishstu.view.Fragment.TestSentenceFragment;
 import bdkj.com.englishstu.view.Fragment.TestSubFragment;
@@ -106,6 +108,9 @@ public class AnswerExamActivity extends BaseActivity {
         mark.setImg(test.getImg());
         mark.setBeginTime(test.getBeginTime());
         mark.setEndTime(test.getEndTime());
+        mark.setTestName(test.getName());
+        mark.setTestId(test.getId());
+        mark.setTestType(test.getType());
         JsonEntity entity1 = StuDbUtils.getExamDetail(test.getExamId());
         if (entity1.getCode() == 0) {
             Exam exam = (Exam) entity1.getData();
@@ -122,7 +127,19 @@ public class AnswerExamActivity extends BaseActivity {
         mark.setStudentId(student.getId());
         mark.setStuHead(student.getUserHead());
         mark.setStuName(student.getUserName());
-        mark.setTestType(test.getType());
+        float score = 0;
+        if (!"".equals(mark.getWordXml())) {
+            XmlResultParser resultParser = new XmlResultParser();
+            Result result = resultParser.parse(mark.getWordXml());
+            score += result.total_score;
+
+        }
+        if (!"".equals(mark.getSentenceXml())) {
+            XmlResultParser resultParser = new XmlResultParser();
+            Result result = resultParser.parse(mark.getSentenceXml());
+            score += result.total_score;
+        }
+        mark.setScore(score + "");
         JsonEntity entity = StuDbUtils.addMark(mark);
         if (entity.getCode() == 0) {
             ToastUtil.show(mContext, "答题成功，请到成绩查看查询答题结果。");

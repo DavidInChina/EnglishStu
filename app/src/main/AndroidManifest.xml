@@ -90,6 +90,9 @@
         <activity
             android:name=".view.AnswerExamActivity"
             android:screenOrientation="landscape" />
+        <activity
+            android:name=".view.MarkDetailActivity"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>

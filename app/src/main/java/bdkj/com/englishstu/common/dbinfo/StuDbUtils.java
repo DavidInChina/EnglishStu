@@ -89,7 +89,7 @@ public class StuDbUtils {
             result.setData(notes);
             result.setMsg("获取公告列表成功！");
         } else {
-            result.setMsg("获取公告列表失败！");
+            result.setMsg("暂无相关公告！");
         }
         return result;
     }
@@ -132,12 +132,14 @@ public class StuDbUtils {
         if (list.size() > 0) {
             for (Test test : list
                     ) {
-                Mark mark = markDao.queryBuilder().where(MarkDao.Properties.StudentId.eq(studentId)).build().unique();
-                if (null != mark) {
-                    test.setStatus(1);
-                } else {
-                    test.setStatus(0);
-                }
+                test.setStatus(0);//此处咱不考虑已做未做，允许多次测试
+//                Mark mark = markDao.queryBuilder().where(MarkDao.Properties.StudentId.eq(studentId)).build().unique();
+//                if (null != mark) {
+//                    test.setStatus(1);
+//                } else {
+//                    test.setStatus(0);
+//                }
+
             }
             result.setCode(0);
             result.setData(list);
@@ -187,6 +189,20 @@ public class StuDbUtils {
         result.setMsg("获取试题成功！");
         return result;
     }
+    /**
+     * 删除考试成绩
+     *
+     * @return
+     */
+    public static JsonEntity deleteMark(String markId) {
+        JsonEntity<Mark> result = new JsonEntity<>();
+        MarkDao markDao = Application.getDaoSession().getMarkDao();
+        markDao.deleteByKey(markId);
+        result.setCode(0);
+        result.setData(null);
+        result.setMsg("删除试题成功！");
+        return result;
+    }
 
     /**
      * 获取成绩列表
@@ -194,10 +210,11 @@ public class StuDbUtils {
      * @param studentId
      * @return
      */
-    public static JsonEntity markList(String studentId, int type) {
+    public static JsonEntity markList(String studentId, String type) {
         JsonEntity<List<Mark>> result = new JsonEntity<>();
         MarkDao markDao = Application.getDaoSession().getMarkDao();
-        List<Mark> list = markDao.queryBuilder().where(MarkDao.Properties.StudentId.eq(studentId), MarkDao.Properties.TestType.eq(type)).build().list();
+        List<Mark> list = markDao.queryBuilder().where(MarkDao.Properties.StudentId.eq(studentId),
+                MarkDao.Properties.TestType.eq(type)).orderAsc(MarkDao.Properties.CreateDate).build().list();
         if (list.size() > 0) {
             result.setCode(0);
             result.setData(list);

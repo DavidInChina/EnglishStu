@@ -1,13 +1,14 @@
 package bdkj.com.englishstu.common.beans;
 
 import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Index;
 import org.greenrobot.greendao.annotation.NotNull;
 import org.greenrobot.greendao.annotation.Unique;
 
+import java.io.Serializable;
 import java.util.Date;
-import org.greenrobot.greendao.annotation.Generated;
 
 /**
  * Created by davidinchina on 2017/5/25.
@@ -15,7 +16,8 @@ import org.greenrobot.greendao.annotation.Generated;
  */
 
 @Entity(indexes = {@Index(value = "updateDate DESC", unique = true)})
-public class Mark {
+public class Mark implements Serializable {
+    static final long serialVersionUID = 77L;
     @Id
     @NotNull
     @Unique
@@ -39,12 +41,13 @@ public class Mark {
     private String img;
     private String beginTime;
     private String endTime;
+
     @Generated(hash = 559366005)
     public Mark(@NotNull String id, @NotNull String studentId, String stuHead,
-            String stuName, String testId, String testType, String examId,
-            String score, String wordXml, String sentenceXml, Date updateDate,
-            Date createDate, String testName, String examName, String img,
-            String beginTime, String endTime) {
+                String stuName, String testId, String testType, String examId,
+                String score, String wordXml, String sentenceXml, Date updateDate,
+                Date createDate, String testName, String examName, String img,
+                String beginTime, String endTime) {
         this.id = id;
         this.studentId = studentId;
         this.stuHead = stuHead;
@@ -63,111 +66,146 @@ public class Mark {
         this.beginTime = beginTime;
         this.endTime = endTime;
     }
+
     @Generated(hash = 1181118646)
     public Mark() {
     }
+
     public String getId() {
         return this.id;
     }
+
     public void setId(String id) {
         this.id = id;
     }
+
     public String getStudentId() {
         return this.studentId;
     }
+
     public void setStudentId(String studentId) {
         this.studentId = studentId;
     }
+
     public String getStuHead() {
         return this.stuHead;
     }
+
     public void setStuHead(String stuHead) {
         this.stuHead = stuHead;
     }
+
     public String getStuName() {
         return this.stuName;
     }
+
     public void setStuName(String stuName) {
         this.stuName = stuName;
     }
+
     public String getTestId() {
         return this.testId;
     }
+
     public void setTestId(String testId) {
         this.testId = testId;
     }
+
     public String getTestType() {
         return this.testType;
     }
+
     public void setTestType(String testType) {
         this.testType = testType;
     }
+
     public String getExamId() {
         return this.examId;
     }
+
     public void setExamId(String examId) {
         this.examId = examId;
     }
+
     public String getScore() {
         return this.score;
     }
+
     public void setScore(String score) {
         this.score = score;
     }
+
     public String getWordXml() {
         return this.wordXml;
     }
+
     public void setWordXml(String wordXml) {
         this.wordXml = wordXml;
     }
+
     public String getSentenceXml() {
         return this.sentenceXml;
     }
+
     public void setSentenceXml(String sentenceXml) {
         this.sentenceXml = sentenceXml;
     }
+
     public Date getUpdateDate() {
         return this.updateDate;
     }
+
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
     }
+
     public Date getCreateDate() {
         return this.createDate;
     }
+
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
+
     public String getTestName() {
         return this.testName;
     }
+
     public void setTestName(String testName) {
         this.testName = testName;
     }
+
     public String getExamName() {
         return this.examName;
     }
+
     public void setExamName(String examName) {
         this.examName = examName;
     }
+
     public String getImg() {
         return this.img;
     }
+
     public void setImg(String img) {
         this.img = img;
     }
+
     public String getBeginTime() {
         return this.beginTime;
     }
+
     public void setBeginTime(String beginTime) {
         this.beginTime = beginTime;
     }
+
     public String getEndTime() {
         return this.endTime;
     }
+
     public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 
-    
+
 }

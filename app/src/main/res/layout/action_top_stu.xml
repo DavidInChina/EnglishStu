@@ -33,16 +33,45 @@
         android:src="@drawable/search_pressed" />
 
 
-    <TextView
-        android:id="@+id/tv_top_title"
+    <FrameLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:text="首页"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_size_21" />
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/tv_top_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="首页"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_21" />
+
+        <RadioGroup
+            android:id="@+id/rb_menu_top"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/normal_5"
+            android:layout_marginTop="@dimen/normal_5"
+            android:background="@drawable/border_radio_check"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_test"
+                style="@style/top_radio_button"
+                android:checked="true"
+                android:text="练习" />
+
+
+            <RadioButton
+                android:id="@+id/rb_exam"
+                style="@style/top_radio_button"
+                android:text="考试" />
+
+        </RadioGroup>
+    </FrameLayout>
 
     <RelativeLayout
         android:layout_width="120dp"

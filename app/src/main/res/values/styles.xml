@@ -5,21 +5,35 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:listDivider">@drawable/recycleview_divider</item>
     </style>
+
     <style name="popwindow_anim_style">
         <item name="android:windowEnterAnimation">@anim/popshow</item>
         <item name="android:windowExitAnimation">@anim/pophide</item>
     </style>
+
     <style name="menu_radio_button">
         <item name="android:background">@drawable/bg_btn_check</item>
         <item name="android:textSize">@dimen/text_size_15</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:textColor">@drawable/tc_btn_check</item>
-        <item name="android:height">45dp</item>
+        <item name="android:layout_height">45dp</item>
         <item name="android:layout_gravity">center_horizontal</item>
         <item name="android:button">@null</item>
         <item name="android:gravity">center</item>
         <item name="android:paddingLeft">@dimen/regular_dimen_x20</item>
         <item name="android:paddingRight">@dimen/normal_10</item>
+    </style>
 
+    <style name="top_radio_button">
+        <item name="android:background">@drawable/bg_radio_check</item>
+        <item name="android:textSize">@dimen/text_size_15</item>
+        <item name="android:layout_width">100dp</item>
+        <item name="android:textColor">@drawable/tc_btn_check</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingLeft">@dimen/normal_10</item>
+        <item name="android:paddingRight">@dimen/normal_10</item>
     </style>
 </resources>

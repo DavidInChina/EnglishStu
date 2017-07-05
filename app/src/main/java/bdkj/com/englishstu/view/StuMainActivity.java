@@ -23,14 +23,15 @@ import bdkj.com.englishstu.R;
 import bdkj.com.englishstu.base.Application;
 import bdkj.com.englishstu.base.baseView.BaseActivity;
 import bdkj.com.englishstu.common.beans.Student;
+import bdkj.com.englishstu.common.eventbus.ChangeMarkType;
 import bdkj.com.englishstu.common.eventbus.ClassChoose;
 import bdkj.com.englishstu.common.tool.ToastUtil;
 import bdkj.com.englishstu.selector.ChooseData;
 import bdkj.com.englishstu.view.Fragment.StuExamFragment;
+import bdkj.com.englishstu.view.Fragment.StuMarkFragment;
 import bdkj.com.englishstu.view.Fragment.StuNoticeFragment;
 import bdkj.com.englishstu.view.Fragment.StuSettingFragment;
 import bdkj.com.englishstu.view.Fragment.StuTestFragment;
-import bdkj.com.englishstu.view.Fragment.TeSettingFragment;
 import butterknife.BindView;
 import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
@@ -54,6 +55,8 @@ public class StuMainActivity extends BaseActivity {
     RadioButton rb4;
     @BindView(R.id.rb_5)
     RadioButton rb5;
+    @BindView(R.id.rb_test)
+    RadioButton rbTest;
     @BindView(R.id.rb_menu_left)
     RadioGroup rgMenuLeft;
     @BindView(R.id.tv_user_number)
@@ -62,6 +65,8 @@ public class StuMainActivity extends BaseActivity {
     ImageView ivSearchNotice;
     @BindView(R.id.mBottom)
     View mButton;
+    @BindView(R.id.rb_menu_top)
+    RadioGroup rbTop;
     private Map<String, Fragment> fragmentMap = new HashMap<>();
     private Student student;
 
@@ -100,6 +105,23 @@ public class StuMainActivity extends BaseActivity {
     protected void initViews(Bundle savedInstanceState) {
         initData();
         initLeftMenu();
+        initTopMenu();
+    }
+
+    public void initTopMenu() {
+        rbTop.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                switch (checkedId) {
+                    case R.id.rb_test:
+                        EventBus.getDefault().post(new ChangeMarkType("练习"));
+                        break;
+                    case R.id.rb_exam:
+                        EventBus.getDefault().post(new ChangeMarkType("考试"));
+                        break;
+                }
+            }
+        });
     }
 
     @SuppressLint("SetTextI18n")
@@ -129,24 +151,39 @@ public class StuMainActivity extends BaseActivity {
                 switch (checkedId) {
                     case R.id.rb_1:
                         toggleFragment(TYPE_NOTICE);
+                        tvTopTitle.setText("班级公告");
+                        tvTopTitle.setVisibility(View.VISIBLE);
+                        rbTop.setVisibility(View.GONE);
                         break;
                     case R.id.rb_2:
                         toggleFragment(TYPE_TEST);
+                        tvTopTitle.setText("练习");
+                        tvTopTitle.setVisibility(View.VISIBLE);
+                        rbTop.setVisibility(View.GONE);
                         break;
                     case R.id.rb_3:
                         toggleFragment(TYPE_EXAM);
+                        tvTopTitle.setText("考试");
+                        tvTopTitle.setVisibility(View.VISIBLE);
+                        rbTop.setVisibility(View.GONE);
                         break;
                     case R.id.rb_4:
                         toggleFragment(TYPE_MARK);
+                        tvTopTitle.setVisibility(View.GONE);
+                        rbTop.setVisibility(View.VISIBLE);
                         break;
                     case R.id.rb_5:
                         toggleFragment(TYPE_SETTING);
+                        tvTopTitle.setText("个人设置");
+                        tvTopTitle.setVisibility(View.VISIBLE);
+                        rbTop.setVisibility(View.GONE);
                         break;
                     default:
                 }
             }
         });
         rb1.setChecked(true);//默认初始化内容
+//        rbTest.setChecked(true);//默认选项
         toggleFragment(TYPE_NOTICE);
     }
 
@@ -157,23 +194,18 @@ public class StuMainActivity extends BaseActivity {
                 switch (tag) {
                     case TYPE_NOTICE:
                         fragmentMap.put(TYPE_NOTICE, new StuNoticeFragment());
-                        tvTopTitle.setText("班级公告");
                         break;
                     case TYPE_TEST:
                         fragmentMap.put(TYPE_TEST, new StuTestFragment());
-                        tvTopTitle.setText("练习");
                         break;
                     case TYPE_EXAM:
                         fragmentMap.put(TYPE_EXAM, new StuExamFragment());
-                        tvTopTitle.setText("考试");
                         break;
                     case TYPE_MARK:
-                        fragmentMap.put(TYPE_MARK, new TeSettingFragment());
-                        tvTopTitle.setText("成绩查看");
+                        fragmentMap.put(TYPE_MARK, new StuMarkFragment());
                         break;
                     case TYPE_SETTING:
                         fragmentMap.put(TYPE_SETTING, new StuSettingFragment());
-                        tvTopTitle.setText("个人设置");
                         break;
                 }
             }
