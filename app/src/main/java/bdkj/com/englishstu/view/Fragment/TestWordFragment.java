@@ -106,8 +106,6 @@ public class TestWordFragment extends BaseFragment {
     // 结果等级
     private String result_level;
 
-    // 语音听写UI
-    private RecognizerDialog mIatDialog;
 
     private String mLastResult;
     private SpeechEvaluator mIse;
@@ -185,9 +183,6 @@ public class TestWordFragment extends BaseFragment {
             ToastUtil.show(mContext, "创建对象失败，请确认 libmsc.so 放置正确，且有调用 createUtility 进行初始化");
             return;
         }
-        // 显示听写对话框
-        mIatDialog.setListener(mRecognizerDialogListener);
-        mIatDialog.show();
         showProgress("请开始说话...");
         //格式 "[word]\napple\nbanana\norange
         String words[] = currentExam.getWords().split(",");
@@ -428,7 +423,6 @@ public class TestWordFragment extends BaseFragment {
         // 初始化合成对象
         mTts = SpeechSynthesizer.createSynthesizer(mContext, mTtsInitListener);
         mIse = SpeechEvaluator.createEvaluator(mContext, null);
-        mIatDialog = new RecognizerDialog(mContext, mInitListener);
     }
 
     /**
