@@ -12,8 +12,17 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="提交须知。。。"
+        android:text="提交须知"
         android:textSize="18sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/regular_dimen_x10"
+        android:text="请确认已完成单词朗读和语句朗读部分测试，答案提交后不可修改删除。"
+        android:textSize="@dimen/text_size_15" />
 
     <Button
         android:id="@+id/btn_save"

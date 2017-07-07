@@ -1,16 +1,71 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/normal_10"
     tools:context="bdkj.com.englishstu.view.Fragment.AdClassFragment">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/regular_dimen_x10"
         android:gravity="center"
-        android:text="测试说明"
-        android:textSize="18sp" />
+        android:text="口语考试说明 "
+        android:textSize="@dimen/text_size_20" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|top"
+        android:layout_marginTop="@dimen/regular_dimen_x10"
+        android:gravity="left|top"
+        android:text="一、命题指导思想  "
+        android:textSize="@dimen/text_size_18" />
 
-</FrameLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|top"
+        android:layout_marginTop="@dimen/regular_dimen_x10"
+        android:gravity="left|top"
+        android:text="@string/content1"
+        android:textSize="@dimen/text_size_15" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|top"
+        android:layout_marginTop="@dimen/regular_dimen_x10"
+        android:gravity="left|top"
+        android:text="二、考试内容和要求 "
+        android:textSize="@dimen/text_size_18" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|top"
+        android:layout_marginTop="@dimen/regular_dimen_x10"
+        android:gravity="left|top"
+        android:text="@string/content2"
+        android:textSize="@dimen/text_size_15" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|top"
+        android:layout_marginTop="@dimen/regular_dimen_x10"
+        android:gravity="left|top"
+        android:text="三、考试形式与试卷结构 "
+        android:textSize="@dimen/text_size_18" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|top"
+        android:layout_marginTop="@dimen/regular_dimen_x10"
+        android:gravity="left|top"
+        android:text="第一节:单词朗读,共三个单词。\n第二节:语句朗读,共一个长句。"
+        android:textSize="@dimen/text_size_15" />
+</LinearLayout>

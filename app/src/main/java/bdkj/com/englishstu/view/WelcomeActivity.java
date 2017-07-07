@@ -1,9 +1,14 @@
 package bdkj.com.englishstu.view;
 
+import android.Manifest;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 
 import com.orhanobut.logger.Logger;
 
@@ -11,8 +16,14 @@ import bdkj.com.englishstu.R;
 import bdkj.com.englishstu.base.baseView.BaseActivity;
 import bdkj.com.englishstu.common.dbinfo.AdmDbUtils;
 import bdkj.com.englishstu.common.tool.IntentUtil;
+import bdkj.com.englishstu.common.tool.ToastUtil;
 
 public class WelcomeActivity extends BaseActivity {
+
+
+    public static final int REQUEST_PERMISSION = 0x01;
+    public static final int REQUEST_PERMISSION_CAMERA = 0x02;
+
     private Handler handler = new Handler() {
         public void handleMessage(Message message) {
             switch (message.what) {
@@ -45,7 +56,49 @@ public class WelcomeActivity extends BaseActivity {
             AdmDbUtils.adminInsert();
             Logger.d("添加使用次数");
         }
-        beginLogin();
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) {
+            if (checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    && checkPermission(Manifest.permission.CAMERA)
+                    && checkPermission(Manifest.permission.READ_PHONE_STATE)
+                    && checkPermission(Manifest.permission.RECORD_AUDIO)
+                    && checkPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+                    ) {
+                beginLogin();
+            } else {
+                ActivityCompat.requestPermissions(this, new String[]
+                        {Manifest.permission.WRITE_EXTERNAL_STORAGE
+                                , Manifest.permission.CAMERA
+                                , Manifest.permission.READ_PHONE_STATE
+                                , Manifest.permission.RECORD_AUDIO
+                                , Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_PERMISSION);
+            }
+        } else {
+            beginLogin();
+        }
+    }
+
+    public boolean checkPermission(@NonNull String permission) {
+        return ActivityCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_PERMISSION) {
+            boolean permission = true;
+            for (int i : grantResults
+                    ) {
+                if (i != PackageManager.PERMISSION_GRANTED) {
+                    permission = false;
+                }
+            }
+            if (permission) {
+                beginLogin();
+            } else {
+                ToastUtil.show(mContext, "权限被禁止，无法使用应用！");
+//                finish();
+            }
+        }
     }
 
     public void beginLogin() {

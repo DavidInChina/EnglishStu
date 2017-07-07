@@ -17,11 +17,14 @@ import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.EvaluatorListener;
 import com.iflytek.cloud.EvaluatorResult;
 import com.iflytek.cloud.InitListener;
+import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechEvaluator;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
+import com.iflytek.cloud.ui.RecognizerDialog;
+import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.orhanobut.logger.Logger;
 import com.youdao.sdk.app.Language;
 import com.youdao.sdk.app.LanguageUtils;
@@ -103,6 +106,9 @@ public class TestWordFragment extends BaseFragment {
     // 结果等级
     private String result_level;
 
+    // 语音听写UI
+    private RecognizerDialog mIatDialog;
+
     private String mLastResult;
     private SpeechEvaluator mIse;
 
@@ -179,6 +185,10 @@ public class TestWordFragment extends BaseFragment {
             ToastUtil.show(mContext, "创建对象失败，请确认 libmsc.so 放置正确，且有调用 createUtility 进行初始化");
             return;
         }
+        // 显示听写对话框
+        mIatDialog.setListener(mRecognizerDialogListener);
+        mIatDialog.show();
+        showProgress("请开始说话...");
         //格式 "[word]\napple\nbanana\norange
         String words[] = currentExam.getWords().split(",");
         String evaText = "[word]\n" + words[0] + "\n" + words[1] + "\n" + words[2];
@@ -321,6 +331,33 @@ public class TestWordFragment extends BaseFragment {
         }
 
     };
+    /**
+     * 初始化监听器。
+     */
+    private InitListener mInitListener = new InitListener() {
+
+        @Override
+        public void onInit(int code) {
+            if (code != ErrorCode.SUCCESS) {
+                showProgress("初始化失败，错误码：" + code);
+            }
+        }
+    };
+    /**
+     * 听写UI监听器
+     */
+    private RecognizerDialogListener mRecognizerDialogListener = new RecognizerDialogListener() {
+        public void onResult(RecognizerResult results, boolean isLast) {
+        }
+
+        /**
+         * 识别回调错误.
+         */
+        public void onError(SpeechError error) {
+            showProgress(error.getPlainDescription(true));
+        }
+
+    };
 
     /**
      * 语音合成参数设置
@@ -391,6 +428,7 @@ public class TestWordFragment extends BaseFragment {
         // 初始化合成对象
         mTts = SpeechSynthesizer.createSynthesizer(mContext, mTtsInitListener);
         mIse = SpeechEvaluator.createEvaluator(mContext, null);
+        mIatDialog = new RecognizerDialog(mContext, mInitListener);
     }
 
     /**
