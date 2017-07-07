@@ -7,6 +7,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.orhanobut.logger.Logger;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,20 +21,19 @@ import bdkj.com.englishstu.common.beans.Mark;
 import bdkj.com.englishstu.common.beans.Student;
 import bdkj.com.englishstu.common.dbinfo.StuDbUtils;
 import bdkj.com.englishstu.common.divider.RecDivider;
-import bdkj.com.englishstu.common.eventbus.ChangeMarkType;
 import bdkj.com.englishstu.common.tool.IntentUtil;
 import bdkj.com.englishstu.common.tool.ToastUtil;
 import bdkj.com.englishstu.view.MarkDetailActivity;
+import bdkj.com.englishstu.view.StuMainActivity;
 import bdkj.com.englishstu.xrecyclerview.ProgressStyle;
 import bdkj.com.englishstu.xrecyclerview.XRecyclerView;
 import bdkj.com.englishstu.xrecyclerview.viewholder.RecycleItemClickListener;
 import butterknife.BindView;
-import de.greenrobot.event.EventBus;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class StuMarkFragment extends BaseFragment implements RecycleItemClickListener {
+public class StuMarkFragment extends BaseFragment implements RecycleItemClickListener,StuMainActivity.ChangeMarkTypeListener {
     @BindView(R.id.recycler_view)
     XRecyclerView recyclerView;
 
@@ -48,20 +49,21 @@ public class StuMarkFragment extends BaseFragment implements RecycleItemClickLis
 
     @Override
     public void initView(ViewGroup parent) {
-        EventBus.getDefault().register(this);
         student = Application.getStudentInfo();
         initRecyclerView();
     }
-
-    public void onEventMainThread(ChangeMarkType type) {
-        this.type = type.getType();
+    @Override
+    public void changeType(String type1) {
+        type = type1;
+        Logger.d("状态改变");
         recyclerView.setRefreshing(true);
     }
 
+
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
+    public void onResume() {
+        super.onResume();
+        recyclerView.setRefreshing(true);
     }
 
     public void initRecyclerView() {
@@ -107,4 +109,6 @@ public class StuMarkFragment extends BaseFragment implements RecycleItemClickLis
         bundle.putSerializable("mark", mark);
         IntentUtil.launcher(mContext, MarkDetailActivity.class, bundle);
     }
+
+
 }

@@ -1,7 +1,6 @@
 package bdkj.com.englishstu.view.Fragment;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,9 +24,9 @@ import bdkj.com.englishstu.common.divider.RecDivider;
 import bdkj.com.englishstu.common.tool.IntentUtil;
 import bdkj.com.englishstu.common.tool.ToastUtil;
 import bdkj.com.englishstu.view.NoteDetailActivity;
-import bdkj.com.englishstu.xrecyclerview.viewholder.RecycleItemClickListener;
 import bdkj.com.englishstu.xrecyclerview.ProgressStyle;
 import bdkj.com.englishstu.xrecyclerview.XRecyclerView;
+import bdkj.com.englishstu.xrecyclerview.viewholder.RecycleItemClickListener;
 import butterknife.BindView;
 
 /**
@@ -51,7 +50,11 @@ public class AdNoticeFragment extends BaseFragment implements RecycleItemClickLi
         admin = Application.getAdminInfo();
         initRecyclerView();
     }
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        recyclerView.setRefreshing(true);
+    }
     public void initRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);

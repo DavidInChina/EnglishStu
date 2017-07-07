@@ -127,7 +127,8 @@ public class StuDbUtils {
         JsonEntity<List<Test>> result = new JsonEntity<>();
         TestDao testDao = Application.getDaoSession().getTestDao();
         List<Test> list = testDao.queryBuilder()
-                .where(TestDao.Properties.ClassId.eq(classesId), TestDao.Properties.Type.eq(type)).build().list();
+                .where(TestDao.Properties.ClassId.eq(classesId), TestDao.Properties.Type.eq(type))
+                .orderAsc(TestDao.Properties.UpdateDate).build().list();
         MarkDao markDao = Application.getDaoSession().getMarkDao();
         if (list.size() > 0) {
             for (Test test : list
@@ -145,7 +146,35 @@ public class StuDbUtils {
             result.setData(list);
             result.setMsg("获取列表成功！");
         } else {
-            result.setMsg("获取列表失败！");
+            result.setMsg("暂无相关数据！");
+        }
+        return result;
+    }
+
+    public static JsonEntity testList(String teacherId, String classesId) {
+        JsonEntity<List<Test>> result = new JsonEntity<>();
+        TestDao testDao = Application.getDaoSession().getTestDao();
+        List<Test> list = testDao.queryBuilder()
+                .where(TestDao.Properties.ClassId.eq(classesId), TestDao.Properties.TeacherId.eq(teacherId)
+                ).orderAsc(TestDao.Properties.UpdateDate).build().list();
+        MarkDao markDao = Application.getDaoSession().getMarkDao();
+        if (list.size() > 0) {
+            for (Test test : list
+                    ) {
+                test.setStatus(0);//此处咱不考虑已做未做，允许多次测试
+//                Mark mark = markDao.queryBuilder().where(MarkDao.Properties.StudentId.eq(studentId)).build().unique();
+//                if (null != mark) {
+//                    test.setStatus(1);
+//                } else {
+//                    test.setStatus(0);
+//                }
+
+            }
+            result.setCode(0);
+            result.setData(list);
+            result.setMsg("获取列表成功！");
+        } else {
+            result.setMsg("暂无相关数据！");
         }
         return result;
     }
@@ -189,6 +218,7 @@ public class StuDbUtils {
         result.setMsg("获取试题成功！");
         return result;
     }
+
     /**
      * 删除考试成绩
      *
@@ -201,6 +231,17 @@ public class StuDbUtils {
         result.setCode(0);
         result.setData(null);
         result.setMsg("删除试题成功！");
+        return result;
+    }
+
+    public static JsonEntity resetMark() {
+        JsonEntity<Mark> result = new JsonEntity<>();
+        MarkDao markDao = Application.getDaoSession().getMarkDao();
+        markDao.dropTable(markDao.getDatabase(), true);//删除表
+        markDao.createTable(markDao.getDatabase(), true);//添加表
+        result.setCode(0);
+        result.setData(null);
+        result.setMsg("重置表成功！");
         return result;
     }
 
@@ -220,7 +261,22 @@ public class StuDbUtils {
             result.setData(list);
             result.setMsg("获取列表成功！");
         } else {
-            result.setMsg("获取列表失败！");
+            result.setMsg("暂无相关数据！");
+        }
+        return result;
+    }
+
+    public static JsonEntity markList2(String classId, String testId) {
+        JsonEntity<List<Mark>> result = new JsonEntity<>();
+        MarkDao markDao = Application.getDaoSession().getMarkDao();
+        List<Mark> list = markDao.queryBuilder().where(MarkDao.Properties.ClassId.eq(classId),
+                MarkDao.Properties.TestId.eq(testId)).orderAsc(MarkDao.Properties.CreateDate).build().list();
+        if (list.size() > 0) {
+            result.setCode(0);
+            result.setData(list);
+            result.setMsg("获取列表成功！");
+        } else {
+            result.setMsg("暂无相关数据！");
         }
         return result;
     }

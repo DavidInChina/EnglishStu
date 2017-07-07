@@ -21,19 +21,19 @@ import bdkj.com.englishstu.common.beans.Teacher;
 import bdkj.com.englishstu.common.beans.Test;
 import bdkj.com.englishstu.common.dbinfo.TeaDbUtils;
 import bdkj.com.englishstu.common.divider.RecDivider;
-import bdkj.com.englishstu.common.eventbus.ClassChoose;
-import bdkj.com.englishstu.common.eventbus.RequestClassId;
+import bdkj.com.englishstu.common.tool.IntentUtil;
 import bdkj.com.englishstu.common.tool.ToastUtil;
+import bdkj.com.englishstu.view.ShowTestActivity;
+import bdkj.com.englishstu.view.TeaMainActivity;
 import bdkj.com.englishstu.xrecyclerview.ProgressStyle;
 import bdkj.com.englishstu.xrecyclerview.XRecyclerView;
 import bdkj.com.englishstu.xrecyclerview.viewholder.RecycleItemClickListener;
 import butterknife.BindView;
-import de.greenrobot.event.EventBus;
 
 /**
- * 题库
+ * 考试练习
  */
-public class TeTestFragment extends BaseFragment implements RecycleItemClickListener {
+public class TeaTestFragment extends BaseFragment implements RecycleItemClickListener {
     @BindView(R.id.recycler_view)
     XRecyclerView recyclerView;
 
@@ -50,14 +50,8 @@ public class TeTestFragment extends BaseFragment implements RecycleItemClickList
 
     @Override
     public void initView(ViewGroup parent) {
-        EventBus.getDefault().register(this);
         teacher = Application.getTeacherInfo();
         initRecyclerView();
-    }
-
-    public void onEventMainThread(ClassChoose event) {
-        currentClassId = event.getClassId();
-        recyclerView.setRefreshing(true);
     }
 
     @Override
@@ -65,11 +59,10 @@ public class TeTestFragment extends BaseFragment implements RecycleItemClickList
         super.onViewCreated(view, savedInstanceState);
         recyclerView.setRefreshing(true);
     }
-
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
+    public void onResume() {
+        super.onResume();
+        recyclerView.setRefreshing(true);
     }
 
     public void initRecyclerView() {
@@ -106,8 +99,8 @@ public class TeTestFragment extends BaseFragment implements RecycleItemClickList
         mAdapter.setClickListener(this);
         recyclerView.setAdapter(mAdapter);
         recyclerView.addItemDecoration(new RecDivider(mContext, RecDivider.VERTICAL_LIST));
-//        recyclerView.setRefreshing(true);
-        EventBus.getDefault().post(new RequestClassId());
+        currentClassId = ((TeaMainActivity) getActivity()).getClassId();
+        recyclerView.setRefreshing(true);
     }
 
     @Override
@@ -115,6 +108,6 @@ public class TeTestFragment extends BaseFragment implements RecycleItemClickList
         Test test = (Test) view.getTag();
         Bundle bundle = new Bundle();
         bundle.putSerializable("test", test);
-//        IntentUtil.launcher(mContext, NoteDetailActivity.class,bundle);
+        IntentUtil.launcher(mContext, ShowTestActivity.class,bundle);
     }
 }

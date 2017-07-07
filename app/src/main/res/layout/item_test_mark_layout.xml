@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bdkj.com.englishstu.swipeitem.widget.SwipeItemLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/item_contact_swipe_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/regular_dimen_x2"
+    app:bga_sil_bottomMode="pullOut"
+    app:bga_sil_springDistance="@dimen/regular_dimen_x20"
+    app:bga_sil_swipeDirection="left">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/normal_5"
+        android:background="@color/red"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/item_contact_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/red"
+            android:clickable="true"
+            android:gravity="center"
+            android:padding="@dimen/regular_dimen_x15"
+            android:text="@string/item_delete"
+            android:textColor="@android:color/white"
+            android:textSize="25sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_left_img"
+            android:layout_width="100dp"
+            android:layout_height="80dp"
+            android:layout_margin="@dimen/regular_dimen_x8"
+            android:src="@mipmap/bg_welcome" />
+
+
+        <LinearLayout
+            android:id="@+id/rl_center_wrap"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/normal_10"
+            android:layout_marginRight="@dimen/normal_10"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_test_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|top"
+                android:layout_marginLeft="@dimen/normal_10"
+                android:layout_marginRight="@dimen/normal_10"
+                android:layout_marginTop="@dimen/normal_5"
+                android:text="5月10日期中测试"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_15" />
+
+            <TextView
+                android:id="@+id/tv_exam_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|top"
+                android:layout_marginLeft="@dimen/normal_10"
+                android:layout_marginRight="@dimen/normal_10"
+                android:layout_marginTop="@dimen/normal_5"
+                android:text="试题名称：高考听说练习题"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_15" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|top"
+                android:layout_marginBottom="@dimen/normal_5"
+                android:layout_marginLeft="@dimen/normal_10"
+                android:layout_marginRight="@dimen/normal_10"
+                android:layout_marginTop="@dimen/normal_5"
+                android:text="2017-07-05 10:11"
+                android:textColor="@color/hint_blue"
+                android:textSize="@dimen/text_size_14" />
+
+        </LinearLayout>
+    </LinearLayout>
+</bdkj.com.englishstu.swipeitem.widget.SwipeItemLayout>

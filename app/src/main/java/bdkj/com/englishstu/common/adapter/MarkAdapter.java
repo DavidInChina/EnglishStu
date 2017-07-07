@@ -75,7 +75,7 @@ public class MarkAdapter extends RecyclerView.Adapter<MarkAdapter.ViewHolder> {
         holder.tvName.setText("试题名称：" + mark.getExamName());
         holder.tvTime.setText("答题日期：" + TimeUtil.date2String(mark.getUpdateDate()));
         SwipeItemLayout swipeRoot = holder.itemContactSwipeRoot;
-        swipeRoot.setSwipeAble(false);
+        swipeRoot.setSwipeAble(true);
         swipeRoot.setDelegate(new SwipeItemLayout.SwipeItemLayoutDelegate() {
             @Override
             public void onSwipeItemLayoutOpened(SwipeItemLayout swipeItemLayout) {

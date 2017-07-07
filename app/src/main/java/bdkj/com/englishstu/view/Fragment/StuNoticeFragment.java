@@ -50,7 +50,11 @@ public class StuNoticeFragment extends BaseFragment implements RecycleItemClickL
         student = Application.getStudentInfo();
         initRecyclerView();
     }
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        recyclerView.setRefreshing(true);
+    }
     public void initRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);

@@ -25,7 +25,7 @@
             android:text="取消"
             android:padding="7dp"
             android:textSize="16sp"
-            android:textColor="#289fff"
+            android:textColor="#8dc44f"
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -60,7 +60,7 @@
             android:id="@+id/confirmBtn"
             android:text="完成"
             android:textSize="16sp"
-            android:textColor="#289fff"
+            android:textColor="#8dc44f"
             android:padding="7dp"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"

@@ -12,27 +12,28 @@
         android:layout_width="1dp"
         android:layout_height="0dp"
         android:layout_weight="1" />
-    <bdkj.com.englishstu.common.widget.CircleImageView
+
+    <ImageView
         android:id="@+id/iv_class_logo"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_gravity="center"
         android:layout_margin="@dimen/normal_10"
-        android:src="@mipmap/img_personal_head" />
+        android:src="@mipmap/bg_welcome" />
+
     <EditText
         android:id="@+id/et_note_title"
         android:layout_width="380dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="@dimen/normal_10"
         android:gravity="top|left"
         android:hint="请输入班级名称"
         android:lines="1"
-        android:layout_marginTop="@dimen/normal_10"
         android:padding="@dimen/normal_5"
         android:textColor="@color/black"
         android:textColorHint="@color/hint_grey"
         android:textSize="@dimen/text_size_20" />
-
 
 
     <Button

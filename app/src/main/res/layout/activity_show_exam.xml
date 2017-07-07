@@ -27,7 +27,7 @@
                 android:padding="@dimen/regular_dimen_x20">
 
                 <ImageView
-                    android:id="@+id/civ_test_logo"
+                    android:id="@+id/civ_exam_logo"
                     android:layout_width="120dp"
                     android:layout_height="100dp"
                     android:src="@mipmap/bg_welcome" />
@@ -51,12 +51,12 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:gravity="center"
-                    android:text="练习名称"
+                    android:text="试题名称"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_15" />
 
-                <EditText
-                    android:id="@+id/et_test_name"
+                <TextView
+                    android:id="@+id/et_exam_name"
                     android:layout_width="@dimen/regular_dimen_x160"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -87,12 +87,12 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:gravity="center"
-                    android:text="练习类别"
+                    android:text="试题难度"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_15" />
 
                 <TextView
-                    android:id="@+id/tv_test_type"
+                    android:id="@+id/tv_exam_hard"
                     android:layout_width="@dimen/regular_dimen_x160"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -100,7 +100,7 @@
                     android:gravity="right"
                     android:paddingBottom="@dimen/regular_dimen_x10"
                     android:paddingTop="@dimen/regular_dimen_x10"
-                    android:text="考试"
+                    android:text="简单"
                     android:textColor="@color/hint_grey"
                     android:textSize="@dimen/text_size_15" />
             </RelativeLayout>
@@ -125,12 +125,12 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:gravity="center"
-                    android:text="练习试题"
+                    android:text="试题权限"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_15" />
 
                 <TextView
-                    android:id="@+id/tv_exam_name"
+                    android:id="@+id/tv_exam_status"
                     android:layout_width="@dimen/regular_dimen_x160"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -138,7 +138,7 @@
                     android:gravity="right"
                     android:paddingBottom="@dimen/regular_dimen_x10"
                     android:paddingTop="@dimen/regular_dimen_x10"
-                    android:text=""
+                    android:text="测试和练习"
                     android:textColor="@color/hint_grey"
                     android:textSize="@dimen/text_size_15" />
             </RelativeLayout>
@@ -162,12 +162,12 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:gravity="center"
-                    android:text="开始时间"
+                    android:text="试题分类"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_15" />
 
                 <TextView
-                    android:id="@+id/tv_test_begin"
+                    android:id="@+id/tv_exam_about"
                     android:layout_width="@dimen/regular_dimen_x160"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -175,7 +175,7 @@
                     android:gravity="right"
                     android:paddingBottom="@dimen/regular_dimen_x10"
                     android:paddingTop="@dimen/regular_dimen_x10"
-                    android:text=""
+                    android:text="校园生活"
                     android:textColor="@color/hint_grey"
                     android:textSize="@dimen/text_size_15" />
             </RelativeLayout>
@@ -199,12 +199,12 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:gravity="center"
-                    android:text="结束时间"
+                    android:text="单词1"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_15" />
 
                 <TextView
-                    android:id="@+id/tv_test_end"
+                    android:id="@+id/et_word_1"
                     android:layout_width="@dimen/regular_dimen_x160"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -212,7 +212,6 @@
                     android:gravity="right"
                     android:paddingBottom="@dimen/regular_dimen_x10"
                     android:paddingTop="@dimen/regular_dimen_x10"
-                    android:text=""
                     android:textColor="@color/hint_grey"
                     android:textSize="@dimen/text_size_15" />
             </RelativeLayout>
@@ -225,7 +224,101 @@
                 android:layout_marginRight="@dimen/normal_10"
                 android:background="@color/hint_blue" />
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/regular_dimen_x25"
+                android:paddingLeft="@dimen/regular_dimen_x20"
+                android:paddingRight="@dimen/regular_dimen_x20">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:text="单词2"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_15" />
+
+                <TextView
+                    android:id="@+id/et_word_2"
+                    android:layout_width="@dimen/regular_dimen_x160"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:paddingBottom="@dimen/regular_dimen_x10"
+                    android:paddingTop="@dimen/regular_dimen_x10"
+                    android:textColor="@color/hint_grey"
+                    android:textSize="@dimen/text_size_15" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/normal_10"
+                android:layout_marginRight="@dimen/normal_10"
+                android:background="@color/hint_blue" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/regular_dimen_x25"
+                android:paddingLeft="@dimen/regular_dimen_x20"
+                android:paddingRight="@dimen/regular_dimen_x20">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:text="单词3"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_15" />
+
+                <TextView
+                    android:id="@+id/et_word_3"
+                    android:layout_width="@dimen/regular_dimen_x160"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:paddingBottom="@dimen/regular_dimen_x10"
+                    android:paddingTop="@dimen/regular_dimen_x10"
+                    android:textColor="@color/hint_grey"
+                    android:textSize="@dimen/text_size_15" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/normal_10"
+                android:layout_marginRight="@dimen/normal_10"
+                android:background="@color/hint_blue" />
+
+            <TextView
+                android:id="@+id/et_sentence"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/regular_dimen_x25"
+                android:layout_marginTop="@dimen/normal_5"
+                android:background="@null"
+                android:gravity="top|left"
+                android:hint="句子朗读输入"
+                android:lines="4"
+                android:paddingBottom="@dimen/regular_dimen_x10"
+                android:paddingLeft="@dimen/regular_dimen_x20"
+                android:paddingRight="@dimen/regular_dimen_x20"
+                android:paddingTop="@dimen/regular_dimen_x10"
+                android:textColor="@color/hint_grey"
+                android:textSize="@dimen/text_size_15" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/normal_10"
+                android:layout_marginRight="@dimen/normal_10"
+                android:background="@color/hint_blue" />
 
             <Button
                 android:id="@+id/btn_save"
@@ -237,6 +330,7 @@
                 android:layout_marginTop="@dimen/regular_dimen_x30"
                 android:background="@drawable/bg_btn_confirm"
                 android:paddingBottom="@dimen/regular_dimen_x6"
+                android:visibility="gone"
                 android:paddingTop="@dimen/regular_dimen_x6"
                 android:text="确认添加"
                 android:textColor="@color/white"

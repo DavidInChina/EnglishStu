@@ -1,6 +1,7 @@
 package bdkj.com.englishstu.view.Fragment;
 
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
@@ -16,7 +17,9 @@ import bdkj.com.englishstu.common.adapter.TeacherAdapter;
 import bdkj.com.englishstu.common.beans.Teacher;
 import bdkj.com.englishstu.common.dbinfo.AdmDbUtils;
 import bdkj.com.englishstu.common.divider.RecDivider;
+import bdkj.com.englishstu.common.tool.IntentUtil;
 import bdkj.com.englishstu.common.tool.ToastUtil;
+import bdkj.com.englishstu.view.ShowTeacherActivity;
 import bdkj.com.englishstu.xrecyclerview.ProgressStyle;
 import bdkj.com.englishstu.xrecyclerview.XRecyclerView;
 import bdkj.com.englishstu.xrecyclerview.viewholder.RecycleItemClickListener;
@@ -42,6 +45,12 @@ public class AdTeacherFragment extends BaseFragment implements RecycleItemClickL
         initRecyclerView();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        recyclerView.setRefreshing(true);
+    }
+
     public void initRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -56,13 +65,13 @@ public class AdTeacherFragment extends BaseFragment implements RecycleItemClickL
             public void onRefresh() {
                 listData.clear();
                 JsonEntity entity = AdmDbUtils.teacherList();
-                if (entity.getCode()==0){
+                if (entity.getCode() == 0) {
                     List<Teacher> teachers = (List<Teacher>) entity.getData();
-                    for (Teacher teacher:teachers) {
+                    for (Teacher teacher : teachers) {
                         listData.add(teacher);
                     }
-                }else{
-                    ToastUtil.show(mContext,"获取教师列表失败！");
+                } else {
+                    ToastUtil.show(mContext, "获取教师列表失败！");
                 }
 
                 mAdapter.notifyDataSetChanged();
@@ -82,6 +91,9 @@ public class AdTeacherFragment extends BaseFragment implements RecycleItemClickL
 
     @Override
     public void onItemClick(View view, int postion) {
-        ToastUtil.show(mContext, "点击了第" + postion + "项");
+        Teacher teacher = (Teacher) view.getTag();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("teacher", teacher);
+        IntentUtil.launcher(mContext, ShowTeacherActivity.class, bundle);
     }
 }

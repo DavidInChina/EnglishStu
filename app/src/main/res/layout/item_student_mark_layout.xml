@@ -39,100 +39,76 @@
 
         <bdkj.com.englishstu.common.widget.CircleImageView
             android:id="@+id/iv_left_img"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_margin="@dimen/regular_dimen_x15"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_margin="@dimen/regular_dimen_x8"
             android:src="@mipmap/ic_launcher_round" />
 
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/rl_center_wrap"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/normal_10"
             android:layout_marginRight="@dimen/normal_10"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv_title"
+                android:id="@+id/tv_stu_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/normal_5"
+                android:layout_gravity="left|top"
                 android:layout_marginLeft="@dimen/normal_10"
                 android:layout_marginRight="@dimen/normal_10"
                 android:layout_marginTop="@dimen/normal_5"
-                android:text=""
+                android:text="李成栋"
                 android:textColor="@color/black"
-                android:textSize="@dimen/text_size_18" />
-
+                android:textSize="@dimen/text_size_15" />
             <TextView
-                android:id="@+id/tv_content"
+                android:id="@+id/tv_stu_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tv_title"
-                android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/normal_5"
+                android:layout_gravity="left|top"
                 android:layout_marginLeft="@dimen/normal_10"
                 android:layout_marginRight="@dimen/normal_10"
                 android:layout_marginTop="@dimen/normal_5"
-                android:lines="2"
-                android:text="gggg"
-                android:textColor="@color/hint_grey"
-                android:textSize="@dimen/text_size_15" />
+                android:text="学号："
+                android:textColor="@color/hint_blue"
+                android:textSize="@dimen/text_size_12" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tv_stu_score"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tv_content"
+                android:layout_gravity="left|top"
                 android:layout_marginLeft="@dimen/normal_10"
-                android:layout_marginRight="@dimen/normal_10">
+                android:layout_marginRight="@dimen/normal_10"
+                android:layout_marginTop="@dimen/normal_5"
+                android:text="得分：7"
+                android:textColor="@color/hint_blue"
+                android:textSize="@dimen/text_size_12" />
 
-                <TextView
-                    android:id="@+id/tv_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="@dimen/normal_5"
-                    android:layout_marginRight="@dimen/normal_10"
-                    android:layout_marginTop="@dimen/normal_5"
-                    android:text="发布日期：2017-9-9"
-                    android:textColor="@color/hint_blue"
-                    android:textSize="@dimen/text_size_18" />
 
-                <TextView
-                    android:id="@+id/tv_author"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="@dimen/normal_5"
-                    android:layout_marginLeft="@dimen/normal_10"
-                    android:layout_marginRight="@dimen/normal_10"
-                    android:layout_marginTop="@dimen/normal_5"
-                    android:text="发布人：李老师"
-                    android:textColor="@color/hint_blue"
-                    android:textSize="@dimen/text_size_18" />
-            </RelativeLayout>
-        </RelativeLayout>
+        </LinearLayout>
 
         <FrameLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/tv_right_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="@dimen/regular_dimen_x40"
                 android:background="@drawable/bg_item_check"
-                android:paddingBottom="@dimen/normal_10"
-                android:paddingLeft="@dimen/regular_dimen_x25"
-                android:paddingRight="@dimen/regular_dimen_x25"
-                android:paddingTop="@dimen/normal_10"
+                android:layout_marginRight="@dimen/normal_10"
+                android:paddingBottom="@dimen/regular_dimen_x7"
+                android:paddingLeft="@dimen/regular_dimen_x15"
+                android:paddingRight="@dimen/regular_dimen_x15"
+                android:paddingTop="@dimen/regular_dimen_x7"
                 android:text="查看"
                 android:textColor="@color/topbar"
                 android:textSize="@dimen/text_size_15" />
@@ -142,7 +118,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="@dimen/regular_dimen_x40"
+                android:layout_margin="@dimen/regular_dimen_x20"
                 android:text="已查看"
                 android:textColor="@color/hint_grey"
                 android:textSize="@dimen/text_size_15"

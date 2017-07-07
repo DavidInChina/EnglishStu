@@ -1,6 +1,7 @@
 package bdkj.com.englishstu.view.Fragment;
 
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
@@ -16,7 +17,9 @@ import bdkj.com.englishstu.common.adapter.StudentAdapter;
 import bdkj.com.englishstu.common.beans.Student;
 import bdkj.com.englishstu.common.dbinfo.AdmDbUtils;
 import bdkj.com.englishstu.common.divider.RecDivider;
+import bdkj.com.englishstu.common.tool.IntentUtil;
 import bdkj.com.englishstu.common.tool.ToastUtil;
+import bdkj.com.englishstu.view.ShowStudentActivity;
 import bdkj.com.englishstu.xrecyclerview.ProgressStyle;
 import bdkj.com.englishstu.xrecyclerview.XRecyclerView;
 import bdkj.com.englishstu.xrecyclerview.viewholder.RecycleItemClickListener;
@@ -42,6 +45,12 @@ public class AdStudentFragment extends BaseFragment implements RecycleItemClickL
         initRecyclerView();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        recyclerView.setRefreshing(true);
+    }
+
     public void initRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -58,11 +67,11 @@ public class AdStudentFragment extends BaseFragment implements RecycleItemClickL
                 JsonEntity jsonEntity = AdmDbUtils.studentList();
                 if (jsonEntity.getCode() == 0) {
                     List<Student> students = (List<Student>) jsonEntity.getData();
-                    for (Student student:students) {
+                    for (Student student : students) {
                         listData.add(student);
                     }
-                }else {
-                    ToastUtil.show(mContext,jsonEntity.getMsg());
+                } else {
+                    ToastUtil.show(mContext, jsonEntity.getMsg());
                 }
 
                 mAdapter.notifyDataSetChanged();
@@ -83,5 +92,9 @@ public class AdStudentFragment extends BaseFragment implements RecycleItemClickL
     @Override
     public void onItemClick(View view, int postion) {
 //        ToastUtil.show(mContext, "点击了第" + postion + "项");
+        Student student = (Student) view.getTag();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("student", student);
+        IntentUtil.launcher(mContext, ShowStudentActivity.class, bundle);
     }
 }

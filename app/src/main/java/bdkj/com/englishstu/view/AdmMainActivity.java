@@ -20,6 +20,7 @@ import bdkj.com.englishstu.R;
 import bdkj.com.englishstu.base.Application;
 import bdkj.com.englishstu.base.baseView.BaseActivity;
 import bdkj.com.englishstu.common.beans.Admin;
+import bdkj.com.englishstu.common.eventbus.RefreshAdmin;
 import bdkj.com.englishstu.common.tool.IntentUtil;
 import bdkj.com.englishstu.common.tool.ToastUtil;
 import bdkj.com.englishstu.view.Fragment.AdClassFragment;
@@ -29,6 +30,7 @@ import bdkj.com.englishstu.view.Fragment.AdStudentFragment;
 import bdkj.com.englishstu.view.Fragment.AdTeacherFragment;
 import butterknife.BindView;
 import butterknife.OnClick;
+import de.greenrobot.event.EventBus;
 
 public class AdmMainActivity extends BaseActivity {
     @BindView(R.id.tv_text_top)
@@ -75,8 +77,19 @@ public class AdmMainActivity extends BaseActivity {
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
         initLeftMenu();
         initData();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    public void onEventMainThread(RefreshAdmin refreshAdmin) {
+        initData();//更新管理员信息
     }
 
     @SuppressLint("SetTextI18n")

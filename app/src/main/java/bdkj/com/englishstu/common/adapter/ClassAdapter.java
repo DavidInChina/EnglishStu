@@ -16,7 +16,6 @@ import java.util.List;
 import bdkj.com.englishstu.R;
 import bdkj.com.englishstu.base.JsonEntity;
 import bdkj.com.englishstu.common.beans.Classes;
-import bdkj.com.englishstu.common.beans.Note;
 import bdkj.com.englishstu.common.dbinfo.AdmDbUtils;
 import bdkj.com.englishstu.common.tool.TimeUtil;
 import bdkj.com.englishstu.common.tool.ToastUtil;
@@ -24,7 +23,6 @@ import bdkj.com.englishstu.swipeitem.widget.SwipeItemLayout;
 import bdkj.com.englishstu.xrecyclerview.viewholder.BaseViewHolder;
 import bdkj.com.englishstu.xrecyclerview.viewholder.RecycleItemClickListener;
 import bdkj.com.englishstu.xrecyclerview.viewholder.RecycleItemLongClickListener;
-import butterknife.BindView;
 
 /**
  * Created by davidinchina on 2017/6/6.
@@ -77,8 +75,8 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ViewHolder> 
         holder.tvClassNumber.setText("班级人数："+classes.getClassNumber()+"人");
         holder.tvClassTeachers.setText("任课教师："+classes.getTeacherNumber()+"人");
         holder.tvTestNumber.setText("近期考试："+classes.getTestNumber()+"场");
-        holder.tvRightStatus.setVisibility(View.VISIBLE);
-        holder.tvRightStatus2.setVisibility(View.INVISIBLE);
+        holder.tvRightStatus.setVisibility(View.GONE);
+        holder.tvRightStatus2.setVisibility(View.GONE);
         SwipeItemLayout swipeRoot = holder.itemContactSwipeRoot;
         swipeRoot.setDelegate(new SwipeItemLayout.SwipeItemLayoutDelegate() {
             @Override

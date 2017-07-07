@@ -70,7 +70,11 @@ public class StuNoticeAdapter extends RecyclerView.Adapter<StuNoticeAdapter.View
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Note note = noteList.get(position);
         holder.tvTitle.setText(note.getTitle());
-        holder.tvContent.setText(note.getContent());
+        String content = note.getContent();
+        if (note.getContent().length() > 40) {
+            content = note.getContent().substring(0, 39) + "...";//截短通知
+        }
+        holder.tvContent.setText(content);
         Glide.with(mContext).load(note.getImg()).into(holder.ivLeftImg);
         holder.tvAuthor.setText("发布人：" + note.getAuthorName());
         holder.tvTime.setText("发布日期：" + TimeUtil.date2String(note.getUpdateDate()));

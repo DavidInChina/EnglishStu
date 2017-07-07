@@ -16,7 +16,6 @@ import bdkj.com.englishstu.base.JsonEntity;
 import bdkj.com.englishstu.base.baseView.BaseFragment;
 import bdkj.com.englishstu.common.adapter.ClassAdapter;
 import bdkj.com.englishstu.common.beans.Classes;
-import bdkj.com.englishstu.common.beans.Note;
 import bdkj.com.englishstu.common.dbinfo.AdmDbUtils;
 import bdkj.com.englishstu.common.divider.RecDivider;
 import bdkj.com.englishstu.common.tool.ToastUtil;
@@ -43,6 +42,12 @@ public class AdClassFragment extends BaseFragment implements RecycleItemClickLis
     @Override
     public void initView(ViewGroup parent) {
         initRecyclerView();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        recyclerView.setRefreshing(true);
     }
 
     public void initRecyclerView() {

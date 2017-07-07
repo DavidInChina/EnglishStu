@@ -125,6 +125,8 @@ public class AnswerExamActivity extends BaseActivity {
             ToastUtil.show(mContext, entity1.getMsg());
         }
         mark.setStudentId(student.getId());
+        mark.setStuNumber(student.getNumber());
+        mark.setClassId(student.getClassIds().split(",")[1]);
         mark.setStuHead(student.getUserHead());
         mark.setStuName(student.getUserName());
         float score = 0;

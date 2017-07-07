@@ -20,16 +20,14 @@ import bdkj.com.englishstu.common.beans.Note;
 import bdkj.com.englishstu.common.beans.Teacher;
 import bdkj.com.englishstu.common.dbinfo.TeaDbUtils;
 import bdkj.com.englishstu.common.divider.RecDivider;
-import bdkj.com.englishstu.common.eventbus.ClassChoose;
-import bdkj.com.englishstu.common.eventbus.RequestClassId;
 import bdkj.com.englishstu.common.tool.IntentUtil;
 import bdkj.com.englishstu.common.tool.ToastUtil;
 import bdkj.com.englishstu.view.NoteDetailActivity;
+import bdkj.com.englishstu.view.TeaMainActivity;
 import bdkj.com.englishstu.xrecyclerview.ProgressStyle;
 import bdkj.com.englishstu.xrecyclerview.XRecyclerView;
 import bdkj.com.englishstu.xrecyclerview.viewholder.RecycleItemClickListener;
 import butterknife.BindView;
-import de.greenrobot.event.EventBus;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,15 +49,11 @@ public class TeNoticeFragment extends BaseFragment implements RecycleItemClickLi
 
     @Override
     public void initView(ViewGroup parent) {
-        EventBus.getDefault().register(this);
+//        EventBus.getDefault().register(this);
         teacher = Application.getTeacherInfo();
         initRecyclerView();
     }
 
-    public void onEventMainThread(ClassChoose event) {
-        currentClassId = event.getClassId();
-        recyclerView.setRefreshing(true);
-    }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -70,7 +64,6 @@ public class TeNoticeFragment extends BaseFragment implements RecycleItemClickLi
     @Override
     public void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
     }
 
     public void initRecyclerView() {
@@ -106,10 +99,14 @@ public class TeNoticeFragment extends BaseFragment implements RecycleItemClickLi
         mAdapter.setClickListener(this);
         recyclerView.setAdapter(mAdapter);
         recyclerView.addItemDecoration(new RecDivider(mContext, RecDivider.VERTICAL_LIST));
-//        recyclerView.setRefreshing(true);
-        EventBus.getDefault().post(new RequestClassId());
+        currentClassId = ((TeaMainActivity) getActivity()).getClassId();
+        recyclerView.setRefreshing(true);
     }
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        recyclerView.setRefreshing(true);
+    }
     @Override
     public void onItemClick(View view, int postion) {
         Note note = (Note) view.getTag();

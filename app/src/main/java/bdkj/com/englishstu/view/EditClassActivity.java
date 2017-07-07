@@ -5,13 +5,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
-import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 
@@ -21,9 +21,7 @@ import bdkj.com.englishstu.base.baseView.BaseActivity;
 import bdkj.com.englishstu.common.beans.Classes;
 import bdkj.com.englishstu.common.dbinfo.AdmDbUtils;
 import bdkj.com.englishstu.common.tool.ToastUtil;
-import bdkj.com.englishstu.common.widget.CircleImageView;
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class EditClassActivity extends BaseActivity {
@@ -37,7 +35,7 @@ public class EditClassActivity extends BaseActivity {
     @BindView(R.id.et_note_title)
     EditText etClassName;
     @BindView(R.id.iv_class_logo)
-    CircleImageView ivClassLogo;
+    ImageView ivClassLogo;
 
     private String classLogo="";
     @Override

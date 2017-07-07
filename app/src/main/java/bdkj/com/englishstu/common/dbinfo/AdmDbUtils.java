@@ -135,9 +135,6 @@ public class AdmDbUtils {
      * @return
      */
     public static JsonEntity addNote(Note note) {
-        note.setId(UUID.randomUUID().toString());
-        note.setCreateDate(new Date(TimeUtil.getCurrentMillis()));
-        note.setUpdateDate(new Date(TimeUtil.getCurrentMillis()));//设置基本字段
         JsonEntity result = new JsonEntity<>();
         NoteDao noteDao = Application.getDaoSession().getNoteDao();
         NoteRecordDao recordDao = Application.getDaoSession().getNoteRecordDao();
@@ -157,6 +154,9 @@ public class AdmDbUtils {
                     noteRecord.setUpdateDate(new Date(TimeUtil.getCurrentMillis()));
                     recordDao.insert(noteRecord);
                 }
+                note.setId(UUID.randomUUID().toString());
+                note.setCreateDate(new Date(TimeUtil.getCurrentMillis()));
+                note.setUpdateDate(new Date(TimeUtil.getCurrentMillis()));//设置基本字段
                 note.setClassesId(classe.getId());
                 noteDao.insert(note);
             }

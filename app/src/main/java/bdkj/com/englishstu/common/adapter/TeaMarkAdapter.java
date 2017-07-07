@@ -14,11 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bdkj.com.englishstu.R;
-import bdkj.com.englishstu.base.JsonEntity;
-import bdkj.com.englishstu.common.beans.Note;
-import bdkj.com.englishstu.common.dbinfo.AdmDbUtils;
-import bdkj.com.englishstu.common.tool.TimeUtil;
-import bdkj.com.englishstu.common.tool.ToastUtil;
+import bdkj.com.englishstu.common.beans.Test;
 import bdkj.com.englishstu.swipeitem.widget.SwipeItemLayout;
 import bdkj.com.englishstu.xrecyclerview.viewholder.BaseViewHolder;
 import bdkj.com.englishstu.xrecyclerview.viewholder.RecycleItemClickListener;
@@ -28,8 +24,8 @@ import bdkj.com.englishstu.xrecyclerview.viewholder.RecycleItemLongClickListener
  * Created by davidinchina on 2017/6/6.
  */
 
-public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder> {
-    private List<Note> noteList = null;
+public class TeaMarkAdapter extends RecyclerView.Adapter<TeaMarkAdapter.ViewHolder> {
+    private List<Test> noteList = null;
     private Context mContext;
     public RecycleItemClickListener clickListener;
     public RecycleItemLongClickListener longClickListener;
@@ -39,7 +35,7 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
      */
     private List<SwipeItemLayout> mOpenedSil = new ArrayList<>();
 
-    public NoticeAdapter(Context mContext, ArrayList<Note> datas) {
+    public TeaMarkAdapter(Context mContext, ArrayList<Test> datas) {
         this.mContext = mContext;
         this.noteList = datas;
     }
@@ -62,31 +58,19 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_notice_layout, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_test_mark_layout, parent, false);
         return new ViewHolder(view, clickListener, longClickListener);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final Note note = noteList.get(position);
-        holder.tvTitle.setText(note.getTitle());
-        String content = note.getContent();
-        if (note.getContent().length() > 40) {
-            content = note.getContent().substring(0, 39) + "...";//截短通知
-        }
-        holder.tvContent.setText(content);
-        holder.tvContent.setText(note.getContent());
-        Glide.with(mContext).load(note.getImg()).into(holder.ivLeftImg);
-        holder.tvAuthor.setText("发布人：" + note.getAuthorName());
-        holder.tvTime.setText("发布日期：" + TimeUtil.date2String(note.getUpdateDate()));
-        if (note.getStatus() == 0) {
-            holder.tvRightStatus.setVisibility(View.VISIBLE);
-            holder.tvRightStatus2.setVisibility(View.INVISIBLE);
-        } else {
-            holder.tvRightStatus.setVisibility(View.INVISIBLE);
-            holder.tvRightStatus2.setVisibility(View.VISIBLE);
-        }
+        final Test test = noteList.get(position);
+        holder.tvTestName.setText(test.getName());
+        holder.tvExamName.setText(test.getExamName());
+        Glide.with(mContext).load(test.getImg()).into(holder.ivLeftImg);
+        holder.tvTime.setText(test.getBeginTime());
         SwipeItemLayout swipeRoot = holder.itemContactSwipeRoot;
+        swipeRoot.setSwipeAble(false);
         swipeRoot.setDelegate(new SwipeItemLayout.SwipeItemLayoutDelegate() {
             @Override
             public void onSwipeItemLayoutOpened(SwipeItemLayout swipeItemLayout) {
@@ -104,22 +88,7 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
                 closeOpenedSwipeItemLayoutWithAnim();
             }
         });
-        holder.itemContactDelete.setTag(note);
-        holder.itemContactDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Note note1 = (Note) v.getTag();
-                JsonEntity entity = AdmDbUtils.deleteNote(note1.getId());
-                if (entity.getCode() == 0) {
-                    noteList.remove(note1);
-                    notifyDataSetChanged();
-                } else {
-                    ToastUtil.show(mContext, entity.getMsg());
-                }
-                closeOpenedSwipeItemLayoutWithAnim();
-            }
-        });
-        holder.baseView.setTag(note);
+        holder.baseView.setTag(test);
     }
 
     public void closeOpenedSwipeItemLayoutWithAnim() {
@@ -137,10 +106,9 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
     //自定义的ViewHolder，持有每个Item的的所有界面元素
     public static class ViewHolder extends BaseViewHolder {
         ImageView ivLeftImg;
-        TextView tvTitle;
-        TextView tvContent;
+        TextView tvTestName;
+        TextView tvExamName;
         TextView tvTime;
-        TextView tvAuthor;
         TextView tvRightStatus;
         TextView tvRightStatus2;
         TextView itemContactDelete;
@@ -161,10 +129,9 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
             itemContactDelete = (TextView) view.findViewById(R.id.item_contact_delete);
             itemContactSwipeRoot = (SwipeItemLayout) view.findViewById(R.id.item_contact_swipe_root);
             ivLeftImg = (ImageView) view.findViewById(R.id.iv_left_img);
-            tvTitle = (TextView) view.findViewById(R.id.tv_title);
-            tvContent = (TextView) view.findViewById(R.id.tv_content);
+            tvTestName = (TextView) view.findViewById(R.id.tv_test_name);
+            tvExamName = (TextView) view.findViewById(R.id.tv_exam_name);
             tvTime = (TextView) view.findViewById(R.id.tv_time);
-            tvAuthor = (TextView) view.findViewById(R.id.tv_author);
             tvRightStatus = (TextView) view.findViewById(R.id.tv_right_status);
             tvRightStatus2 = (TextView) view.findViewById(R.id.tv_right_status2);
         }

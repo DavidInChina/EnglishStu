@@ -20,11 +20,13 @@ import bdkj.com.englishstu.base.JsonEntity;
 import bdkj.com.englishstu.base.baseView.BaseActivity;
 import bdkj.com.englishstu.common.beans.Teacher;
 import bdkj.com.englishstu.common.dbinfo.TeaDbUtils;
+import bdkj.com.englishstu.common.eventbus.RefreshTeacher;
 import bdkj.com.englishstu.common.tool.ToastUtil;
 import bdkj.com.englishstu.common.tool.VerificationUtils;
 import bdkj.com.englishstu.common.widget.CircleImageView;
 import butterknife.BindView;
 import butterknife.OnClick;
+import de.greenrobot.event.EventBus;
 
 public class TeaInfoModifyActivity extends BaseActivity {
 
@@ -114,6 +116,7 @@ public class TeaInfoModifyActivity extends BaseActivity {
         if (entity.getCode()==0){
             ToastUtil.show(mContext,"个人信息修改成功！");
             Application.setTeacherInfo(mContext,teacher);
+            EventBus.getDefault().post(new RefreshTeacher());
             finish();
         }
     }

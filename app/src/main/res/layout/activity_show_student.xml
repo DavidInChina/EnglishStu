@@ -1,17 +1,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <include layout="@layout/action_top_normal" />
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@drawable/bg_setting_wrapper"
             android:orientation="vertical"
             android:paddingLeft="150dp"
@@ -26,10 +25,10 @@
                 android:orientation="horizontal"
                 android:padding="@dimen/regular_dimen_x20">
 
-                <ImageView
-                    android:id="@+id/civ_test_logo"
-                    android:layout_width="120dp"
-                    android:layout_height="100dp"
+                <bdkj.com.englishstu.common.widget.CircleImageView
+                    android:id="@+id/civ_stu_head"
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
                     android:src="@mipmap/bg_welcome" />
 
             </LinearLayout>
@@ -51,12 +50,12 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:gravity="center"
-                    android:text="练习名称"
+                    android:text="学生姓名"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_15" />
 
-                <EditText
-                    android:id="@+id/et_test_name"
+                <TextView
+                    android:id="@+id/et_stu_name"
                     android:layout_width="@dimen/regular_dimen_x160"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -87,12 +86,12 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:gravity="center"
-                    android:text="练习类别"
+                    android:text="学生性别"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_15" />
 
                 <TextView
-                    android:id="@+id/tv_test_type"
+                    android:id="@+id/tv_stu_sex"
                     android:layout_width="@dimen/regular_dimen_x160"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -100,7 +99,7 @@
                     android:gravity="right"
                     android:paddingBottom="@dimen/regular_dimen_x10"
                     android:paddingTop="@dimen/regular_dimen_x10"
-                    android:text="考试"
+                    android:text="男"
                     android:textColor="@color/hint_grey"
                     android:textSize="@dimen/text_size_15" />
             </RelativeLayout>
@@ -111,7 +110,6 @@
                 android:layout_marginLeft="@dimen/normal_10"
                 android:layout_marginRight="@dimen/normal_10"
                 android:background="@color/hint_blue" />
-
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -125,12 +123,48 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:gravity="center"
-                    android:text="练习试题"
+                    android:text="登录账号"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_15" />
 
                 <TextView
-                    android:id="@+id/tv_exam_name"
+                    android:id="@+id/et_stu_account"
+                    android:layout_width="@dimen/regular_dimen_x160"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:paddingBottom="@dimen/regular_dimen_x10"
+                    android:paddingTop="@dimen/regular_dimen_x10"
+                    android:textColor="@color/hint_grey"
+                    android:textSize="@dimen/text_size_15" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/normal_10"
+                android:layout_marginRight="@dimen/normal_10"
+                android:background="@color/hint_blue" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/regular_dimen_x25"
+                android:paddingLeft="@dimen/regular_dimen_x20"
+                android:paddingRight="@dimen/regular_dimen_x20">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:text="所在班级"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_15" />
+
+                <TextView
+                    android:id="@+id/et_stu_classes"
                     android:layout_width="@dimen/regular_dimen_x160"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -162,12 +196,12 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:gravity="center"
-                    android:text="开始时间"
+                    android:text="联系电话"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_15" />
 
                 <TextView
-                    android:id="@+id/tv_test_begin"
+                    android:id="@+id/et_stu_phone"
                     android:layout_width="@dimen/regular_dimen_x160"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -175,10 +209,10 @@
                     android:gravity="right"
                     android:paddingBottom="@dimen/regular_dimen_x10"
                     android:paddingTop="@dimen/regular_dimen_x10"
-                    android:text=""
                     android:textColor="@color/hint_grey"
                     android:textSize="@dimen/text_size_15" />
             </RelativeLayout>
+
 
             <View
                 android:layout_width="match_parent"
@@ -199,12 +233,12 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:gravity="center"
-                    android:text="结束时间"
+                    android:text="联系邮箱"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_15" />
 
                 <TextView
-                    android:id="@+id/tv_test_end"
+                    android:id="@+id/et_stu_email"
                     android:layout_width="@dimen/regular_dimen_x160"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -212,11 +246,9 @@
                     android:gravity="right"
                     android:paddingBottom="@dimen/regular_dimen_x10"
                     android:paddingTop="@dimen/regular_dimen_x10"
-                    android:text=""
                     android:textColor="@color/hint_grey"
                     android:textSize="@dimen/text_size_15" />
             </RelativeLayout>
-
 
             <View
                 android:layout_width="match_parent"
@@ -226,25 +258,8 @@
                 android:background="@color/hint_blue" />
 
 
-
-            <Button
-                android:id="@+id/btn_save"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/regular_dimen_x30"
-                android:layout_marginLeft="60dp"
-                android:layout_marginRight="60dp"
-                android:layout_marginTop="@dimen/regular_dimen_x30"
-                android:background="@drawable/bg_btn_confirm"
-                android:paddingBottom="@dimen/regular_dimen_x6"
-                android:paddingTop="@dimen/regular_dimen_x6"
-                android:text="确认添加"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_size_16" />
 
         </LinearLayout>
-
-    </ScrollView>
 
     <View
         android:id="@+id/mBottom"

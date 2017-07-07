@@ -1,0 +1,63 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/tv_test_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/gray"
+            android:drawableLeft="@mipmap/icon_examination_name"
+            android:drawablePadding="@dimen/normal_5"
+            android:padding="@dimen/normal_10"
+            android:text="练习名称"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_15" />
+
+        <bdkj.com.englishstu.xrecyclerview.XRecyclerView
+            android:id="@+id/recycler_view_test"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/tv_test_name"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@color/hint_grey" />
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/tv_stu_score"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/gray"
+            android:drawableLeft="@mipmap/icon_student_achievement"
+            android:drawablePadding="@dimen/normal_5"
+            android:padding="@dimen/normal_10"
+            android:text="学生成绩"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_15" />
+
+        <bdkj.com.englishstu.xrecyclerview.XRecyclerView
+            android:id="@+id/recycler_view_stu"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/tv_stu_score"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    </RelativeLayout>
+
+</LinearLayout>

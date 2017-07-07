@@ -218,6 +218,7 @@ public class EditStudentActivity extends BaseActivity {
         JsonEntity result = AdmDbUtils.addStudent(student);
         if (result.getCode() == 0) {
             ToastUtil.show(mContext, "添加学生成功！");
+
             finish();
         } else {
             ToastUtil.show(mContext, result.getMsg());

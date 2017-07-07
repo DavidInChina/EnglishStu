@@ -55,7 +55,7 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_15" />
 
-                <EditText
+                <TextView
                     android:id="@+id/et_test_name"
                     android:layout_width="@dimen/regular_dimen_x160"
                     android:layout_height="wrap_content"
@@ -237,6 +237,7 @@
                 android:layout_marginTop="@dimen/regular_dimen_x30"
                 android:background="@drawable/bg_btn_confirm"
                 android:paddingBottom="@dimen/regular_dimen_x6"
+                android:visibility="invisible"
                 android:paddingTop="@dimen/regular_dimen_x6"
                 android:text="确认添加"
                 android:textColor="@color/white"

@@ -15,9 +15,8 @@ import java.util.List;
 
 import bdkj.com.englishstu.R;
 import bdkj.com.englishstu.base.JsonEntity;
-import bdkj.com.englishstu.common.beans.Note;
-import bdkj.com.englishstu.common.dbinfo.AdmDbUtils;
-import bdkj.com.englishstu.common.tool.TimeUtil;
+import bdkj.com.englishstu.common.beans.Mark;
+import bdkj.com.englishstu.common.dbinfo.StuDbUtils;
 import bdkj.com.englishstu.common.tool.ToastUtil;
 import bdkj.com.englishstu.swipeitem.widget.SwipeItemLayout;
 import bdkj.com.englishstu.xrecyclerview.viewholder.BaseViewHolder;
@@ -28,8 +27,8 @@ import bdkj.com.englishstu.xrecyclerview.viewholder.RecycleItemLongClickListener
  * Created by davidinchina on 2017/6/6.
  */
 
-public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder> {
-    private List<Note> noteList = null;
+public class StuMarkAdapter extends RecyclerView.Adapter<StuMarkAdapter.ViewHolder> {
+    private List<Mark> noteList = null;
     private Context mContext;
     public RecycleItemClickListener clickListener;
     public RecycleItemLongClickListener longClickListener;
@@ -39,7 +38,7 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
      */
     private List<SwipeItemLayout> mOpenedSil = new ArrayList<>();
 
-    public NoticeAdapter(Context mContext, ArrayList<Note> datas) {
+    public StuMarkAdapter(Context mContext, ArrayList<Mark> datas) {
         this.mContext = mContext;
         this.noteList = datas;
     }
@@ -62,31 +61,19 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_notice_layout, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_student_mark_layout, parent, false);
         return new ViewHolder(view, clickListener, longClickListener);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final Note note = noteList.get(position);
-        holder.tvTitle.setText(note.getTitle());
-        String content = note.getContent();
-        if (note.getContent().length() > 40) {
-            content = note.getContent().substring(0, 39) + "...";//截短通知
-        }
-        holder.tvContent.setText(content);
-        holder.tvContent.setText(note.getContent());
-        Glide.with(mContext).load(note.getImg()).into(holder.ivLeftImg);
-        holder.tvAuthor.setText("发布人：" + note.getAuthorName());
-        holder.tvTime.setText("发布日期：" + TimeUtil.date2String(note.getUpdateDate()));
-        if (note.getStatus() == 0) {
-            holder.tvRightStatus.setVisibility(View.VISIBLE);
-            holder.tvRightStatus2.setVisibility(View.INVISIBLE);
-        } else {
-            holder.tvRightStatus.setVisibility(View.INVISIBLE);
-            holder.tvRightStatus2.setVisibility(View.VISIBLE);
-        }
+        final Mark mark = noteList.get(position);
+        holder.tvName.setText(mark.getStuName());
+        holder.tvScore.setText("得分：" + mark.getScore());
+        Glide.with(mContext).load(mark.getStuHead()).into(holder.ivLeftImg);
+        holder.tvNumber.setText("学号：" + mark.getStuNumber());
         SwipeItemLayout swipeRoot = holder.itemContactSwipeRoot;
+        swipeRoot.setSwipeAble(true);
         swipeRoot.setDelegate(new SwipeItemLayout.SwipeItemLayoutDelegate() {
             @Override
             public void onSwipeItemLayoutOpened(SwipeItemLayout swipeItemLayout) {
@@ -104,14 +91,14 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
                 closeOpenedSwipeItemLayoutWithAnim();
             }
         });
-        holder.itemContactDelete.setTag(note);
+        holder.itemContactDelete.setTag(mark);
         holder.itemContactDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Note note1 = (Note) v.getTag();
-                JsonEntity entity = AdmDbUtils.deleteNote(note1.getId());
+                Mark mark1 = (Mark) v.getTag();
+                JsonEntity entity = StuDbUtils.deleteMark(mark1.getId());
                 if (entity.getCode() == 0) {
-                    noteList.remove(note1);
+                    noteList.remove(mark1);
                     notifyDataSetChanged();
                 } else {
                     ToastUtil.show(mContext, entity.getMsg());
@@ -119,7 +106,7 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
                 closeOpenedSwipeItemLayoutWithAnim();
             }
         });
-        holder.baseView.setTag(note);
+        holder.baseView.setTag(mark);
     }
 
     public void closeOpenedSwipeItemLayoutWithAnim() {
@@ -137,10 +124,9 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
     //自定义的ViewHolder，持有每个Item的的所有界面元素
     public static class ViewHolder extends BaseViewHolder {
         ImageView ivLeftImg;
-        TextView tvTitle;
-        TextView tvContent;
-        TextView tvTime;
-        TextView tvAuthor;
+        TextView tvName;
+        TextView tvScore;
+        TextView tvNumber;
         TextView tvRightStatus;
         TextView tvRightStatus2;
         TextView itemContactDelete;
@@ -161,10 +147,9 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
             itemContactDelete = (TextView) view.findViewById(R.id.item_contact_delete);
             itemContactSwipeRoot = (SwipeItemLayout) view.findViewById(R.id.item_contact_swipe_root);
             ivLeftImg = (ImageView) view.findViewById(R.id.iv_left_img);
-            tvTitle = (TextView) view.findViewById(R.id.tv_title);
-            tvContent = (TextView) view.findViewById(R.id.tv_content);
-            tvTime = (TextView) view.findViewById(R.id.tv_time);
-            tvAuthor = (TextView) view.findViewById(R.id.tv_author);
+            tvNumber = (TextView) view.findViewById(R.id.tv_stu_number);
+            tvName = (TextView) view.findViewById(R.id.tv_stu_name);
+            tvScore = (TextView) view.findViewById(R.id.tv_stu_score);
             tvRightStatus = (TextView) view.findViewById(R.id.tv_right_status);
             tvRightStatus2 = (TextView) view.findViewById(R.id.tv_right_status2);
         }

@@ -21,6 +21,7 @@ import bdkj.com.englishstu.base.JsonEntity;
 import bdkj.com.englishstu.base.baseView.BaseActivity;
 import bdkj.com.englishstu.common.beans.Student;
 import bdkj.com.englishstu.common.dbinfo.StuDbUtils;
+import bdkj.com.englishstu.common.eventbus.RefreshStudent;
 import bdkj.com.englishstu.common.tool.ToastUtil;
 import bdkj.com.englishstu.common.tool.VerificationUtils;
 import bdkj.com.englishstu.common.widget.CircleImageView;
@@ -28,6 +29,7 @@ import bdkj.com.englishstu.selector.ChooseData;
 import bdkj.com.englishstu.selector.SelectPopWindow;
 import butterknife.BindView;
 import butterknife.OnClick;
+import de.greenrobot.event.EventBus;
 
 public class StuInfoModifyActivity extends BaseActivity {
 
@@ -148,6 +150,7 @@ public class StuInfoModifyActivity extends BaseActivity {
         if (entity.getCode() == 0) {
             ToastUtil.show(mContext, "个人信息修改成功！");
             Application.setStudentInfo(mContext, student);
+            EventBus.getDefault().post(new RefreshStudent());
             finish();
         }
     }

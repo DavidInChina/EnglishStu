@@ -34,13 +34,13 @@ public class WelcomeActivity extends BaseActivity {
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
-        SharedPreferences sharedPreferences = getSharedPreferences("count",MODE_PRIVATE);
-        int count = sharedPreferences.getInt("count",0);
+        SharedPreferences sharedPreferences = getSharedPreferences("count", MODE_PRIVATE);
+        int count = sharedPreferences.getInt("count", 0);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt("count",++count);//将使用次数添加到本地文件
+        editor.putInt("count", ++count);//将使用次数添加到本地文件
         Logger.d(count);
         editor.commit();
-        if (1==count){
+        if (1 == count) {
             //是第一次使用应用
             AdmDbUtils.adminInsert();
             Logger.d("添加使用次数");
@@ -48,7 +48,7 @@ public class WelcomeActivity extends BaseActivity {
         beginLogin();
     }
 
-    public  void beginLogin(){
+    public void beginLogin() {
         handler.sendEmptyMessageDelayed(1, 1000);
     }
 

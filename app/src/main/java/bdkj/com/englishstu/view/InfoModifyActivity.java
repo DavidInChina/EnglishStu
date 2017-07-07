@@ -20,11 +20,13 @@ import bdkj.com.englishstu.base.JsonEntity;
 import bdkj.com.englishstu.base.baseView.BaseActivity;
 import bdkj.com.englishstu.common.beans.Admin;
 import bdkj.com.englishstu.common.dbinfo.AdmDbUtils;
+import bdkj.com.englishstu.common.eventbus.RefreshAdmin;
 import bdkj.com.englishstu.common.tool.ToastUtil;
 import bdkj.com.englishstu.common.tool.VerificationUtils;
 import bdkj.com.englishstu.common.widget.CircleImageView;
 import butterknife.BindView;
 import butterknife.OnClick;
+import de.greenrobot.event.EventBus;
 
 public class InfoModifyActivity extends BaseActivity {
 
@@ -71,52 +73,55 @@ public class InfoModifyActivity extends BaseActivity {
                 break;
         }
     }
-    public void saveModify(){
-            if (!userHead.equals("")){
-                admin.setUserHead(userHead);
-            }else {
-                ToastUtil.show(mContext,"请选择用户头像！");
-                return;
-            }
-        if (VerificationUtils.matcherAccount(etUserAccount.getText().toString())){
+
+    public void saveModify() {
+        if (!userHead.equals("")) {
+            admin.setUserHead(userHead);
+        } else {
+            ToastUtil.show(mContext, "请选择用户头像！");
+            return;
+        }
+        if (VerificationUtils.matcherAccount(etUserAccount.getText().toString())) {
             admin.setUserAccount(etUserAccount.getText().toString());
-        }else{
-            ToastUtil.show(mContext,"用户登陆账号不合法！");
+        } else {
+            ToastUtil.show(mContext, "用户登陆账号不合法！");
             return;
         }
-        if (VerificationUtils.matcherRealName(etUserName.getText().toString())){
+        if (VerificationUtils.matcherRealName(etUserName.getText().toString())) {
             admin.setUserName(etUserName.getText().toString());
-        }else{
-            ToastUtil.show(mContext,"用户名不合法！");
+        } else {
+            ToastUtil.show(mContext, "用户名不合法！");
             return;
         }
-        if (!"".equals(etUserPassword.getText().toString())){
-            if (VerificationUtils.matcherPassword(etUserPassword.getText().toString())){
+        if (!"".equals(etUserPassword.getText().toString())) {
+            if (VerificationUtils.matcherPassword(etUserPassword.getText().toString())) {
                 admin.setUserPassword(etUserPassword.getText().toString());
-            }else{
-                ToastUtil.show(mContext,"密码不合法！");
+            } else {
+                ToastUtil.show(mContext, "密码不合法！");
                 return;
             }
         }
-        if (VerificationUtils.matcherPhoneNum(etUserPhone.getText().toString())){
+        if (VerificationUtils.matcherPhoneNum(etUserPhone.getText().toString())) {
             admin.setPhone(etUserPhone.getText().toString());
-        }else{
-            ToastUtil.show(mContext,"用户联系电话不合法！");
+        } else {
+            ToastUtil.show(mContext, "用户联系电话不合法！");
             return;
         }
-            if (VerificationUtils.matcherEmail(etUserEmail.getText().toString())){
-                admin.setEmail(etUserEmail.getText().toString());
-            }else{
-                ToastUtil.show(mContext,"用户邮箱不合法！");
-                return;
-            }
-        JsonEntity entity =AdmDbUtils.updateSelf(admin);
-        if (entity.getCode()==0){
-            ToastUtil.show(mContext,"个人信息修改成功！");
-            Application.setAdminInfo(mContext,admin);
+        if (VerificationUtils.matcherEmail(etUserEmail.getText().toString())) {
+            admin.setEmail(etUserEmail.getText().toString());
+        } else {
+            ToastUtil.show(mContext, "用户邮箱不合法！");
+            return;
+        }
+        JsonEntity entity = AdmDbUtils.updateSelf(admin);
+        if (entity.getCode() == 0) {
+            ToastUtil.show(mContext, "个人信息修改成功！");
+            Application.setAdminInfo(mContext, admin);
+            EventBus.getDefault().post(new RefreshAdmin());
             finish();
         }
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -146,7 +151,7 @@ public class InfoModifyActivity extends BaseActivity {
             ToastUtil.show(mContext, "数据错误！");
             finish();
         }
-        if (null!=admin.getUserHead()&&!"".equals(admin.getUserHead())){
+        if (null != admin.getUserHead() && !"".equals(admin.getUserHead())) {
             userHead = admin.getUserHead();
             Glide.with(mContext).load(admin.getUserHead()).into(civUserHead);
         }

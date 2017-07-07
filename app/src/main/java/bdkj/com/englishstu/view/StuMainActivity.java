@@ -14,6 +14,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.orhanobut.logger.Logger;
 
 import java.util.HashMap;
 import java.util.List;
@@ -23,8 +24,8 @@ import bdkj.com.englishstu.R;
 import bdkj.com.englishstu.base.Application;
 import bdkj.com.englishstu.base.baseView.BaseActivity;
 import bdkj.com.englishstu.common.beans.Student;
-import bdkj.com.englishstu.common.eventbus.ChangeMarkType;
 import bdkj.com.englishstu.common.eventbus.ClassChoose;
+import bdkj.com.englishstu.common.eventbus.RefreshStudent;
 import bdkj.com.englishstu.common.tool.ToastUtil;
 import bdkj.com.englishstu.selector.ChooseData;
 import bdkj.com.englishstu.view.Fragment.StuExamFragment;
@@ -89,6 +90,12 @@ public class StuMainActivity extends BaseActivity {
             }
         }
     };
+
+    public interface ChangeMarkTypeListener {
+        void changeType(String type);
+    }
+
+    private ChangeMarkTypeListener listener;
     private List<ChooseData> classList;
 
     @Override
@@ -103,9 +110,16 @@ public class StuMainActivity extends BaseActivity {
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
         initData();
         initLeftMenu();
         initTopMenu();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     public void initTopMenu() {
@@ -114,14 +128,24 @@ public class StuMainActivity extends BaseActivity {
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
                 switch (checkedId) {
                     case R.id.rb_test:
-                        EventBus.getDefault().post(new ChangeMarkType("练习"));
+                        Logger.d("练习");
+                        if (null != listener) {
+                            listener.changeType("练习");
+                        }
                         break;
                     case R.id.rb_exam:
-                        EventBus.getDefault().post(new ChangeMarkType("考试"));
+                        Logger.d("考试");
+                        if (null != listener) {
+                            listener.changeType("考试");
+                        }
                         break;
                 }
             }
         });
+    }
+
+    public void onEventMainThread(RefreshStudent refreshStudent) {
+        initData();//更新信息
     }
 
     @SuppressLint("SetTextI18n")
@@ -153,30 +177,30 @@ public class StuMainActivity extends BaseActivity {
                         toggleFragment(TYPE_NOTICE);
                         tvTopTitle.setText("班级公告");
                         tvTopTitle.setVisibility(View.VISIBLE);
-                        rbTop.setVisibility(View.GONE);
+                        rbTop.setVisibility(View.INVISIBLE);
                         break;
                     case R.id.rb_2:
                         toggleFragment(TYPE_TEST);
                         tvTopTitle.setText("练习");
                         tvTopTitle.setVisibility(View.VISIBLE);
-                        rbTop.setVisibility(View.GONE);
+                        rbTop.setVisibility(View.INVISIBLE);
                         break;
                     case R.id.rb_3:
                         toggleFragment(TYPE_EXAM);
                         tvTopTitle.setText("考试");
                         tvTopTitle.setVisibility(View.VISIBLE);
-                        rbTop.setVisibility(View.GONE);
+                        rbTop.setVisibility(View.INVISIBLE);
                         break;
                     case R.id.rb_4:
                         toggleFragment(TYPE_MARK);
-                        tvTopTitle.setVisibility(View.GONE);
+                        tvTopTitle.setVisibility(View.INVISIBLE);
                         rbTop.setVisibility(View.VISIBLE);
                         break;
                     case R.id.rb_5:
                         toggleFragment(TYPE_SETTING);
                         tvTopTitle.setText("个人设置");
                         tvTopTitle.setVisibility(View.VISIBLE);
-                        rbTop.setVisibility(View.GONE);
+                        rbTop.setVisibility(View.INVISIBLE);
                         break;
                     default:
                 }
@@ -202,7 +226,9 @@ public class StuMainActivity extends BaseActivity {
                         fragmentMap.put(TYPE_EXAM, new StuExamFragment());
                         break;
                     case TYPE_MARK:
-                        fragmentMap.put(TYPE_MARK, new StuMarkFragment());
+                        StuMarkFragment fragment = new StuMarkFragment();
+                        listener = fragment;
+                        fragmentMap.put(TYPE_MARK, fragment);
                         break;
                     case TYPE_SETTING:
                         fragmentMap.put(TYPE_SETTING, new StuSettingFragment());
