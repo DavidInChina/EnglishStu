@@ -98,6 +98,5 @@ public class StuExamFragment extends BaseFragment implements RecycleItemClickLis
         Bundle bundle = new Bundle();
         bundle.putSerializable("test", test);
         IntentUtil.launcher(mContext, AnswerExamActivity.class, bundle);
-        getActivity().finish();
     }
 }

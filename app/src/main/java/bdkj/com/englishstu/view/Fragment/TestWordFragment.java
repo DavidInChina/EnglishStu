@@ -23,7 +23,6 @@ import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechEvaluator;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
-import com.iflytek.cloud.ui.RecognizerDialog;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.orhanobut.logger.Logger;
 import com.youdao.sdk.app.Language;
@@ -42,6 +41,7 @@ import bdkj.com.englishstu.common.beans.Test;
 import bdkj.com.englishstu.common.dbinfo.StuDbUtils;
 import bdkj.com.englishstu.common.tool.StringUtil;
 import bdkj.com.englishstu.common.tool.ToastUtil;
+import bdkj.com.englishstu.common.widget.IseDialog;
 import bdkj.com.englishstu.view.AnswerExamActivity;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -109,7 +109,7 @@ public class TestWordFragment extends BaseFragment {
 
     private String mLastResult;
     private SpeechEvaluator mIse;
-
+    private IseDialog dialog;
 
     private Test currentTest;
     private Exam currentExam;
@@ -183,7 +183,7 @@ public class TestWordFragment extends BaseFragment {
             ToastUtil.show(mContext, "创建对象失败，请确认 libmsc.so 放置正确，且有调用 createUtility 进行初始化");
             return;
         }
-        showProgress("请开始说话...");
+//        showProgress("请开始说话...");
         //格式 "[word]\napple\nbanana\norange
         String words[] = currentExam.getWords().split(",");
         String evaText = "[word]\n" + words[0] + "\n" + words[1] + "\n" + words[2];
@@ -285,7 +285,9 @@ public class TestWordFragment extends BaseFragment {
                 }
                 flSpeckVoice.setEnabled(true);
                 mLastResult = builder.toString();
-                showProgress("单词朗读完毕");
+                dialog.hide(0, "");
+            } else {
+                dialog.hide(1, "");
             }
         }
 
@@ -293,7 +295,8 @@ public class TestWordFragment extends BaseFragment {
         public void onError(SpeechError error) {
             flSpeckVoice.setEnabled(true);
             if (error != null) {
-                showProgress("error:" + error.getErrorCode() + "," + error.getErrorDescription());
+                dialog.hide(1, error.getErrorDescription());
+//                showProgress("error:" + error.getErrorCode() + "," + error.getErrorDescription());
             } else {
             }
         }
@@ -302,18 +305,22 @@ public class TestWordFragment extends BaseFragment {
         public void onBeginOfSpeech() {
             // 此回调表示：sdk内部录音机已经准备好了，用户可以开始语音输入
             Logger.d("evaluator begin");
+            dialog.show();
         }
 
         @Override
         public void onEndOfSpeech() {
             // 此回调表示：检测到了语音的尾端点，已经进入识别过程，不再接受语音输入
             Logger.d("evaluator stoped");
+            dialog.showLoading();
+
         }
 
         @Override
         public void onVolumeChanged(int volume, byte[] data) {
-            showProgress("当前音量：" + volume);
+            dialog.showChange(volume);
             Logger.d("返回音频数据：" + data.length);
+
         }
 
         @Override
@@ -423,6 +430,8 @@ public class TestWordFragment extends BaseFragment {
         // 初始化合成对象
         mTts = SpeechSynthesizer.createSynthesizer(mContext, mTtsInitListener);
         mIse = SpeechEvaluator.createEvaluator(mContext, null);
+        dialog = new IseDialog(mContext);
+        dialog.setBegin();
     }
 
     /**

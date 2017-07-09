@@ -39,6 +39,7 @@ import bdkj.com.englishstu.common.beans.Test;
 import bdkj.com.englishstu.common.dbinfo.StuDbUtils;
 import bdkj.com.englishstu.common.tool.StringUtil;
 import bdkj.com.englishstu.common.tool.ToastUtil;
+import bdkj.com.englishstu.common.widget.IseDialog;
 import bdkj.com.englishstu.view.AnswerExamActivity;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -78,7 +79,7 @@ public class TestSentenceFragment extends BaseFragment {
 
     private String mLastResult;
     private SpeechEvaluator mIse;
-
+    private IseDialog dialog;
 
     private Test currentTest;
     private Exam currentExam;
@@ -228,7 +229,10 @@ public class TestSentenceFragment extends BaseFragment {
                 }
                 flSpeckVoice.setEnabled(true);
                 mLastResult = builder.toString();
-                showProgress("语句朗读完毕");
+                dialog.hide(0, "");
+            }
+            else {
+                dialog.hide(1, "");
             }
         }
 
@@ -236,7 +240,7 @@ public class TestSentenceFragment extends BaseFragment {
         public void onError(SpeechError error) {
             flSpeckVoice.setEnabled(true);
             if (error != null) {
-                showProgress("error:" + error.getErrorCode() + "," + error.getErrorDescription());
+                dialog.hide(1, error.getErrorDescription());
             } else {
             }
         }
@@ -245,17 +249,19 @@ public class TestSentenceFragment extends BaseFragment {
         public void onBeginOfSpeech() {
             // 此回调表示：sdk内部录音机已经准备好了，用户可以开始语音输入
             Logger.d("evaluator begin");
+            dialog.show();
         }
 
         @Override
         public void onEndOfSpeech() {
             // 此回调表示：检测到了语音的尾端点，已经进入识别过程，不再接受语音输入
             Logger.d("evaluator stoped");
+            dialog.showLoading();
         }
 
         @Override
         public void onVolumeChanged(int volume, byte[] data) {
-            showProgress("当前音量：" + volume);
+            dialog.showChange(volume);
             Logger.d("返回音频数据：" + data.length);
         }
 
@@ -339,6 +345,8 @@ public class TestSentenceFragment extends BaseFragment {
         // 初始化合成对象
         mTts = SpeechSynthesizer.createSynthesizer(mContext, mTtsInitListener);
         mIse = SpeechEvaluator.createEvaluator(mContext, null);
+        dialog = new IseDialog(mContext);
+        dialog.setBegin();
     }
 
     /**
