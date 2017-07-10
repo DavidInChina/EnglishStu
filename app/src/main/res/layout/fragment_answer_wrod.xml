@@ -11,21 +11,31 @@
         android:layout_weight="1"
         android:orientation="horizontal">
 
+        <ImageView
+            android:id="@+id/iv_prev"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/regular_dimen_x80"
+            android:layout_marginRight="@dimen/text_size_40"
+            android:src="@mipmap/btn_left_normal" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/regular_dimen_x20"
+            android:layout_marginTop="@dimen/regular_dimen_x20"
             android:layout_weight="1"
+            android:background="@color/normal_grey"
             android:orientation="vertical"
-            android:paddingTop="160dp">
+            android:paddingLeft="@dimen/text_size_40"
+            android:paddingTop="40dp">
 
             <TextView
                 android:id="@+id/tv_word"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text=""
+                android:text="Professional"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_size_25"
                 android:textStyle="bold" />
@@ -34,27 +44,21 @@
                 android:id="@+id/tv_translate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text=""
+                android:text="专业的"
                 android:textColor="@color/hint_grey"
                 android:textSize="@dimen/text_size_18" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/tv_speck_en"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:drawablePadding="@dimen/normal_5"
                     android:drawableRight="@mipmap/btn_reading_pressed"
-                    android:gravity="center"
-                    android:text=""
+                    android:text="的胜多负少"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_13" />
 
@@ -62,12 +66,11 @@
                     android:id="@+id/tv_speck_us"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_speck_en"
-                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/regular_dimen_x20"
+                    android:layout_toRightOf="@id/tv_speck_en"
                     android:drawablePadding="@dimen/normal_5"
                     android:drawableRight="@mipmap/btn_reading_pressed"
-                    android:gravity="center"
-                    android:text=""
+                    android:text="的冯绍峰"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_13" />
             </RelativeLayout>
@@ -76,156 +79,27 @@
                 android:id="@+id/tv_translate_result"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center|left"
-                android:text=""
+                android:text="翻译"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_15" />
+
+            <TextView
+                android:id="@+id/tv_translate_internet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="网络释义"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_size_15" />
         </LinearLayout>
 
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:paddingTop="160dp">
-
-            <TextView
-                android:id="@+id/tv_word2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text=""
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_size_25"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_translate2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text=""
-                android:textColor="@color/hint_grey"
-                android:textSize="@dimen/text_size_18" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center">
-
-                <TextView
-                    android:id="@+id/tv_speck_en2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:drawablePadding="@dimen/normal_5"
-                    android:drawableRight="@mipmap/btn_reading_pressed"
-                    android:gravity="center"
-                    android:text=""
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_size_13" />
-
-                <TextView
-                    android:id="@+id/tv_speck_us2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_speck_en2"
-                    android:layout_gravity="center"
-                    android:drawablePadding="@dimen/normal_5"
-                    android:drawableRight="@mipmap/btn_reading_pressed"
-                    android:gravity="center"
-                    android:text=""
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_size_13" />
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/tv_translate_result2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center|left"
-                android:text=""
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_size_15" />
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:paddingTop="160dp">
-
-            <TextView
-                android:id="@+id/tv_word3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text=""
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_size_25"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_translate3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text=""
-                android:textColor="@color/hint_grey"
-                android:textSize="@dimen/text_size_18" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center">
-
-                <TextView
-                    android:id="@+id/tv_speck_en3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:drawablePadding="@dimen/normal_5"
-                    android:drawableRight="@mipmap/btn_reading_pressed"
-                    android:gravity="center"
-                    android:text=""
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_size_13" />
-
-                <TextView
-                    android:id="@+id/tv_speck_us3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_speck_en3"
-                    android:layout_gravity="center"
-                    android:drawablePadding="@dimen/normal_5"
-                    android:drawableRight="@mipmap/btn_reading_pressed"
-                    android:gravity="center"
-                    android:text=""
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_size_13" />
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/tv_translate_result3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center|left"
-                android:text=""
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_size_15" />
-        </LinearLayout>
+        <ImageView
+            android:id="@+id/iv_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/regular_dimen_x40"
+            android:layout_marginRight="@dimen/regular_dimen_x80"
+            android:src="@mipmap/btn_right_normal" />
 
     </LinearLayout>
 

@@ -1,5 +1,7 @@
 package bdkj.com.englishstu.common.tool;
 
+import com.youdao.sdk.ydtranslate.WebExplain;
+
 import java.util.List;
 
 /**
@@ -19,4 +21,15 @@ public class StringUtil {
 
         return sb.toString();
     }
+    public static String webMeans(List<WebExplain> explains) {
+        StringBuilder sb = new StringBuilder();
+        if (explains != null) {
+            for (WebExplain s : explains) {
+                sb.append(s.getKey()).append(":").append(listStr(s.getMeans())).append("\n");
+            }
+        }
+
+        return sb.toString();
+    }
+
 }

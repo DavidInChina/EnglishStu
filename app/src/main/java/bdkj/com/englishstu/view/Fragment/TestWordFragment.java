@@ -63,26 +63,8 @@ public class TestWordFragment extends BaseFragment {
     TextView tvTranslateResult;
     @BindView(R.id.tv_translate)
     TextView tvTranslate;
-    @BindView(R.id.tv_word2)
-    TextView tvWord2;
-    @BindView(R.id.tv_translate2)
-    TextView tvTranslate2;
-    @BindView(R.id.tv_speck_en2)
-    TextView tvSpeckEn2;
-    @BindView(R.id.tv_speck_us2)
-    TextView tvSpeckUs2;
-    @BindView(R.id.tv_translate_result2)
-    TextView tvTranslateResult2;
-    @BindView(R.id.tv_word3)
-    TextView tvWord3;
-    @BindView(R.id.tv_translate3)
-    TextView tvTranslate3;
-    @BindView(R.id.tv_speck_en3)
-    TextView tvSpeckEn3;
-    @BindView(R.id.tv_speck_us3)
-    TextView tvSpeckUs3;
-    @BindView(R.id.tv_translate_result3)
-    TextView tvTranslateResult3;
+    @BindView(R.id.tv_translate_internet)
+    TextView tvTranslateInternet;
     @BindView(R.id.fl_speck_voice)
     FrameLayout flSpeckVoice;
 
@@ -107,47 +89,67 @@ public class TestWordFragment extends BaseFragment {
     private String result_level;
 
 
-    private String mLastResult;
     private SpeechEvaluator mIse;
     private IseDialog dialog;
 
     private Test currentTest;
     private Exam currentExam;
+    private int position = 0;//当前单词下标
+    private String[] words;//单词列表
+    private String[] results;//解析结果列表
     private Handler handler = new Handler() {
         public void handleMessage(Message message) {
             Translate translate = (Translate) message.getData().getSerializable("result");
-            switch (message.what) {
-                case 0:
-                    tvWord.setText(translate.getQuery());
-                    tvTranslate.setText(StringUtil.listStr(translate.getTranslations()));
-                    tvSpeckEn.setText("英式发音：["
-                            + translate.getUkPhonetic() + "]");
-                    tvSpeckUs.setText("美式发音：["
-                            + translate.getUsPhonetic() + "]");
-                    tvTranslateResult.setText(StringUtil.listStr(translate.getExplains()));
-                    break;
-                case 1:
-
-                    tvWord2.setText(translate.getQuery());
-                    tvTranslate2.setText(StringUtil.listStr(translate.getTranslations()));
-                    tvSpeckEn2.setText("英式发音：["
-                            + translate.getUkPhonetic() + "]");
-                    tvSpeckUs2.setText("美式发音：["
-                            + translate.getUsPhonetic() + "]");
-                    tvTranslateResult2.setText(StringUtil.listStr(translate.getExplains()));
-                    break;
-                case 2:
-                    tvWord3.setText(translate.getQuery());
-                    tvTranslate3.setText(StringUtil.listStr(translate.getTranslations()));
-                    tvSpeckEn3.setText("英式发音：["
-                            + translate.getUkPhonetic() + "]");
-                    tvSpeckUs3.setText("美式发音：["
-                            + translate.getUsPhonetic() + "]");
-                    tvTranslateResult3.setText(StringUtil.listStr(translate.getExplains()));
-                    break;
-            }
+            tvWord.setText(translate.getQuery());
+            tvTranslate.setText(StringUtil.listStr(translate.getTranslations()));
+            tvSpeckEn.setText("英式发音：["
+                    + translate.getUkPhonetic() + "]");
+            tvSpeckUs.setText("美式发音：["
+                    + translate.getUsPhonetic() + "]");
+            tvTranslateResult.setText(StringUtil.listStr(translate.getExplains()));
+            tvTranslateInternet.setText("网络释义：\n" + StringUtil.webMeans(translate.getWebExplains()));
         }
     };
+
+    @OnClick({R.id.fl_speck_voice, R.id.fl_remind_voice, R.id.iv_prev, R.id.iv_next})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.fl_speck_voice:
+                beginSpeck();
+                flSpeckVoice.setEnabled(false);
+                break;
+            case R.id.fl_remind_voice:
+                beginVoice();
+                break;
+            case R.id.iv_prev:
+                if (position > 0) {
+                    changeWord(--position);
+                } else {
+                    ToastUtil.show(mContext, "已是第一个单词！");
+                }
+                break;
+            case R.id.iv_next:
+                if (null == results[position] || "".equals(results[position])) {
+                    ToastUtil.show(mContext, "请完成当前单词阅读！");
+                } else {
+                    if (position < words.length - 1) {
+                        changeWord(++position);
+                    } else {
+                        ToastUtil.show(mContext, "已是最后一个单词！");
+                    }
+                }
+                break;
+        }
+    }
+
+    /**
+     * 根据下标来改变当前显示的单词
+     *
+     * @param position
+     */
+    public void changeWord(int position) {
+        queryWord(words[position]);
+    }
 
     @Override
     public int getViewLayout() {
@@ -183,12 +185,9 @@ public class TestWordFragment extends BaseFragment {
             ToastUtil.show(mContext, "创建对象失败，请确认 libmsc.so 放置正确，且有调用 createUtility 进行初始化");
             return;
         }
-//        showProgress("请开始说话...");
         //格式 "[word]\napple\nbanana\norange
-        String words[] = currentExam.getWords().split(",");
-        String evaText = "[word]\n" + words[0] + "\n" + words[1] + "\n" + words[2];
+        String evaText = "[word]\n" + words[position];
         Logger.d(evaText);
-        mLastResult = null;
         setParams();
         mIse.startEvaluating(evaText, null, mEvaluatorListener);
     }
@@ -202,7 +201,7 @@ public class TestWordFragment extends BaseFragment {
             ToastUtil.show(mContext, "创建对象失败，请确认 libmsc.so 放置正确，且有调用 createUtility 进行初始化");
             return;
         }
-        String text = currentExam.getWords();
+        String text = words[position];
         // 设置参数
         setParam();
         int code = mTts.startSpeaking(text, mTtsListener);
@@ -280,11 +279,19 @@ public class TestWordFragment extends BaseFragment {
                 builder.append(result.getResultString());
 
                 if (!TextUtils.isEmpty(builder)) {
-                    ((AnswerExamActivity) getActivity()).setWordResult(builder.toString());
-                    Logger.d(builder.toString());
+                    results[position] = builder.toString();
+                    if (position == words.length - 1) {
+                        StringBuilder builder2 = new StringBuilder();
+                        for (String result2 : results
+                                ) {
+                            builder2.append("," + result2);
+                        }
+                        String lastResult = builder2.toString().substring(1, builder2.length());
+                        ((AnswerExamActivity) getActivity()).setWordResult(lastResult);
+                    }
+
                 }
                 flSpeckVoice.setEnabled(true);
-                mLastResult = builder.toString();
                 dialog.hide(0, "");
             } else {
                 dialog.hide(1, "");
@@ -407,7 +414,7 @@ public class TestWordFragment extends BaseFragment {
         // 设置结果等级（中文仅支持complete）
         result_level = "complete";
         // 设置语音前端点:静音超时时间，即用户多长时间不说话则当做超时处理
-        String vad_bos = "5000";
+        String vad_bos = "3000";
         // 设置语音后端点:后端点静音检测时间，即用户停止说话多长时间内即认为不再输入， 自动停止录音
         String vad_eos = "1800";
         // 语音输入超时时间，即用户最多可以连续说多长时间；
@@ -460,10 +467,10 @@ public class TestWordFragment extends BaseFragment {
             if (entity.getCode() == 0) {
                 currentExam = (Exam) entity.getData();
                 if (null != currentExam) {
-                    String words[] = currentExam.getWords().split(",");
-                    for (int i = 0; i < words.length; i++) {
-                        queryWord(words[i], i);
-                    }
+                    words = currentExam.getWords().split(",");
+                    results = new String[words.length];
+                    position = 0;//默认第一个单词开始
+                    queryWord(words[position]);
 
                 } else {
                     ToastUtil.show(mContext, "获取试题失败！");
@@ -482,9 +489,8 @@ public class TestWordFragment extends BaseFragment {
      * 单词翻译
      *
      * @param inputWord 单词
-     * @param what      序号
      */
-    private void queryWord(String inputWord, final int what) {
+    private void queryWord(String inputWord) {
         // 源语言或者目标语言其中之一必须为中文,目前只支持中文与其他几个语种的互译
         Language langFrom = LanguageUtils.getLangByName("英文");
         // 若设置为自动，则查询自动识别源语言，自动识别不能保证完全正确，最好传源语言类型
@@ -499,7 +505,6 @@ public class TestWordFragment extends BaseFragment {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("result", result);
                 Message message = new Message();
-                message.what = what;
                 message.setData(bundle);
                 handler.sendMessage(message);
                 //异步翻译结果，需要填充到页面
@@ -513,16 +518,4 @@ public class TestWordFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.fl_speck_voice, R.id.fl_remind_voice})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.fl_speck_voice:
-                beginSpeck();
-                flSpeckVoice.setEnabled(false);
-                break;
-            case R.id.fl_remind_voice:
-                beginVoice();
-                break;
-        }
-    }
 }

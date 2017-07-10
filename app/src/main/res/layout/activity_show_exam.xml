@@ -1,6 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <include layout="@layout/action_top_normal" />
@@ -187,35 +188,22 @@
                 android:layout_marginRight="@dimen/normal_10"
                 android:background="@color/hint_blue" />
 
-            <RelativeLayout
+            <co.lujun.androidtagview.TagContainerLayout
+                android:id="@+id/tag_container_layout_word"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/regular_dimen_x25"
-                android:paddingLeft="@dimen/regular_dimen_x20"
-                android:paddingRight="@dimen/regular_dimen_x20">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:gravity="center"
-                    android:text="单词1"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_size_15" />
-
-                <TextView
-                    android:id="@+id/et_word_1"
-                    android:layout_width="@dimen/regular_dimen_x160"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:background="@null"
-                    android:gravity="right"
-                    android:paddingBottom="@dimen/regular_dimen_x10"
-                    android:paddingTop="@dimen/regular_dimen_x10"
-                    android:textColor="@color/hint_grey"
-                    android:textSize="@dimen/text_size_15" />
-            </RelativeLayout>
-
+                android:padding="10dp"
+                app:container_background_color="#00000000"
+                app:container_border_color="#3300ff00"
+                app:container_border_radius="0dp"
+                app:container_border_width="1dp"
+                app:container_enable_drag="true"
+                app:tag_corner_radius="1dp"
+                app:tag_max_length="245"
+                app:horizontal_interval="10dp"
+                app:tag_clickable="false"
+                app:tag_theme="random"
+                app:vertical_interval="10dp" />
 
             <View
                 android:layout_width="match_parent"
@@ -224,94 +212,22 @@
                 android:layout_marginRight="@dimen/normal_10"
                 android:background="@color/hint_blue" />
 
-            <RelativeLayout
+            <co.lujun.androidtagview.TagContainerLayout
+                android:id="@+id/tag_container_layout_sentence"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/regular_dimen_x25"
-                android:paddingLeft="@dimen/regular_dimen_x20"
-                android:paddingRight="@dimen/regular_dimen_x20">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:gravity="center"
-                    android:text="单词2"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_size_15" />
-
-                <TextView
-                    android:id="@+id/et_word_2"
-                    android:layout_width="@dimen/regular_dimen_x160"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:background="@null"
-                    android:gravity="right"
-                    android:paddingBottom="@dimen/regular_dimen_x10"
-                    android:paddingTop="@dimen/regular_dimen_x10"
-                    android:textColor="@color/hint_grey"
-                    android:textSize="@dimen/text_size_15" />
-            </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="@dimen/normal_10"
-                android:layout_marginRight="@dimen/normal_10"
-                android:background="@color/hint_blue" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/regular_dimen_x25"
-                android:paddingLeft="@dimen/regular_dimen_x20"
-                android:paddingRight="@dimen/regular_dimen_x20">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:gravity="center"
-                    android:text="单词3"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_size_15" />
-
-                <TextView
-                    android:id="@+id/et_word_3"
-                    android:layout_width="@dimen/regular_dimen_x160"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:background="@null"
-                    android:gravity="right"
-                    android:paddingBottom="@dimen/regular_dimen_x10"
-                    android:paddingTop="@dimen/regular_dimen_x10"
-                    android:textColor="@color/hint_grey"
-                    android:textSize="@dimen/text_size_15" />
-            </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="@dimen/normal_10"
-                android:layout_marginRight="@dimen/normal_10"
-                android:background="@color/hint_blue" />
-
-            <TextView
-                android:id="@+id/et_sentence"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/regular_dimen_x25"
-                android:layout_marginTop="@dimen/normal_5"
-                android:background="@null"
-                android:gravity="top|left"
-                android:hint="句子朗读输入"
-                android:lines="4"
-                android:paddingBottom="@dimen/regular_dimen_x10"
-                android:paddingLeft="@dimen/regular_dimen_x20"
-                android:paddingRight="@dimen/regular_dimen_x20"
-                android:paddingTop="@dimen/regular_dimen_x10"
-                android:textColor="@color/hint_grey"
-                android:textSize="@dimen/text_size_15" />
+                android:padding="10dp"
+                app:container_background_color="#00000000"
+                app:container_border_color="#3300ff00"
+                app:container_border_radius="0dp"
+                app:container_border_width="1dp"
+                app:tag_max_length="245"
+                app:tag_corner_radius="1dp"
+                app:container_enable_drag="true"
+                app:horizontal_interval="10dp"
+                app:tag_clickable="false"
+                app:tag_theme="random"
+                app:vertical_interval="10dp"  />
 
             <View
                 android:layout_width="match_parent"

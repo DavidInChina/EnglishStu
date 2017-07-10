@@ -7,12 +7,17 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import bdkj.com.englishstu.R;
 import bdkj.com.englishstu.base.baseView.BaseActivity;
 import bdkj.com.englishstu.common.beans.Exam;
 import bdkj.com.englishstu.common.tool.ToastUtil;
 import butterknife.BindView;
 import butterknife.OnClick;
+import co.lujun.androidtagview.TagContainerLayout;
 
 public class ShowExamActivity extends BaseActivity {
 
@@ -30,14 +35,11 @@ public class ShowExamActivity extends BaseActivity {
     TextView tvExamStatus;
     @BindView(R.id.tv_exam_about)
     TextView tvExamAbout;
-    @BindView(R.id.et_word_1)
-    TextView etWord1;
-    @BindView(R.id.et_word_2)
-    TextView etWord2;
-    @BindView(R.id.et_word_3)
-    TextView etWord3;
-    @BindView(R.id.et_sentence)
-    TextView etSentence;
+    @BindView(R.id.tag_container_layout_word)
+    TagContainerLayout tagContainerLayoutWord;
+    @BindView(R.id.tag_container_layout_sentence)
+    TagContainerLayout tagContainerLayoutSentence;
+
     @BindView(R.id.mBottom)
     View mBottom;
 
@@ -63,10 +65,15 @@ public class ShowExamActivity extends BaseActivity {
     public void initData() {
         Glide.with(mContext).load(exam.getLogo()).into(civExamLogo);
         etExamName.setText(exam.getName());
-        etSentence.setText(exam.getSentence());
-        etWord1.setText(exam.getWords().split(",")[0]);
-        etWord2.setText(exam.getWords().split(",")[1]);
-        etWord3.setText(exam.getWords().split(",")[2]);
+        String words[] =  exam.getWords().split(",");
+        List<String> wordList = new ArrayList<String>(words.length);
+        Collections.addAll(wordList, words);
+        tagContainerLayoutWord.setTags(wordList);
+
+        String sentences[] =  exam.getSentence().split(",");
+        List<String> sentenceList = new ArrayList<String>(sentences.length);
+        Collections.addAll(sentenceList, sentences);
+        tagContainerLayoutSentence.setTags(sentenceList);
         tvExamAbout.setText(exam.getAbout());
         tvExamHard.setText(exam.getLevel());
         tvExamStatus.setText(exam.getType());

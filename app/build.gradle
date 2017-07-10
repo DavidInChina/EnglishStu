@@ -63,6 +63,7 @@ dependencies {
     compile 'com.davidecirillo.multichoicerecyclerview:multichoicerecyclerview:2.0.0'
     compile files('libs/Msc.jar')
     compile files('libs/Sunflower.jar')
+    compile 'co.lujun:androidtagview:1.1.4'
 }
 repositories {
     mavenCentral()

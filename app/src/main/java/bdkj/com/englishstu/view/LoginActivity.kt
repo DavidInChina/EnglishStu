@@ -102,7 +102,6 @@ class LoginActivity : FragmentActivity() {
     private val identifies = ArrayList<ChooseData>()
     @OnClick(R.id.rl_left)
     internal fun chooseIdentify() {
-
         SelectPopWindow.Builder(this)
                 .setNameArray(identifies)
                 .setSIngleChoose(true)
@@ -112,6 +111,10 @@ class LoginActivity : FragmentActivity() {
                         identify = selectedList[0].chooseDate
                         tvIdentifyChoose.text = selectedList[0].showText
                         initViews()
+                        val sharedPreferences = getSharedPreferences("identify", Context.MODE_PRIVATE)
+                        val editor = sharedPreferences.edit()
+                        editor.putString("identify", identify)//更新身份信息
+                        editor.commit()
                     }
                 }
                 .setCancel("取消")
@@ -128,6 +131,8 @@ class LoginActivity : FragmentActivity() {
         setContentView(activity_login)
         ButterKnife.bind(this)
         mContext = this
+        val sharedPreferences = getSharedPreferences("identify", Context.MODE_PRIVATE)
+        identify = sharedPreferences.getString("identify", "0")//获取默认身份
         initViews()
         initChoose()
         Icepick.restoreInstanceState(this, savedInstanceState)
@@ -164,6 +169,7 @@ class LoginActivity : FragmentActivity() {
     fun initViews() {
         when (identify) {
             "0" -> {
+                tvIdentifyChoose.text = "管理员"
                 var admin = Application.getAdminInfo()
                 if (null != admin) {
                     etLoginAccount.setText(admin.userAccount)
@@ -174,6 +180,7 @@ class LoginActivity : FragmentActivity() {
                 }
             }
             "1" -> {
+                tvIdentifyChoose.text = "教师用户"
                 var teacher = Application.getTeacherInfo()
                 if (null != teacher) {
                     etLoginAccount.setText(teacher.userAccount)
@@ -184,6 +191,7 @@ class LoginActivity : FragmentActivity() {
                 }
             }
             "2" -> {
+                tvIdentifyChoose.text = "学生用户"
                 var student = Application.getStudentInfo()
                 if (null != student) {
                     etLoginAccount.setText(student.userAccount)

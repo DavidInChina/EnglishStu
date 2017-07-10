@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -12,10 +13,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_setting_wrapper"
             android:orientation="vertical"
-            android:paddingLeft="150dp"
-            android:paddingRight="150dp">
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -24,7 +24,7 @@
                 android:background="@color/normal_grey"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:padding="@dimen/regular_dimen_x20">
+                android:padding="@dimen/regular_dimen_x15">
 
                 <ImageView
                     android:id="@+id/civ_exam_logo"
@@ -39,34 +39,213 @@
                 android:layout_height="1dp"
                 android:background="@color/hint_blue" />
 
-            <RelativeLayout
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/regular_dimen_x25"
+                    android:layout_weight="1"
+                    android:paddingLeft="@dimen/regular_dimen_x20"
+                    android:paddingRight="@dimen/regular_dimen_x20">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        android:text="试题名称"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_size_15" />
+
+                    <EditText
+                        android:id="@+id/et_exam_name"
+                        android:layout_width="@dimen/regular_dimen_x160"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:background="@null"
+                        android:gravity="right"
+                        android:hint="输入试题名称"
+                        android:paddingBottom="@dimen/regular_dimen_x10"
+                        android:paddingTop="@dimen/regular_dimen_x10"
+                        android:textColor="@color/hint_grey"
+                        android:textSize="@dimen/text_size_15" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/regular_dimen_x25"
+                    android:layout_weight="1"
+                    android:paddingLeft="@dimen/regular_dimen_x20"
+                    android:paddingRight="@dimen/regular_dimen_x20">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        android:text="试题难度"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_size_15" />
+
+                    <TextView
+                        android:id="@+id/tv_exam_hard"
+                        android:layout_width="@dimen/regular_dimen_x160"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:background="@null"
+                        android:gravity="right"
+                        android:paddingBottom="@dimen/regular_dimen_x10"
+                        android:paddingTop="@dimen/regular_dimen_x10"
+                        android:text="简单"
+                        android:textColor="@color/hint_grey"
+                        android:textSize="@dimen/text_size_15" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/normal_10"
+                android:layout_marginRight="@dimen/normal_10"
+                android:background="@color/hint_blue" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/regular_dimen_x25"
+                    android:layout_weight="1"
+                    android:paddingLeft="@dimen/regular_dimen_x20"
+                    android:paddingRight="@dimen/regular_dimen_x20">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        android:text="试题权限"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_size_15" />
+
+                    <TextView
+                        android:id="@+id/tv_exam_status"
+                        android:layout_width="@dimen/regular_dimen_x160"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:background="@null"
+                        android:gravity="right"
+                        android:paddingBottom="@dimen/regular_dimen_x10"
+                        android:paddingTop="@dimen/regular_dimen_x10"
+                        android:text="测试和练习"
+                        android:textColor="@color/hint_grey"
+                        android:textSize="@dimen/text_size_15" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/regular_dimen_x25"
+                    android:layout_weight="1"
+                    android:paddingLeft="@dimen/regular_dimen_x20"
+                    android:paddingRight="@dimen/regular_dimen_x20">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        android:text="试题分类"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_size_15" />
+
+                    <TextView
+                        android:id="@+id/tv_exam_about"
+                        android:layout_width="@dimen/regular_dimen_x160"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:background="@null"
+                        android:gravity="right"
+                        android:paddingBottom="@dimen/regular_dimen_x10"
+                        android:paddingTop="@dimen/regular_dimen_x10"
+                        android:text="校园生活"
+                        android:textColor="@color/hint_grey"
+                        android:textSize="@dimen/text_size_15" />
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/normal_10"
+                android:layout_marginRight="@dimen/normal_10"
+                android:background="@color/hint_blue" />
+
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/regular_dimen_x25"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:paddingLeft="@dimen/regular_dimen_x20"
                 android:paddingRight="@dimen/regular_dimen_x20">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
                     android:gravity="center"
-                    android:text="试题名称"
+                    android:text="单词管理"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_15" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
 
                 <EditText
-                    android:id="@+id/et_exam_name"
+                    android:id="@+id/et_word"
                     android:layout_width="@dimen/regular_dimen_x160"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:background="@null"
                     android:gravity="right"
+                    android:hint="输入单词"
                     android:paddingBottom="@dimen/regular_dimen_x10"
                     android:paddingTop="@dimen/regular_dimen_x10"
                     android:textColor="@color/hint_grey"
                     android:textSize="@dimen/text_size_15" />
-            </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tv_add_word"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/normal_10"
+                    android:background="@drawable/bg_btn_confirm"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/normal_5"
+                    android:paddingLeft="@dimen/normal_10"
+                    android:paddingRight="@dimen/normal_10"
+                    android:paddingTop="@dimen/normal_5"
+                    android:text="添加单词"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_15" />
+
+            </LinearLayout>
+
 
             <View
                 android:layout_width="match_parent"
@@ -75,35 +254,25 @@
                 android:layout_marginRight="@dimen/normal_10"
                 android:background="@color/hint_blue" />
 
-            <RelativeLayout
+            <co.lujun.androidtagview.TagContainerLayout
+                android:id="@+id/tag_container_layout_word"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/regular_dimen_x25"
-                android:paddingLeft="@dimen/regular_dimen_x20"
-                android:paddingRight="@dimen/regular_dimen_x20">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:gravity="center"
-                    android:text="试题难度"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_size_15" />
-
-                <TextView
-                    android:id="@+id/tv_exam_hard"
-                    android:layout_width="@dimen/regular_dimen_x160"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:background="@null"
-                    android:gravity="right"
-                    android:paddingBottom="@dimen/regular_dimen_x10"
-                    android:paddingTop="@dimen/regular_dimen_x10"
-                    android:text="简单"
-                    android:textColor="@color/hint_grey"
-                    android:textSize="@dimen/text_size_15" />
-            </RelativeLayout>
+                android:layout_marginLeft="@dimen/normal_10"
+                android:layout_marginRight="@dimen/normal_10"
+                android:padding="10dp"
+                app:container_background_color="#00000000"
+                app:container_border_color="#3300ff00"
+                app:container_border_radius="0dp"
+                app:container_border_width="1dp"
+                app:container_enable_drag="true"
+                app:horizontal_interval="10dp"
+                app:tag_clickable="true"
+                app:tag_corner_radius="1dp"
+                app:tag_enable_cross="true"
+                app:tag_max_length="245"
+                app:tag_theme="random"
+                app:vertical_interval="10dp" />
 
             <View
                 android:layout_width="match_parent"
@@ -112,146 +281,58 @@
                 android:layout_marginRight="@dimen/normal_10"
                 android:background="@color/hint_blue" />
 
-
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/regular_dimen_x25"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:paddingLeft="@dimen/regular_dimen_x20"
                 android:paddingRight="@dimen/regular_dimen_x20">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
                     android:gravity="center"
-                    android:text="试题权限"
+                    android:text="语句管理"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_15" />
 
-                <TextView
-                    android:id="@+id/tv_exam_status"
-                    android:layout_width="@dimen/regular_dimen_x160"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:background="@null"
-                    android:gravity="right"
-                    android:paddingBottom="@dimen/regular_dimen_x10"
-                    android:paddingTop="@dimen/regular_dimen_x10"
-                    android:text="测试和练习"
-                    android:textColor="@color/hint_grey"
-                    android:textSize="@dimen/text_size_15" />
-            </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="@dimen/normal_10"
-                android:layout_marginRight="@dimen/normal_10"
-                android:background="@color/hint_blue" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/regular_dimen_x25"
-                android:paddingLeft="@dimen/regular_dimen_x20"
-                android:paddingRight="@dimen/regular_dimen_x20">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:gravity="center"
-                    android:text="试题分类"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_size_15" />
-
-                <TextView
-                    android:id="@+id/tv_exam_about"
-                    android:layout_width="@dimen/regular_dimen_x160"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:background="@null"
-                    android:gravity="right"
-                    android:paddingBottom="@dimen/regular_dimen_x10"
-                    android:paddingTop="@dimen/regular_dimen_x10"
-                    android:text="校园生活"
-                    android:textColor="@color/hint_grey"
-                    android:textSize="@dimen/text_size_15" />
-            </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="@dimen/normal_10"
-                android:layout_marginRight="@dimen/normal_10"
-                android:background="@color/hint_blue" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/regular_dimen_x25"
-                android:paddingLeft="@dimen/regular_dimen_x20"
-                android:paddingRight="@dimen/regular_dimen_x20">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:gravity="center"
-                    android:text="单词1"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_size_15" />
 
                 <EditText
-                    android:id="@+id/et_word_1"
-                    android:layout_width="@dimen/regular_dimen_x160"
+                    android:id="@+id/et_sentence"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="@dimen/regular_dimen_x25"
+                    android:layout_weight="1"
                     android:background="@null"
-                    android:gravity="right"
+                    android:gravity="top|left"
+                    android:hint="输入语句"
+                    android:lines="4"
                     android:paddingBottom="@dimen/regular_dimen_x10"
-                    android:paddingTop="@dimen/regular_dimen_x10"
+                    android:paddingLeft="@dimen/regular_dimen_x20"
+                    android:paddingRight="@dimen/regular_dimen_x20"
+                    android:paddingTop="@dimen/normal_10"
                     android:textColor="@color/hint_grey"
                     android:textSize="@dimen/text_size_15" />
-            </RelativeLayout>
-
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="@dimen/normal_10"
-                android:layout_marginRight="@dimen/normal_10"
-                android:background="@color/hint_blue" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/regular_dimen_x25"
-                android:paddingLeft="@dimen/regular_dimen_x20"
-                android:paddingRight="@dimen/regular_dimen_x20">
 
                 <TextView
+                    android:id="@+id/tv_add_sentence"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/normal_10"
+                    android:background="@drawable/bg_btn_confirm"
                     android:gravity="center"
-                    android:text="单词2"
-                    android:textColor="@color/black"
+                    android:paddingBottom="@dimen/normal_5"
+                    android:paddingLeft="@dimen/normal_10"
+                    android:paddingRight="@dimen/normal_10"
+                    android:paddingTop="@dimen/normal_5"
+                    android:text="添加语句"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/text_size_15" />
 
-                <EditText
-                    android:id="@+id/et_word_2"
-                    android:layout_width="@dimen/regular_dimen_x160"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:background="@null"
-                    android:gravity="right"
-                    android:paddingBottom="@dimen/regular_dimen_x10"
-                    android:paddingTop="@dimen/regular_dimen_x10"
-                    android:textColor="@color/hint_grey"
-                    android:textSize="@dimen/text_size_15" />
-            </RelativeLayout>
+            </LinearLayout>
+
 
             <View
                 android:layout_width="match_parent"
@@ -260,58 +341,25 @@
                 android:layout_marginRight="@dimen/normal_10"
                 android:background="@color/hint_blue" />
 
-            <RelativeLayout
+            <co.lujun.androidtagview.TagContainerLayout
+                android:id="@+id/tag_container_layout_sentence"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/regular_dimen_x25"
-                android:paddingLeft="@dimen/regular_dimen_x20"
-                android:paddingRight="@dimen/regular_dimen_x20">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:gravity="center"
-                    android:text="单词3"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_size_15" />
-
-                <EditText
-                    android:id="@+id/et_word_3"
-                    android:layout_width="@dimen/regular_dimen_x160"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:background="@null"
-                    android:gravity="right"
-                    android:paddingBottom="@dimen/regular_dimen_x10"
-                    android:paddingTop="@dimen/regular_dimen_x10"
-                    android:textColor="@color/hint_grey"
-                    android:textSize="@dimen/text_size_15" />
-            </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
                 android:layout_marginLeft="@dimen/normal_10"
                 android:layout_marginRight="@dimen/normal_10"
-                android:background="@color/hint_blue" />
-
-            <EditText
-                android:id="@+id/et_sentence"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/regular_dimen_x25"
-                android:layout_marginTop="@dimen/normal_5"
-                android:background="@null"
-                android:gravity="top|left"
-                android:hint="句子朗读输入"
-                android:lines="4"
-                android:paddingBottom="@dimen/regular_dimen_x10"
-                android:paddingLeft="@dimen/regular_dimen_x20"
-                android:paddingRight="@dimen/regular_dimen_x20"
-                android:paddingTop="@dimen/regular_dimen_x10"
-                android:textColor="@color/hint_grey"
-                android:textSize="@dimen/text_size_15" />
+                android:padding="10dp"
+                app:container_background_color="#00000000"
+                app:container_border_color="#3300ff00"
+                app:container_border_radius="0dp"
+                app:container_border_width="1dp"
+                app:container_enable_drag="true"
+                app:horizontal_interval="10dp"
+                app:tag_clickable="true"
+                app:tag_corner_radius="1dp"
+                app:tag_enable_cross="true"
+                app:tag_max_length="245"
+                app:tag_theme="random"
+                app:vertical_interval="10dp" />
 
             <View
                 android:layout_width="match_parent"
