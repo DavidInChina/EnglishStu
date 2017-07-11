@@ -35,6 +35,7 @@ public abstract class BaseActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setStatusBar();
         mContext = this;
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         setContentView(getViewId());
         ButterKnife.bind(this);
         Icepick.restoreInstanceState(this, savedInstanceState);

@@ -34,14 +34,26 @@ public class MarkDetailActivity extends BaseActivity {
             finish();
         }
         if (!"".equals(mark.getWordXml())) {
+            StringBuilder wordResult = new StringBuilder();
             XmlResultParser resultParser = new XmlResultParser();
-            Result result = resultParser.parse(mark.getWordXml());
-            tvWordResult.setText("单词朗读:" + result.toString());
+            String word[] = mark.getWordXml().split(",");
+            for (String wordXml : word
+                    ) {
+                Result result = resultParser.parse(wordXml);
+                wordResult.append("\n" + result.toString());
+            }
+            tvWordResult.setText("单词朗读:" + wordResult.toString());
         }
         if (!"".equals(mark.getSentenceXml())) {
+            StringBuilder sentenceResult = new StringBuilder();
             XmlResultParser resultParser = new XmlResultParser();
-            Result result = resultParser.parse(mark.getSentenceXml());
-            tvSentenceResult.setText("语句朗读:" + result.toString());
+            String sentences[] = mark.getSentenceXml().split(",");
+            for (String sentenceXml : sentences
+                    ) {
+                Result result = resultParser.parse(sentenceXml);
+                sentenceResult.append("\n" + result.toString());
+            }
+            tvSentenceResult.setText("语句朗读:" + sentenceResult.toString());
         }
     }
 

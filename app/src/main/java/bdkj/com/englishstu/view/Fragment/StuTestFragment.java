@@ -99,6 +99,7 @@ public class StuTestFragment extends BaseFragment implements RecycleItemClickLis
         Test test = (Test) view.getTag();
         Bundle bundle = new Bundle();
         bundle.putSerializable("test", test);
+        bundle.putString("type","1");//1是练习
         IntentUtil.launcher(mContext, AnswerExamActivity.class, bundle);
     }
 }

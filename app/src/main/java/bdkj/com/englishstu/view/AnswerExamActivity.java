@@ -11,6 +11,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.orhanobut.logger.Logger;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -63,12 +65,14 @@ public class AnswerExamActivity extends BaseActivity {
     private Test test;//这个是做的题
     private Mark mark;//这是最终要完成的答题成绩
     private int discount;
+    private String type = "0";//默认考试
     private Map<String, BaseFragment> fragmentMap = new HashMap<>();
     private static final String ANS_NOTE = "note";
     private static final String ANS_WORD = "word";
     private static final String ANS_SENTENCE = "sentence";
     private static final String ANS_SUBMIT = "submit";
     private String currentType = ANS_SUBMIT;
+    private long lastTime = 0;
     public Handler handler = new Handler() {
         public void handleMessage(Message message) {
             switch (message.what) {
@@ -90,6 +94,10 @@ public class AnswerExamActivity extends BaseActivity {
 
     public Test getCurrentTest() {
         return test;
+    }
+
+    public String getCurrentType() {
+        return type;
     }
 
     public void setWordResult(String wordResult) {
@@ -129,19 +137,31 @@ public class AnswerExamActivity extends BaseActivity {
         mark.setClassId(student.getClassIds().split(",")[1]);
         mark.setStuHead(student.getUserHead());
         mark.setStuName(student.getUserName());
-        float score = 0;
+        float score = 0;//总分
+        int size = 0;//单词加语句个数
         if (!"".equals(mark.getWordXml())) {
             XmlResultParser resultParser = new XmlResultParser();
-            Result result = resultParser.parse(mark.getWordXml());
-            score += result.total_score;
-
+            String word[] = mark.getWordXml().split(",");
+            for (String wordXml : word
+                    ) {
+                size++;
+                Result result = resultParser.parse(wordXml);
+                score += result.total_score;
+            }
         }
         if (!"".equals(mark.getSentenceXml())) {
             XmlResultParser resultParser = new XmlResultParser();
-            Result result = resultParser.parse(mark.getSentenceXml());
-            score += result.total_score;
+            String sentences[] = mark.getSentenceXml().split(",");
+            for (String sentenceXml : sentences
+                    ) {
+                size++;
+                Result result = resultParser.parse(sentenceXml);
+                score += result.total_score;
+            }
         }
-        mark.setScore(score + "");
+        int lastScore = (int) ((100 * score) / (size * 5));
+        Logger.d(lastScore + "/" + score + "/" + size);
+        mark.setScore(lastScore + "");
         JsonEntity entity = StuDbUtils.addMark(mark);
         if (entity.getCode() == 0) {
             ToastUtil.show(mContext, "答题成功，请到成绩查看查询答题结果。");
@@ -155,6 +175,7 @@ public class AnswerExamActivity extends BaseActivity {
     protected void initViews(Bundle savedInstanceState) {
         student = Application.getStudentInfo();
         test = (Test) getIntent().getExtras().getSerializable("test");
+        type = getIntent().getStringExtra("type");
         if (null == student || null == test) {
             ToastUtil.show(mContext, "数据获取有误！");
             finish();
@@ -162,6 +183,21 @@ public class AnswerExamActivity extends BaseActivity {
         initMenu();
         initWeight();
         beginDiscount();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (currentType.equals("0")) {
+            if (System.currentTimeMillis() - lastTime > 2000) {
+                ToastUtil.show(mContext, "再按一次取消当前考试");
+                lastTime = System.currentTimeMillis();
+            } else {
+                super.onBackPressed();
+            }
+        } else {
+            super.onBackPressed();
+        }
+
     }
 
 
@@ -202,11 +238,11 @@ public class AnswerExamActivity extends BaseActivity {
                     case ANS_NOTE:
                         fragmentMap.put(ANS_NOTE, new TestNoteFragment());
                         break;
-                    case ANS_SENTENCE:
-                        fragmentMap.put(ANS_SENTENCE, new TestSentenceFragment());
-                        break;
                     case ANS_WORD:
                         fragmentMap.put(ANS_WORD, new TestWordFragment());
+                        break;
+                    case ANS_SENTENCE:
+                        fragmentMap.put(ANS_SENTENCE, new TestSentenceFragment());
                         break;
                     case ANS_SUBMIT:
                         fragmentMap.put(ANS_SUBMIT, new TestSubFragment());

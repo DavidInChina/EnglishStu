@@ -67,7 +67,8 @@ public class TestWordFragment extends BaseFragment {
     TextView tvTranslateInternet;
     @BindView(R.id.fl_speck_voice)
     FrameLayout flSpeckVoice;
-
+    @BindView(R.id.fl_remind_voice)
+    FrameLayout flRemindVoice;
     // 语音合成对象 科大讯飞合成
     private SpeechSynthesizer mTts;
     // 默认发音人
@@ -97,6 +98,7 @@ public class TestWordFragment extends BaseFragment {
     private int position = 0;//当前单词下标
     private String[] words;//单词列表
     private String[] results;//解析结果列表
+    private String type = "0";//当前测试类别，默认考试
     private Handler handler = new Handler() {
         public void handleMessage(Message message) {
             Translate translate = (Translate) message.getData().getSerializable("result");
@@ -462,6 +464,12 @@ public class TestWordFragment extends BaseFragment {
      */
     public void initData() {
         currentTest = ((AnswerExamActivity) getActivity()).getCurrentTest();
+        type = ((AnswerExamActivity) getActivity()).getCurrentType();
+        if (type.equals("0")) {
+            flRemindVoice.setVisibility(View.GONE);
+        } else {
+            flRemindVoice.setVisibility(View.VISIBLE);
+        }
         if (null != currentTest) {
             JsonEntity entity = StuDbUtils.getExamDetail(currentTest.getExamId());
             if (entity.getCode() == 0) {

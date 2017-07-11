@@ -76,7 +76,8 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".view.EditExamActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateVisible|adjustResize"/>
         <activity
             android:name=".view.EditTestActivity"
             android:screenOrientation="landscape" />
@@ -88,7 +89,8 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".view.AnswerExamActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+           />
         <activity
             android:name=".view.MarkDetailActivity"
             android:screenOrientation="landscape" />

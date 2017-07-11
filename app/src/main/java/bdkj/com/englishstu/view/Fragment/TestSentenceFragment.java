@@ -56,7 +56,8 @@ public class TestSentenceFragment extends BaseFragment {
     TextView tvTranslateResult;
     @BindView(R.id.fl_speck_voice)
     FrameLayout flSpeckVoice;
-
+    @BindView(R.id.fl_remind_voice)
+    FrameLayout flRemindVoice;
     // 语音合成对象 科大讯飞合成
     private SpeechSynthesizer mTts;
     // 默认发音人
@@ -86,16 +87,14 @@ public class TestSentenceFragment extends BaseFragment {
     private Handler handler = new Handler() {
         public void handleMessage(Message message) {
             Translate translate = (Translate) message.getData().getSerializable("result");
-            switch (message.what) {
-                case 0:
-                    tvSpeckUs.setText(translate.getQuery());
-                    tvTranslateResult.setText(StringUtil.listStr(translate.getTranslations()));
-                    break;
-
-            }
+            tvSpeckUs.setText(translate.getQuery());
+            tvTranslateResult.setText(StringUtil.listStr(translate.getTranslations()));
         }
     };
-
+    private int position = 0;//当前yuju下标
+    private String[] sentences;//语句列表
+    private String[] results;//解析结果列表
+    private String type = "0";//当前测试类别，默认考试
     @Override
     public int getViewLayout() {
         return R.layout.fragment_answer_sentence;
@@ -146,7 +145,7 @@ public class TestSentenceFragment extends BaseFragment {
             ToastUtil.show(mContext, "创建对象失败，请确认 libmsc.so 放置正确，且有调用 createUtility 进行初始化");
             return;
         }
-        String text = currentExam.getSentence();
+        String text =  sentences[position];
         // 设置参数
         setParam();
         int code = mTts.startSpeaking(text, mTtsListener);
@@ -222,16 +221,22 @@ public class TestSentenceFragment extends BaseFragment {
             if (isLast) {
                 StringBuilder builder = new StringBuilder();
                 builder.append(result.getResultString());
-
                 if (!TextUtils.isEmpty(builder)) {
-                    ((AnswerExamActivity) getActivity()).setSentenceResult(builder.toString());
-                    Logger.d(builder.toString());
+                    results[position] = builder.toString();
+                    if (position == sentences.length - 1) {
+                        StringBuilder builder2 = new StringBuilder();
+                        for (String result2 : results
+                                ) {
+                            builder2.append("," + result2);
+                        }
+                        String lastResult = builder2.toString().substring(1, builder2.length());
+                        ((AnswerExamActivity) getActivity()).setSentenceResult(lastResult);
+                    }
                 }
                 flSpeckVoice.setEnabled(true);
                 mLastResult = builder.toString();
                 dialog.hide(0, "");
-            }
-            else {
+            } else {
                 dialog.hide(1, "");
             }
         }
@@ -370,12 +375,21 @@ public class TestSentenceFragment extends BaseFragment {
      */
     public void initData() {
         currentTest = ((AnswerExamActivity) getActivity()).getCurrentTest();
+        type = ((AnswerExamActivity) getActivity()).getCurrentType();
+        if (type.equals("0")) {
+            flRemindVoice.setVisibility(View.GONE);
+        } else {
+            flRemindVoice.setVisibility(View.VISIBLE);
+        }
         if (null != currentTest) {
             JsonEntity entity = StuDbUtils.getExamDetail(currentTest.getExamId());
             if (entity.getCode() == 0) {
                 currentExam = (Exam) entity.getData();
                 if (null != currentExam) {
-                    queryWord(currentExam.getSentence(), 0);
+                    sentences = currentExam.getSentence().split(",");
+                    results = new String[sentences.length];
+                    position = 0;//默认第一个语句开始
+                    queryWord(sentences[position]);
                 } else {
                     ToastUtil.show(mContext, "获取试题失败！");
                     getActivity().finish();
@@ -392,10 +406,9 @@ public class TestSentenceFragment extends BaseFragment {
     /**
      * 单词翻译
      *
-     * @param inputWord 单词
-     * @param what      序号
+     * @param inputWord 语句
      */
-    private void queryWord(String inputWord, final int what) {
+    private void queryWord(String inputWord) {
         // 源语言或者目标语言其中之一必须为中文,目前只支持中文与其他几个语种的互译
         Language langFrom = LanguageUtils.getLangByName("英文");
         // 若设置为自动，则查询自动识别源语言，自动识别不能保证完全正确，最好传源语言类型
@@ -410,7 +423,6 @@ public class TestSentenceFragment extends BaseFragment {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("result", result);
                 Message message = new Message();
-                message.what = what;
                 message.setData(bundle);
                 handler.sendMessage(message);
                 //异步翻译结果，需要填充到页面
@@ -424,7 +436,7 @@ public class TestSentenceFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.fl_speck_voice, R.id.fl_remind_voice})
+    @OnClick({R.id.fl_speck_voice, R.id.fl_remind_voice, R.id.iv_prev, R.id.iv_next})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.fl_speck_voice:
@@ -434,6 +446,33 @@ public class TestSentenceFragment extends BaseFragment {
             case R.id.fl_remind_voice:
                 beginVoice();
                 break;
+            case R.id.iv_prev:
+                if (position > 0) {
+                    changeSentence(--position);
+                } else {
+                    ToastUtil.show(mContext, "已是第一个语句！");
+                }
+                break;
+            case R.id.iv_next:
+                if (null == results[position] || "".equals(results[position])) {
+                    ToastUtil.show(mContext, "请完成当前语句阅读！");
+                } else {
+                    if (position < sentences.length - 1) {
+                        changeSentence(++position);
+                    } else {
+                        ToastUtil.show(mContext, "已是最后一个语句！");
+                    }
+                }
+                break;
         }
+    }
+
+    /**
+     * 根据下标来改变当前显示的单词
+     *
+     * @param position
+     */
+    public void changeSentence(int position) {
+        queryWord(sentences[position]);
     }
 }
