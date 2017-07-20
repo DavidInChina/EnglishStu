@@ -1,24 +1,37 @@
 package bdkj.com.englishstu.view;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.widget.TextView;
+
+import com.orhanobut.logger.Logger;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import bdkj.com.englishstu.R;
 import bdkj.com.englishstu.base.baseView.BaseActivity;
+import bdkj.com.englishstu.common.adapter.MarkResultAdapter;
 import bdkj.com.englishstu.common.beans.Mark;
+import bdkj.com.englishstu.common.divider.RecDivider;
 import bdkj.com.englishstu.common.tool.ToastUtil;
+import bdkj.com.englishstu.common.xml.FinalResult;
 import bdkj.com.englishstu.common.xml.Result;
 import bdkj.com.englishstu.common.xml.XmlResultParser;
+import bdkj.com.englishstu.xrecyclerview.ProgressStyle;
+import bdkj.com.englishstu.xrecyclerview.XRecyclerView;
 import butterknife.BindView;
 import butterknife.OnClick;
 
 public class MarkDetailActivity extends BaseActivity {
     @BindView(R.id.tv_top_title)
     TextView tvTopTitle;
-    @BindView(R.id.tv_word_result)
-    TextView tvWordResult;
-    @BindView(R.id.tv_sentence_result)
-    TextView tvSentenceResult;
+    @BindView(R.id.recycler_view)
+    XRecyclerView recyclerView;
+
+    private List<Result> list;
+    MarkResultAdapter adapter;
+    private Mark mark;
 
     @Override
     protected int getViewId() {
@@ -28,35 +41,64 @@ public class MarkDetailActivity extends BaseActivity {
     @Override
     protected void initViews(Bundle savedInstanceState) {
         tvTopTitle.setText("成绩详情");
-        Mark mark = (Mark) getIntent().getExtras().getSerializable("mark");
+
+        mark = (Mark) getIntent().getExtras().getSerializable("mark");
         if (null == mark) {
             ToastUtil.show(mContext, "成绩详情获取失败！");
             finish();
         }
+        initRecyclerView();
+    }
+
+    public void getResult() {
         if (!"".equals(mark.getWordXml())) {
-            StringBuilder wordResult = new StringBuilder();
             XmlResultParser resultParser = new XmlResultParser();
             String word[] = mark.getWordXml().split(",");
             for (String wordXml : word
                     ) {
                 Result result = resultParser.parse(wordXml);
-                wordResult.append("\n" + result.toString());
+                list.add(result);
             }
-            tvWordResult.setText("单词朗读:" + wordResult.toString());
         }
         if (!"".equals(mark.getSentenceXml())) {
-            StringBuilder sentenceResult = new StringBuilder();
             XmlResultParser resultParser = new XmlResultParser();
             String sentences[] = mark.getSentenceXml().split(",");
             for (String sentenceXml : sentences
                     ) {
                 Result result = resultParser.parse(sentenceXml);
-                sentenceResult.append("\n" + result.toString());
+                list.add(result);
             }
-            tvSentenceResult.setText("语句朗读:" + sentenceResult.toString());
         }
+        Logger.d(list.size());
     }
 
+    public void initRecyclerView() {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);//设置纵向列表
+        recyclerView.setRefreshProgressStyle(ProgressStyle.Pacman);
+        recyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
+        recyclerView.setArrowImageView(R.mipmap.iconfont_downgrey);
+        recyclerView.setLoadingMoreEnabled(false);
+        list = new ArrayList<>();
+        recyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
+            @Override
+            public void onRefresh() {
+                list.clear();
+                getResult();
+                adapter.notifyDataSetChanged();
+                recyclerView.refreshComplete();
+            }
+
+            @Override
+            public void onLoadMore() {
+            }
+        });
+        adapter = new MarkResultAdapter(mContext, (ArrayList<Result>) list);
+        recyclerView.setAdapter(adapter);
+        recyclerView.addItemDecoration(new RecDivider(mContext, RecDivider.VERTICAL_LIST));
+        recyclerView.setRefreshing(true);
+    }
 
     @OnClick(R.id.iv_back)
     public void onViewClicked() {

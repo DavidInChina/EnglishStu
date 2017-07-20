@@ -64,6 +64,7 @@ dependencies {
     compile files('libs/Msc.jar')
     compile files('libs/Sunflower.jar')
     compile 'co.lujun:androidtagview:1.1.4'
+    compile 'com.idescout.sql:sqlscout-server:2.0'
 }
 repositories {
     mavenCentral()

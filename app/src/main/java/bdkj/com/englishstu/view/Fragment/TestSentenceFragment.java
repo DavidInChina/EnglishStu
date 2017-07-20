@@ -299,7 +299,7 @@ public class TestSentenceFragment extends BaseFragment {
             //设置合成音调
             mTts.setParameter(SpeechConstant.PITCH, "50");
             //设置合成音量
-            mTts.setParameter(SpeechConstant.VOLUME, "80");
+            mTts.setParameter(SpeechConstant.VOLUME, "100");
         } else {
             mTts.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_LOCAL);
             // 设置本地合成发音人 voicer为空，默认通过语记界面指定发音人。

@@ -66,14 +66,12 @@ public class ShowExamActivity extends BaseActivity {
         Glide.with(mContext).load(exam.getLogo()).into(civExamLogo);
         etExamName.setText(exam.getName());
         String words[] =  exam.getWords().split(",");
-        List<String> wordList = new ArrayList<String>(words.length);
+        List<String> wordList = new ArrayList<String>();
         Collections.addAll(wordList, words);
-        tagContainerLayoutWord.setTags(wordList);
-
         String sentences[] =  exam.getSentence().split(",");
-        List<String> sentenceList = new ArrayList<String>(sentences.length);
-        Collections.addAll(sentenceList, sentences);
-        tagContainerLayoutSentence.setTags(sentenceList);
+        Collections.addAll(wordList, sentences);
+        tagContainerLayoutWord.setTags(wordList);
+//        tagContainerLayoutSentence.setTags(sentenceList);
         tvExamAbout.setText(exam.getAbout());
         tvExamHard.setText(exam.getLevel());
         tvExamStatus.setText(exam.getType());

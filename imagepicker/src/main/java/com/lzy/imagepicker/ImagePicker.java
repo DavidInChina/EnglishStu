@@ -42,7 +42,7 @@ public class ImagePicker {
     public static final String EXTRA_RESULT_ITEMS = "extra_result_items";
     public static final String EXTRA_SELECTED_IMAGE_POSITION = "selected_image_position";
     public static final String EXTRA_IMAGE_ITEMS = "extra_image_items";
-
+    private final String POSTFIX = ".jpg";
     private boolean multiMode = true;    //图片选择模式
     private int selectLimit = 1;         //最大选择图片数量
     private boolean crop = true;         //裁剪
@@ -64,6 +64,8 @@ public class ImagePicker {
     private List<OnImageSelectedListener> mImageSelectedListeners;          // 图片选中的监听回调
 
     private static ImagePicker mInstance;
+
+    private String folderName = "library";
 
     private ImagePicker() {
     }
@@ -154,14 +156,21 @@ public class ImagePicker {
     public File getTakeImageFile() {
         return takeImageFile;
     }
+    public String getFolderName() {
+        return folderName;
+    }
 
+    public void createRoot(String rootPath) {
+        this.folderName = rootPath;
+    }
     public File getCropCacheFolder(Context context) {
         if (cropCacheFolder == null) {
             cropCacheFolder = new File(context.getCacheDir() +
-                    "/ImagePicker/cropTemp/");
+                    "/" + mInstance.folderName + "/Images/");
         }
         return cropCacheFolder;
     }
+
 
     public void setCropCacheFolder(File cropCacheFolder) {
         this.cropCacheFolder = cropCacheFolder;

@@ -10,6 +10,7 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 
+import com.idescout.sql.SqlScoutServer;
 import com.orhanobut.logger.Logger;
 
 import bdkj.com.englishstu.R;
@@ -102,6 +103,7 @@ public class WelcomeActivity extends BaseActivity {
     }
 
     public void beginLogin() {
+        SqlScoutServer.create(this, getPackageName());
         handler.sendEmptyMessageDelayed(1, 1000);
     }
 

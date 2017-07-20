@@ -47,6 +47,8 @@ public class Application
     }
 
     public void initImgPicker() {
+        //初始化媒体选择器
+        ImagePicker.getInstance().createRoot(Constants.ROOT_DIRECTORY);
         ImagePicker imagePicker = ImagePicker.getInstance();
         imagePicker.setImageLoader(new GlideImageLoader());   //设置图片加载器
         imagePicker.setShowCamera(true);  //显示拍照按钮
@@ -82,7 +84,7 @@ public class Application
     /**
      * A flag to show how easily you can switch from standard SQLite to the encrypted SQLCipher.
      */
-    public static final boolean ENCRYPTED = true;
+    public static final boolean ENCRYPTED = false;
 
     private static DaoSession daoSession;
 
