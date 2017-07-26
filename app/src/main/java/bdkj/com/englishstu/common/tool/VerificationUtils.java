@@ -36,7 +36,16 @@ public class VerificationUtils {
         String regex = "^([\\u4e00-\\u9fa5]+|([a-zA-Z]+\\s?)+)$";
         return testRegex(regex, value);
     }
-
+    /**
+     * 匹配是否全是字母
+     *
+     * @param value the value
+     * @return the boolean
+     */
+    public static boolean matcherIsChar(String value) {
+        String regex = "^[A-Za-z]+$";
+        return testRegex(regex, value);
+    }
     /**
      * 匹配手机号码
      *

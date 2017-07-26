@@ -95,6 +95,7 @@ public class TestSentenceFragment extends BaseFragment {
     private String[] sentences;//语句列表
     private String[] results;//解析结果列表
     private String type = "0";//当前测试类别，默认考试
+
     @Override
     public int getViewLayout() {
         return R.layout.fragment_answer_sentence;
@@ -129,8 +130,7 @@ public class TestSentenceFragment extends BaseFragment {
             ToastUtil.show(mContext, "创建对象失败，请确认 libmsc.so 放置正确，且有调用 createUtility 进行初始化");
             return;
         }
-        String evaText = currentExam.getSentence();
-        Logger.d(evaText);
+        String evaText = sentences[position];
         mLastResult = null;
         setParams();
         mIse.startEvaluating(evaText, null, mEvaluatorListener);
@@ -145,7 +145,7 @@ public class TestSentenceFragment extends BaseFragment {
             ToastUtil.show(mContext, "创建对象失败，请确认 libmsc.so 放置正确，且有调用 createUtility 进行初始化");
             return;
         }
-        String text =  sentences[position];
+        String text = sentences[position];
         // 设置参数
         setParam();
         int code = mTts.startSpeaking(text, mTtsListener);
@@ -430,7 +430,7 @@ public class TestSentenceFragment extends BaseFragment {
 
             @Override
             public void onError(TranslateErrorCode error) {
-                ToastUtil.show(mContext, "查询单词错误:" + error.name());
+                ToastUtil.show(mContext, "查询语句错误:" + error.name());
             }
         });
     }

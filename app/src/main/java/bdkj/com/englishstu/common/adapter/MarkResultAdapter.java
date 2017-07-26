@@ -64,7 +64,8 @@ public class MarkResultAdapter extends RecyclerView.Adapter<MarkResultAdapter.Vi
     public void onBindViewHolder(MarkResultAdapter.ViewHolder holder, int position) {
         Result result = noteList.get(position);
         holder.tvTestContet.setText("评测内容：" + result.content);
-        holder.tvTestSocre.setText("评测得分：" + result.total_score + "");
+        int score = (int) (result.total_score * 20);
+        holder.tvTestSocre.setText("评测得分：" + score);
         holder.tvTestTime.setText("评测类别：" + result.category);
         String isWrong = result.is_rejected ? "是" : "否";
         holder.tvTestWrong.setText("是否乱读：" + isWrong);

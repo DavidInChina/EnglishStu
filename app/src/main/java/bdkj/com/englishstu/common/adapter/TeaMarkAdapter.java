@@ -1,6 +1,7 @@
 package bdkj.com.englishstu.common.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +16,9 @@ import java.util.List;
 
 import bdkj.com.englishstu.R;
 import bdkj.com.englishstu.common.beans.Test;
+import bdkj.com.englishstu.common.tool.IntentUtil;
 import bdkj.com.englishstu.swipeitem.widget.SwipeItemLayout;
+import bdkj.com.englishstu.view.MarkStudentCharActivity;
 import bdkj.com.englishstu.xrecyclerview.viewholder.BaseViewHolder;
 import bdkj.com.englishstu.xrecyclerview.viewholder.RecycleItemClickListener;
 import bdkj.com.englishstu.xrecyclerview.viewholder.RecycleItemLongClickListener;
@@ -66,7 +69,7 @@ public class TeaMarkAdapter extends RecyclerView.Adapter<TeaMarkAdapter.ViewHold
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Test test = noteList.get(position);
         holder.tvTestName.setText(test.getName());
-        holder.tvExamName.setText(test.getExamName());
+        holder.tvExamName.setText("试题名称：" + test.getExamName());
         Glide.with(mContext).load(test.getImg()).into(holder.ivLeftImg);
         holder.tvTime.setText(test.getBeginTime());
         SwipeItemLayout swipeRoot = holder.itemContactSwipeRoot;
@@ -86,6 +89,16 @@ public class TeaMarkAdapter extends RecyclerView.Adapter<TeaMarkAdapter.ViewHold
             @Override
             public void onSwipeItemLayoutStartOpen(SwipeItemLayout swipeItemLayout) {
                 closeOpenedSwipeItemLayoutWithAnim();
+            }
+        });
+        holder.tvRightStatus.setTag(test);
+        holder.tvRightStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Test test1 = (Test) v.getTag();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("test", test1);
+                IntentUtil.launcher(mContext, MarkStudentCharActivity.class, bundle);
             }
         });
         holder.baseView.setTag(test);
@@ -110,7 +123,6 @@ public class TeaMarkAdapter extends RecyclerView.Adapter<TeaMarkAdapter.ViewHold
         TextView tvExamName;
         TextView tvTime;
         TextView tvRightStatus;
-        TextView tvRightStatus2;
         TextView itemContactDelete;
         SwipeItemLayout itemContactSwipeRoot;
         public View baseView;
@@ -133,7 +145,6 @@ public class TeaMarkAdapter extends RecyclerView.Adapter<TeaMarkAdapter.ViewHold
             tvExamName = (TextView) view.findViewById(R.id.tv_exam_name);
             tvTime = (TextView) view.findViewById(R.id.tv_time);
             tvRightStatus = (TextView) view.findViewById(R.id.tv_right_status);
-            tvRightStatus2 = (TextView) view.findViewById(R.id.tv_right_status2);
         }
     }
 }

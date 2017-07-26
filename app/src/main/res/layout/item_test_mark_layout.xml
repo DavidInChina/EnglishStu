@@ -39,7 +39,7 @@
 
         <ImageView
             android:id="@+id/iv_left_img"
-            android:layout_width="100dp"
+            android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_margin="@dimen/regular_dimen_x8"
             android:src="@mipmap/bg_welcome" />
@@ -61,8 +61,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left|top"
-                android:layout_marginLeft="@dimen/normal_10"
-                android:layout_marginRight="@dimen/normal_10"
                 android:layout_marginTop="@dimen/normal_5"
                 android:text="5月10日期中测试"
                 android:textColor="@color/black"
@@ -73,12 +71,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left|top"
-                android:layout_marginLeft="@dimen/normal_10"
-                android:layout_marginRight="@dimen/normal_10"
                 android:layout_marginTop="@dimen/normal_5"
                 android:text="试题名称：高考听说练习题"
                 android:textColor="@color/black"
-                android:textSize="@dimen/text_size_15" />
+                android:textSize="@dimen/text_size_13" />
 
             <TextView
                 android:id="@+id/tv_time"
@@ -86,13 +82,31 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="left|top"
                 android:layout_marginBottom="@dimen/normal_5"
-                android:layout_marginLeft="@dimen/normal_10"
-                android:layout_marginRight="@dimen/normal_10"
                 android:layout_marginTop="@dimen/normal_5"
                 android:text="2017-07-05 10:11"
                 android:textColor="@color/hint_blue"
-                android:textSize="@dimen/text_size_14" />
+                android:textSize="@dimen/text_size_12" />
 
         </LinearLayout>
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_right_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/bg_item_check"
+                android:layout_marginRight="@dimen/normal_10"
+                android:layout_marginLeft="@dimen/regular_dimen_x5"
+                android:paddingBottom="@dimen/regular_dimen_x7"
+                android:paddingLeft="@dimen/regular_dimen_x15"
+                android:paddingRight="@dimen/regular_dimen_x15"
+                android:paddingTop="@dimen/regular_dimen_x7"
+                android:text="图表"
+                android:textColor="@color/topbar"
+                android:textSize="@dimen/text_size_15" />
+        </FrameLayout>
     </LinearLayout>
 </bdkj.com.englishstu.swipeitem.widget.SwipeItemLayout>

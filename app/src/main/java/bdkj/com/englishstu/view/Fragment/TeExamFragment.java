@@ -21,6 +21,7 @@ import bdkj.com.englishstu.common.beans.Exam;
 import bdkj.com.englishstu.common.beans.Teacher;
 import bdkj.com.englishstu.common.dbinfo.TeaDbUtils;
 import bdkj.com.englishstu.common.divider.RecDivider;
+import bdkj.com.englishstu.common.eventbus.ClassChoose;
 import bdkj.com.englishstu.common.tool.IntentUtil;
 import bdkj.com.englishstu.common.tool.ToastUtil;
 import bdkj.com.englishstu.view.ShowExamActivity;
@@ -29,6 +30,7 @@ import bdkj.com.englishstu.xrecyclerview.ProgressStyle;
 import bdkj.com.englishstu.xrecyclerview.XRecyclerView;
 import bdkj.com.englishstu.xrecyclerview.viewholder.RecycleItemClickListener;
 import butterknife.BindView;
+import de.greenrobot.event.EventBus;
 
 /**
  * 题库
@@ -50,10 +52,15 @@ public class TeExamFragment extends BaseFragment implements RecycleItemClickList
 
     @Override
     public void initView(ViewGroup parent) {
-//        EventBus.getDefault().register(this);
+        EventBus.getDefault().register(this);
         teacher = Application.getTeacherInfo();
         initRecyclerView();
     }
+
+    public void onEventMainThread(ClassChoose classChoose) {
+        recyclerView.setRefreshing(true);
+    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -69,7 +76,7 @@ public class TeExamFragment extends BaseFragment implements RecycleItemClickList
     @Override
     public void onDestroy() {
         super.onDestroy();
-//        EventBus.getDefault().unregister(this);
+        EventBus.getDefault().unregister(this);
     }
 
     public void initRecyclerView() {
@@ -85,6 +92,7 @@ public class TeExamFragment extends BaseFragment implements RecycleItemClickList
             @Override
             public void onRefresh() {
                 listData.clear();
+                currentClassId = ((TeaMainActivity) getActivity()).getClassId();
                 JsonEntity entity = TeaDbUtils.examList(teacher.getId(), currentClassId);
                 if (entity.getCode() == 0) {
                     Logger.d(entity.getData());
@@ -106,7 +114,6 @@ public class TeExamFragment extends BaseFragment implements RecycleItemClickList
         mAdapter.setClickListener(this);
         recyclerView.setAdapter(mAdapter);
         recyclerView.addItemDecoration(new RecDivider(mContext, RecDivider.VERTICAL_LIST));
-        currentClassId = ((TeaMainActivity) getActivity()).getClassId();
         recyclerView.setRefreshing(true);
     }
 

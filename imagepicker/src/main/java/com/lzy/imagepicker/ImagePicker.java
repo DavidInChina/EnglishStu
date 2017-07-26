@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 
 import com.lzy.imagepicker.bean.ImageFolder;
 import com.lzy.imagepicker.bean.ImageItem;
@@ -156,6 +157,7 @@ public class ImagePicker {
     public File getTakeImageFile() {
         return takeImageFile;
     }
+
     public String getFolderName() {
         return folderName;
     }
@@ -163,14 +165,32 @@ public class ImagePicker {
     public void createRoot(String rootPath) {
         this.folderName = rootPath;
     }
+
     public File getCropCacheFolder(Context context) {
         if (cropCacheFolder == null) {
-            cropCacheFolder = new File(context.getCacheDir() +
-                    "/" + mInstance.folderName + "/Images/");
+            String root = Environment.getExternalStorageDirectory().getPath() + "/" + mInstance.folderName;
+            makeDirs(root);//生成文件夹
+            cropCacheFolder = new File(root + "/Images/");
         }
         return cropCacheFolder;
     }
 
+    public boolean makeDirs(String filePath) {
+        String folderName = getFolderName(filePath);
+        if (TextUtils.isEmpty(folderName)) {
+            return false;
+        }
+        File folder = new File(folderName);
+        return (folder.exists() && folder.isDirectory()) ? true : folder.mkdirs();
+    }
+
+    public String getFolderName(String filePath) {
+        if (TextUtils.isEmpty(filePath)) {
+            return filePath;
+        }
+        int fp = filePath.lastIndexOf(File.separator);
+        return (fp == -1) ? "" : filePath.substring(0, fp);
+    }
 
     public void setCropCacheFolder(File cropCacheFolder) {
         this.cropCacheFolder = cropCacheFolder;

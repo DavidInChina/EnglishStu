@@ -66,6 +66,6 @@
         android:layout_gravity="left|top"
         android:layout_marginTop="@dimen/regular_dimen_x10"
         android:gravity="left|top"
-        android:text="第一节:单词朗读,共三个单词。\n第二节:语句朗读,共一个长句。"
+        android:text="第一节:单词朗读,三到十个单词。\n第二节:语句朗读,一到五个长句或短文。"
         android:textSize="@dimen/text_size_15" />
 </LinearLayout>

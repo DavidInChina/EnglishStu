@@ -21,6 +21,7 @@ import bdkj.com.englishstu.common.beans.Teacher;
 import bdkj.com.englishstu.common.beans.Test;
 import bdkj.com.englishstu.common.dbinfo.TeaDbUtils;
 import bdkj.com.englishstu.common.divider.RecDivider;
+import bdkj.com.englishstu.common.eventbus.ClassChoose;
 import bdkj.com.englishstu.common.tool.IntentUtil;
 import bdkj.com.englishstu.common.tool.ToastUtil;
 import bdkj.com.englishstu.view.ShowTestActivity;
@@ -29,6 +30,7 @@ import bdkj.com.englishstu.xrecyclerview.ProgressStyle;
 import bdkj.com.englishstu.xrecyclerview.XRecyclerView;
 import bdkj.com.englishstu.xrecyclerview.viewholder.RecycleItemClickListener;
 import butterknife.BindView;
+import de.greenrobot.event.EventBus;
 
 /**
  * 考试练习
@@ -50,10 +52,13 @@ public class TeaTestFragment extends BaseFragment implements RecycleItemClickLis
 
     @Override
     public void initView(ViewGroup parent) {
+        EventBus.getDefault().register(this);
         teacher = Application.getTeacherInfo();
         initRecyclerView();
     }
-
+    public void onEventMainThread(ClassChoose classChoose) {
+        recyclerView.setRefreshing(true);
+    }
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -64,7 +69,11 @@ public class TeaTestFragment extends BaseFragment implements RecycleItemClickLis
         super.onResume();
         recyclerView.setRefreshing(true);
     }
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
     public void initRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -78,6 +87,7 @@ public class TeaTestFragment extends BaseFragment implements RecycleItemClickLis
             @Override
             public void onRefresh() {
                 listData.clear();
+                currentClassId = ((TeaMainActivity) getActivity()).getClassId();
                 JsonEntity entity = TeaDbUtils.testList(teacher.getId(), currentClassId);
                 if (entity.getCode() == 0) {
                     Logger.d(entity.getData());
@@ -99,7 +109,6 @@ public class TeaTestFragment extends BaseFragment implements RecycleItemClickLis
         mAdapter.setClickListener(this);
         recyclerView.setAdapter(mAdapter);
         recyclerView.addItemDecoration(new RecDivider(mContext, RecDivider.VERTICAL_LIST));
-        currentClassId = ((TeaMainActivity) getActivity()).getClassId();
         recyclerView.setRefreshing(true);
     }
 

@@ -2,6 +2,7 @@ package bdkj.com.englishstu.view;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.View;
 import android.widget.TextView;
 
 import com.orhanobut.logger.Logger;
@@ -14,8 +15,8 @@ import bdkj.com.englishstu.base.baseView.BaseActivity;
 import bdkj.com.englishstu.common.adapter.MarkResultAdapter;
 import bdkj.com.englishstu.common.beans.Mark;
 import bdkj.com.englishstu.common.divider.RecDivider;
+import bdkj.com.englishstu.common.tool.IntentUtil;
 import bdkj.com.englishstu.common.tool.ToastUtil;
-import bdkj.com.englishstu.common.xml.FinalResult;
 import bdkj.com.englishstu.common.xml.Result;
 import bdkj.com.englishstu.common.xml.XmlResultParser;
 import bdkj.com.englishstu.xrecyclerview.ProgressStyle;
@@ -26,6 +27,8 @@ import butterknife.OnClick;
 public class MarkDetailActivity extends BaseActivity {
     @BindView(R.id.tv_top_title)
     TextView tvTopTitle;
+    @BindView(R.id.tv_confirm)
+    TextView tvConfirm;
     @BindView(R.id.recycler_view)
     XRecyclerView recyclerView;
 
@@ -41,7 +44,8 @@ public class MarkDetailActivity extends BaseActivity {
     @Override
     protected void initViews(Bundle savedInstanceState) {
         tvTopTitle.setText("成绩详情");
-
+        tvConfirm.setText("图表展示");
+        tvConfirm.setVisibility(View.VISIBLE);
         mark = (Mark) getIntent().getExtras().getSerializable("mark");
         if (null == mark) {
             ToastUtil.show(mContext, "成绩详情获取失败！");
@@ -100,8 +104,18 @@ public class MarkDetailActivity extends BaseActivity {
         recyclerView.setRefreshing(true);
     }
 
-    @OnClick(R.id.iv_back)
-    public void onViewClicked() {
-        finish();
+    @OnClick({R.id.iv_back,R.id.tv_confirm})
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.iv_back:
+                finish();
+                break;
+            case R.id.tv_confirm:
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("mark", mark);
+                IntentUtil.launcher(mContext, MarkCharActivity.class, bundle);
+//                finish();
+                break;
+        }
     }
 }

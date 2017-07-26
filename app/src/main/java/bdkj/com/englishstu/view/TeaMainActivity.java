@@ -110,7 +110,7 @@ public class TeaMainActivity extends BaseActivity {
         return currentClassId;
     }
 
-    public void onEventMainThread(RefreshTeacher refreshTeacher) {
+      public void onEventMainThread(RefreshTeacher refreshTeacher) {
         initData();
     }
 

@@ -21,6 +21,7 @@ import bdkj.com.englishstu.common.beans.Teacher;
 import bdkj.com.englishstu.common.beans.Test;
 import bdkj.com.englishstu.common.dbinfo.StuDbUtils;
 import bdkj.com.englishstu.common.divider.RecDivider;
+import bdkj.com.englishstu.common.eventbus.ClassChoose;
 import bdkj.com.englishstu.common.tool.IntentUtil;
 import bdkj.com.englishstu.common.tool.ToastUtil;
 import bdkj.com.englishstu.view.MarkDetailActivity;
@@ -29,6 +30,7 @@ import bdkj.com.englishstu.xrecyclerview.ProgressStyle;
 import bdkj.com.englishstu.xrecyclerview.XRecyclerView;
 import bdkj.com.englishstu.xrecyclerview.viewholder.RecycleItemClickListener;
 import butterknife.BindView;
+import de.greenrobot.event.EventBus;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,13 +55,26 @@ public class TeaMarkFragment extends BaseFragment {
 
     @Override
     public void initView(ViewGroup parent) {
+        EventBus.getDefault().register(this);
         teacher = Application.getTeacherInfo();
         initRecyclerView();
+    }
+
+    public void onEventMainThread(ClassChoose classChoose) {
+        recyclerViewStu.setRefreshing(true);
+        recyclerViewStuTest.setRefreshing(true);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
     public void onResume() {
         super.onResume();
+
         recyclerViewStu.setRefreshing(true);
         recyclerViewStuTest.setRefreshing(true);
     }
@@ -77,6 +92,7 @@ public class TeaMarkFragment extends BaseFragment {
             @Override
             public void onRefresh() {
                 markList.clear();
+                currentClassId = ((TeaMainActivity) getActivity()).getClassId();
                 JsonEntity entity = StuDbUtils.markList2(currentClassId, testId);
                 if (entity.getCode() == 0) {
                     for (Mark mark : (List<Mark>) entity.getData()) {
@@ -101,6 +117,7 @@ public class TeaMarkFragment extends BaseFragment {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("mark", mark);
                 IntentUtil.launcher(mContext, MarkDetailActivity.class, bundle);
+//                getActivity().finish();
             }
         });
         recyclerViewStu.setAdapter(stuAdapter);
@@ -118,6 +135,7 @@ public class TeaMarkFragment extends BaseFragment {
             @Override
             public void onRefresh() {
                 listData.clear();
+                currentClassId = ((TeaMainActivity) getActivity()).getClassId();
                 JsonEntity entity = StuDbUtils.testList(teacher.getId(), currentClassId);
                 if (entity.getCode() == 0) {
                     for (Test test : (List<Test>) entity.getData()) {
@@ -150,7 +168,6 @@ public class TeaMarkFragment extends BaseFragment {
         });
         recyclerViewStuTest.setAdapter(mAdapter);
         recyclerViewStuTest.addItemDecoration(new RecDivider(mContext, RecDivider.VERTICAL_LIST));
-        currentClassId = ((TeaMainActivity) getActivity()).getClassId();
         recyclerViewStuTest.setRefreshing(true);
 
     }

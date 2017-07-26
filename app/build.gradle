@@ -65,6 +65,8 @@ dependencies {
     compile files('libs/Sunflower.jar')
     compile 'co.lujun:androidtagview:1.1.4'
     compile 'com.idescout.sql:sqlscout-server:2.0'
+    //图表库
+    compile 'com.github.lecho:hellocharts-android:v1.5.8'
 }
 repositories {
     mavenCentral()

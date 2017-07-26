@@ -25,6 +25,7 @@ import bdkj.com.englishstu.common.beans.Exam;
 import bdkj.com.englishstu.common.beans.Teacher;
 import bdkj.com.englishstu.common.dbinfo.TeaDbUtils;
 import bdkj.com.englishstu.common.tool.ToastUtil;
+import bdkj.com.englishstu.common.tool.VerificationUtils;
 import bdkj.com.englishstu.selector.ChooseData;
 import bdkj.com.englishstu.selector.SelectPopWindow;
 import butterknife.BindView;
@@ -197,9 +198,11 @@ public class EditExamActivity extends BaseActivity {
                 break;
             case R.id.tv_add_word:
                 if (tagContainerLayoutWord.getTags().size() < MAX_WORD_SIZE) {
-                    if (!"".equals(etWord.getText().toString())) {
+                    if (!"".equals(etWord.getText().toString()) && VerificationUtils.matcherIsChar(etWord.getText().toString())) {
                         tagContainerLayoutWord.addTag(etWord.getText().toString());
                         etWord.setText("");//清空
+                    } else {
+                        ToastUtil.show(mContext, "单词格式不正确！");
                     }
 
                 } else {
@@ -211,6 +214,8 @@ public class EditExamActivity extends BaseActivity {
                     if (!"".equals(etSentence.getText().toString())) {
                         tagContainerLayoutSentence.addTag(etSentence.getText().toString());
                         etSentence.setText("");//清空
+                    } else {
+                        ToastUtil.show(mContext, "语句不为空！");
                     }
                 } else {
                     ToastUtil.show(mContext, "语句数量已达最大值！");

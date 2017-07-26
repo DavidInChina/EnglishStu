@@ -1,6 +1,7 @@
 package bdkj.com.englishstu.view;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -16,7 +17,10 @@ import com.orhanobut.logger.Logger;
 import bdkj.com.englishstu.R;
 import bdkj.com.englishstu.base.baseView.BaseActivity;
 import bdkj.com.englishstu.common.dbinfo.AdmDbUtils;
+import bdkj.com.englishstu.common.tool.DbUtil;
+import bdkj.com.englishstu.common.tool.DialogUtil;
 import bdkj.com.englishstu.common.tool.IntentUtil;
+import bdkj.com.englishstu.common.tool.NetUtil;
 import bdkj.com.englishstu.common.tool.ToastUtil;
 
 public class WelcomeActivity extends BaseActivity {
@@ -57,24 +61,38 @@ public class WelcomeActivity extends BaseActivity {
             AdmDbUtils.adminInsert();
             Logger.d("添加使用次数");
         }
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) {
-            if (checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    && checkPermission(Manifest.permission.CAMERA)
-                    && checkPermission(Manifest.permission.READ_PHONE_STATE)
-                    && checkPermission(Manifest.permission.RECORD_AUDIO)
-                    && checkPermission(Manifest.permission.ACCESS_FINE_LOCATION)
-                    ) {
-                beginLogin();
+        if (NetUtil.isNetworkConnected(mContext)) {
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) {
+                if (checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        && checkPermission(Manifest.permission.CAMERA)
+                        && checkPermission(Manifest.permission.READ_PHONE_STATE)
+                        && checkPermission(Manifest.permission.RECORD_AUDIO)
+                        && checkPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+                        ) {
+                    beginLogin();
+                } else {
+                    ActivityCompat.requestPermissions(this, new String[]
+                            {Manifest.permission.WRITE_EXTERNAL_STORAGE
+                                    , Manifest.permission.CAMERA
+                                    , Manifest.permission.READ_PHONE_STATE
+                                    , Manifest.permission.RECORD_AUDIO
+                                    , Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_PERMISSION);
+                }
             } else {
-                ActivityCompat.requestPermissions(this, new String[]
-                        {Manifest.permission.WRITE_EXTERNAL_STORAGE
-                                , Manifest.permission.CAMERA
-                                , Manifest.permission.READ_PHONE_STATE
-                                , Manifest.permission.RECORD_AUDIO
-                                , Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_PERMISSION);
+                beginLogin();
             }
         } else {
-            beginLogin();
+            String arrays[] = {"提示", "网络未连接，应用不可用！", "退出", "", ""};
+            DialogUtil.getTextDialog(mContext, arrays, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    switch (which){
+                        case  DialogInterface.BUTTON_POSITIVE:
+                            finish();
+                            break;
+                    }
+                }
+            }).show();
         }
     }
 
@@ -104,6 +122,7 @@ public class WelcomeActivity extends BaseActivity {
 
     public void beginLogin() {
         SqlScoutServer.create(this, getPackageName());
+        DbUtil.copyDb(mContext, "english-db", "english-db");
         handler.sendEmptyMessageDelayed(1, 1000);
     }
 

@@ -106,6 +106,12 @@
         <activity
             android:name=".view.ShowTestActivity"
             android:screenOrientation="landscape" />
+        <activity
+            android:name=".view.MarkCharActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".view.MarkStudentCharActivity"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>

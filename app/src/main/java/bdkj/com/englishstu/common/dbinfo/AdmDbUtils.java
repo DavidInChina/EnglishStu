@@ -250,9 +250,9 @@ public class AdmDbUtils {
         TestDao testDao = Application.getDaoSession().getTestDao();
         List<Classes> list = classDao.queryBuilder().orderDesc(ClassesDao.Properties.UpdateDate).build().list();
         for (Classes c : list) {
-            c.setTeacherNumber(teacherDao.queryBuilder().where(TeacherDao.Properties.ClassIds.like(c.getId())).build().list().size());//教师所在班级包括当前班级
-            c.setClassNumber(studentDao.queryBuilder().where(StudentDao.Properties.ClassIds.eq(c.getId())).build().list().size());
-            c.setTestNumber(testDao.queryBuilder().where(TestDao.Properties.ClassId.eq(c.getId())).build().list().size());
+            c.setTeacherNumber(teacherDao.queryBuilder().where(TeacherDao.Properties.ClassIds.like("%"+c.getId()+"%")).build().list().size());//教师所在班级包括当前班级
+            c.setClassNumber(studentDao.queryBuilder().where(StudentDao.Properties.ClassIds.like("%"+c.getId()+"%")).build().list().size());
+            c.setTestNumber(testDao.queryBuilder().where(TestDao.Properties.ClassId.like("%"+c.getId()+"%")).build().list().size());
         }
         result.setCode(0);
         result.setData(list);
