@@ -187,7 +187,7 @@ public class AnswerExamActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        if (currentType.equals("0")) {
+        if (type.equals("0")) {
             if (System.currentTimeMillis() - lastTime > 2000) {
                 ToastUtil.show(mContext, "再按一次取消当前考试");
                 lastTime = System.currentTimeMillis();
@@ -197,7 +197,6 @@ public class AnswerExamActivity extends BaseActivity {
         } else {
             super.onBackPressed();
         }
-
     }
 
 
